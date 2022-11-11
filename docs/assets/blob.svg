@@ -1,0 +1,58 @@
+
+  <svg
+    width="1100"
+    height="1050"
+    viewBox="0 0 1000 1000"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <filter id="grain" x="-50vw" y="-50vh" width="100vw" height="100vh">
+    <feFlood flood-color="#ffffff" result="neutral-gray" />
+  
+    <feTurbulence
+      in="neutral-gray"
+      type="fractalNoise"
+      baseFrequency="2.5"
+      numOctaves="100"
+      stitchTiles="stitch"
+      result="noise"
+    />
+  
+    <feColorMatrix
+      in="noise"
+      type="saturate"
+      values="0"
+      result="destaturatedNoise"
+    ></feColorMatrix>
+  
+    <feComponentTransfer in="desaturatedNoise" result="theNoise">
+      <feFuncA type="table" tableValues="0 0 0.2 0"></feFuncA>
+    </feComponentTransfer>
+  
+    <feBlend
+      in="SourceGraphic"
+      in2="theNoise"
+      mode="soft-light"
+      result="noisy-image"
+    />
+  </filter>
+      
+      
+      
+      
+      
+      
+      <clipPath id="shape">
+        <path fill="currentColor" d="M856.5,671.5Q843,843,671.5,887.5Q500,932,331,885Q162,838,179.5,669Q197,500,232.5,384Q268,268,384,208Q500,148,638.5,185.5Q777,223,823.5,361.5Q870,500,856.5,671.5Z"></path>
+      </clipPath>
+    </defs>
+  
+    
+
+    <g filter="url(#grain)" clip-path="url(#shape)">
+      <path fill="#f6d8cc" d="M856.5,671.5Q843,843,671.5,887.5Q500,932,331,885Q162,838,179.5,669Q197,500,232.5,384Q268,268,384,208Q500,148,638.5,185.5Q777,223,823.5,361.5Q870,500,856.5,671.5Z" />
+    </g>
+
+    
+  
+  </svg>
