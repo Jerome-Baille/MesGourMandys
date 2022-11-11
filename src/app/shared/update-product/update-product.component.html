@@ -1,0 +1,90 @@
+<app-loading-spinner *ngIf="!product.allergens; else loaded"></app-loading-spinner>
+
+<ng-template #loaded>
+    <div class="updateForm__container">
+        <form [formGroup]="updateProduct" class="updateForm">
+            <div class="updateForm__right">
+                <div class="updateForm__group">
+                    <label for="title">Nom du produit:</label>
+                    <input  
+                        type="text" 
+                        placeholder={{product.title}}
+                        formControlName="title"
+                    >
+                </div>
+                <div class="updateForm__group">
+                    <label for="price">Image:</label>
+                    <input  
+                        type="text" 
+                        placeholder={{product.image}}
+                        formControlName="image"
+                    >
+                </div>
+                <div class="updateForm__group">
+                    <label for="price">Image (aperçu):</label>
+                    <input  
+                        type="text" 
+                        placeholder={{product.thumbImage}}
+                        formControlName="thumbImage"
+                    >
+                </div>
+                <div class="updateForm__group">
+                    <label for="price">Prix:</label>
+                    <input  
+                        type="text" 
+                        placeholder={{product.price}}
+                        formControlName="price"
+                    >
+                </div>
+                <div class="updateForm__group">
+                    <label for="price">SKU:</label>
+                    <input  
+                        type="text" 
+                        placeholder={{product.sku}}
+                        formControlName="sku"
+                    >
+                </div>
+                <div class="updateForm__group">
+                    <label for="price">Description:</label>
+                    <input  
+                        type="text" 
+                        placeholder={{product.description}}
+                        formControlName="description"
+                    >
+                </div>
+                <div class="updateForm__group">
+                    <label for="price">Allergènes:</label>
+                    <input  
+                        type="text" 
+                        placeholder={{product.allergens}}
+                        formControlName="allergens"
+                    >
+                </div>
+                <div class="updateForm__group">
+                    <label for="isActive">Produit disponible:</label>
+                    <input 
+                        type="checkbox" 
+                        formControlName="isActive"
+                        checked={{product.isActive}}
+                    >
+                </div>
+
+                <button 
+                    type="submit" 
+                    class="btn-action"
+                    (click)="onUpdateProduct()"
+                >
+                    Modifier le produit
+                </button>
+            </div>
+        </form>
+        
+        <!-- display a button to close the component -->
+        <button 
+            class="btn-action btn-close"
+            (click)="onClose()"
+        >
+            Fermer
+        </button>
+    </div>
+</ng-template>

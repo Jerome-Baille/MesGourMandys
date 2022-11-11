@@ -1,0 +1,128 @@
+<app-loading-spinner *ngIf="!isLoaded"></app-loading-spinner>
+
+<main *ngIf="cart.length > 0">
+  <form [formGroup]="orderForm">
+    <div>
+      <h1>Votre panier</h1>
+
+      <section class="cart">
+        <table class="cart__table">
+            <thead>
+              <tr>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of cart">
+                <td>
+                    <div class="cart__table__header">
+                        <img [src]="item.thumbImage" alt="Image du produit" />
+                        <span class="cart__table__header__title">{{ item.title }}</span>
+                    </div>
+                </td>
+                <td>{{ item.price | currency: 'EUR': 'symbol' }}</td>
+                <td>
+                    <div class="cart__table__quantity">
+                        <button 
+                            (click)="onDecreaseQuantity(item.sku)" 
+                            class="btn btn-secondary"
+                        >
+                            -
+                        </button>
+                        <span>{{ item.quantity }}</span>
+                        <button 
+                            (click)="onAddQuantity(item.sku)" 
+                            class="btn btn-secondary"
+                        >
+                            +
+                        </button>
+                    </div>
+                </td>
+                <td>{{ item.price * item.quantity | currency: 'EUR': 'symbol' }}</td>
+                <td>
+                    <button 
+                        class="btn-socials"
+                        (click)="onRemoveItem(item.sku)"
+                    >
+                        <fa-icon [icon]="faTrash"></fa-icon>
+                    </button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+
+        <div class="cart__price">
+          <!-- <div class="cart__price__actions">
+              <button 
+                  class="btn-action"
+                  (click)="onUpdateCart()"
+              >
+                  Mettre à jour le panier
+              </button>
+              <button class="btn-continue">
+                  Continuer ses achats
+              </button>
+          </div> -->
+
+          <p>Total (<span id="totalQuantity">{{ getTotalQuantity() }}</span> articles) : <span id="totalPrice">{{ getTotalPrice() | currency: 'EUR':'symbol' }}</span></p>
+        </div>
+
+        <div class="cart__order">
+          <div class="cart__order__right">
+              <input 
+                  id="lastName"
+                  type="text" 
+                  name="lastName"
+                  placeholder="Nom"
+                  formControlName="lastName"
+              >
+              <input 
+                  id="firstName"
+                  type="text" 
+                  name="firstName"
+                  placeholder="Prénom"
+                  formControlName="firstName"
+              >
+              <input 
+                  id="email"
+                  type="email" 
+                  name="email"
+                  placeholder="E-mail"
+                  formControlName="email"
+              >
+              <input  
+                  id="address"
+                  type="text" 
+                  name="address"
+                  placeholder="Téléphone"
+                  formControlName="phone"
+              >
+              <textarea 
+                  placeholder="Une demande particulière ? Précisez la ici"
+                  formControlName="message"
+              ></textarea>
+              <button 
+                  type="submit" 
+                  class="btn-action"
+                  (click)="onSubmit()"
+              >
+                  Passer la commande
+              </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </form>
+</main>
+
+<main *ngIf="cart.length === 0" class="emptyCart">
+  <h1>Votre panier est vide</h1>
+  <p>Vous n'avez pas encore ajouté d'articles à votre panier.</p>
+  <button [routerLink]="'/boutique'" class="btn-action">
+    Retourner à la boutique
+  </button>
+</main>

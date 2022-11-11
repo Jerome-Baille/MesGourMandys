@@ -1,0 +1,88 @@
+$accentColor: #E58F6C;
+$bgColor: #f6d8cc;
+$primaryColor: #5a3a22;
+
+.updateForm {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 60px;
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__container {
+        height: 100vh;
+        position: fixed;
+        z-index: 9999;
+        inset: 0;
+        background-color: $bgColor;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        row-gap: 10px;
+    }
+
+    &__left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    &__right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding-top: 10px;
+
+        & input {
+            width: 350px;
+            height: 40px;
+            padding: 10px;
+            border: 1px solid $accentColor;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        & textarea {
+            width: 350px;
+            height: 125px;
+            padding: 10px;
+            border: 1px solid $accentColor;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+    }
+
+    &__title {
+        font-size: 2.5rem;
+        margin: 0 20px 20px 20px;
+    }
+
+    &__text {
+        text-align: center;
+        line-height: 3rem;
+    }
+}
+
+.btn-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 99999;
+}

@@ -1,0 +1,78 @@
+<app-loading-spinner *ngIf="!isLoaded; else loaded"></app-loading-spinner>
+
+<ng-template #loaded>
+    <section class="breadcrumb">
+        <button [routerLink]="'/accueil'">
+            Accueil
+        </button> / 
+        <button [routerLink]="'/boutique'">
+            Boutique
+        </button> / 
+        <button>
+            {{ (product$ | async)?.title }}
+        </button>
+    </section>
+
+    <section class="hero">
+        <div class="img-container">
+            <img src={{(product$|async)?.image}} alt="Cake">
+        </div>
+        <div class="hero__text">
+            <div class="hero__main">
+                <h1 class="hero__title">
+                    {{ (product$ | async)?.title }}
+                    <span class="hero__price">{{ (product$ | async)?.price }}€</span>
+                </h1>
+                <div class="hero__sku">
+                    SKU : 
+                    <span>{{ (product$ | async)?.sku }}</span>
+                </div>
+                <p class="hero__description">
+                    {{ (product$ | async)?.description }}
+                </p>
+            </div>
+            <div>
+                <span class="text-accent">Allergènes : </span>
+                <span>{{ (product$ | async)?.allergens }}</span>
+            </div>
+
+            <div class="hero__order">
+                <form [formGroup]="orderForm">
+                    <div class="hero__order__quantity">
+                        <label for="quantity">Quantité</label>
+                        <input 
+                            type="number" 
+                            id="quantity" 
+                            name="quantity" 
+                            formControlName="quantity"
+                            min="1" 
+                            max="10" 
+                            value="1"
+                        >
+                    </div>
+                    <button 
+                        class="btn-action hero__action"
+                        type="submit"
+                        (click)="onOrder()"
+                    >
+                        Ajouter au panier
+                    </button>
+                </form>
+            </div>
+        </div>
+        <button
+            class="btn-socials card__actions card__actions--left"
+            (click)="editProduct(product$)"
+        >
+            <fa-icon [icon]="faPenSquare"></fa-icon>
+        </button>
+        <button 
+            class="btn-socials card__actions card__actions--right"
+            (click)="removeProduct(product$)"
+        >
+            <fa-icon [icon]="faTrash"></fa-icon>
+        </button>
+
+        <app-update-product *ngIf='updateBoolean' [product]="updateProduct" (close)="triggerEventClose($event)"></app-update-product>
+    </section>
+</ng-template>

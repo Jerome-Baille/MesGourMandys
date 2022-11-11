@@ -1,0 +1,40 @@
+<button 
+    class="btn-action logout"
+    (click)="onLogout()"
+>
+<fa-icon [icon]="faPowerOff"></fa-icon>
+</button>
+
+<section class="btn__container">
+    <button 
+        class="btn-action" 
+        (click)="navBarClick('add item')"
+    >
+        Ajouter un produit
+    </button>
+    <button
+        class="btn-action"
+        (click)="navBarClick('get items')"
+    >
+        Voir les produits
+    </button>
+    <button 
+        class="btn-action"
+        (click)="navBarClick('get orders')"
+    >
+        Voir les commandes
+    </button>
+    <button
+        class="btn-action"
+        (click)="navBarClick('get users')"
+    >
+        Voir les utilisateurs
+    </button>
+</section>
+
+<section>
+    <app-add-item *ngIf="navBarTab === 'add item'"></app-add-item>
+    <app-get-items *ngIf="navBarTab === 'get items'" [products]="products" [favsCount]="favsCount"></app-get-items>
+    <app-orders-list *ngIf="navBarTab === 'get orders'" [orders]="orders"></app-orders-list>
+    <app-users-list *ngIf="navBarTab === 'get users'"></app-users-list>
+</section>

@@ -1,0 +1,73 @@
+$accentColor: #E58F6C;
+$bgColor: #f6d8cc;
+$primaryColor: #5a3a22;
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(4, 214px);
+    justify-content: center;
+
+    @media screen and (max-width: 768px) {
+        grid-template-columns: 214px;
+        row-gap: 2rem;
+    }
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        grid-template-columns: repeat(3, 214px);
+        grid-gap: 1rem;
+    }
+    @media screen and (min-width: 992px) {
+        grid-gap: 2.5rem;
+    }
+
+    & .card {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #f5f5f5;
+
+        &__container {
+            position: relative;
+        }
+
+        &__description {
+            color: $accentColor;
+            font-weight: bold;
+        }
+        
+        &__img {    
+            height: auto;
+            width: 100%;
+                    
+            & img {
+                height: 214px;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+
+        &__text {
+            display: grid;
+            height: 100%;
+            grid-template-rows: repeat(2, 1fr);
+            align-items: center;
+            padding: 1rem;
+        }
+
+        &__actions {
+            position: absolute;
+            bottom: 5px;
+
+            &--left {
+                left: 5px;
+            }
+
+            &--right {
+                right: 5px;
+            }
+        }
+    }
+}

@@ -1,0 +1,114 @@
+$accentColor: #E58F6C;
+$bgColor: #f6d8cc;
+$primaryColor: #5a3a22;
+
+
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+
+    @media screen and (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.main{
+    width: 100%;
+    height: 100%;
+    margin: auto;
+	border-radius: 16px;
+    border: 1px solid $primaryColor;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px 0;
+
+    & .img-container {
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        margin-bottom: 20px;
+        border-radius: 15%;
+        overflow: hidden;
+    }
+
+    label{
+        font-size: 1.5em;
+        justify-content: center;
+        display: flex;
+        margin: 10px auto;
+        font-weight: bold;
+    }
+
+    & input {
+        width: 350px;
+        height: 40px;
+        padding: 10px;
+        border: 1px solid $accentColor;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        color: $accentColor;
+        font-weight: bold;
+        
+        &::placeholder {
+            color: darkgrey;
+            font-weight: normal;
+        }
+    }
+
+    .helperContainer{
+        text-align: start;
+    }
+    
+    .form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        row-gap: 2rem;
+    }
+    
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        row-gap: 5px;
+    }
+    
+    .emphasis{
+        color: $accentColor;
+        font-weight: bold;
+    
+        &:hover{
+            cursor: pointer;
+            filter: brightness(1.2);
+        }
+    }
+    
+}
+
+.aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px;
+
+    .btn-action{
+        position: absolute;
+        right: 0;
+    }
+
+    .orderslist {
+        margin: 0 auto;
+        border-radius: 16px;
+        border: 1px solid $primaryColor;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 20px 0;
+        width: 100%;
+
+        table {
+            margin: auto;
+        }
+    }
+}

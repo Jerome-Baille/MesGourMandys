@@ -1,0 +1,102 @@
+<header class="main-container">
+    <nav class="nav">
+        <a 
+            [routerLink]="'accueil'" 
+            class="nav__logo"
+        >
+            Mes gourMandy's
+        </a>
+        <ul class="nav--lg">
+            <!-- <li>
+                <button 
+                    [routerLink]="'accueil'"
+                    class="btn-nav"
+                    [routerLinkActive]="['active']"
+                >
+                    <fa-icon [icon]="faHome"></fa-icon>
+                </button>
+            </li> -->
+            <li>
+                <button 
+                    [routerLink]="'boutique'"
+                    class="btn-nav"
+                    [routerLinkActive]="['active']"
+                >
+                    <fa-icon [icon]="faStore"></fa-icon>
+                </button>
+            </li>
+            <li>
+                <button
+                    [routerLink]="'panier'"
+                    class="btn-nav"
+                    [routerLinkActive]="['active']"
+                >
+                    <fa-icon [icon]="faShoppingCart"></fa-icon>
+                </button>
+            </li>
+            <li>
+                <button
+                    [routerLink]="'auth'"
+                    class="btn-nav"
+                    [routerLinkActive]="['active']"
+                >
+                    <fa-icon [icon]="faUser"></fa-icon>
+                </button>
+            </li>
+        </ul>
+        <button 
+            id="btn-menu"
+            class="btn-hamburger"
+            (click)="onDropdownClick($event)"
+        >
+            <fa-icon [icon]="faBars"></fa-icon>
+        </button>
+    </nav>
+    <div 
+        id="dropdown-menu"
+        class="nav nav--sm d-none"
+    >
+        <ul>
+            <li
+                [routerLinkActive]="['active']"
+            >
+                <button 
+                    [routerLink]="'accueil'"
+                    class="btn-nav"
+                >
+                    Accueil
+                </button>
+            </li>
+            <li
+                [routerLinkActive]="['active']"
+            >
+                <button 
+                    [routerLink]="'boutique'"
+                    class="btn-nav"
+                >
+                    Boutique
+                </button>
+            </li>
+            <li
+                [routerLinkActive]="['active']"
+            >
+                <button 
+                    [routerLink]="'panier'"
+                    class="btn-nav"
+                >
+                    Panier
+                </button>
+            </li>
+            <li>
+                <button
+                    [routerLink]="'admin'"
+                    class="btn-nav"
+                    [routerLinkActive]="['active']"
+                >
+                    Admin
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="wave"></div>
+</header>

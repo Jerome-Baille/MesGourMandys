@@ -1,0 +1,29 @@
+<section class="product-list">
+    <div *ngFor="let product of products$ | async" class="card__container">
+        <button [routerLink]="['/detail/', product.id]" class="card btn-card">
+            <div class="card__img">
+                <img src={{product.thumbImage}} alt={{product.title}}>
+            </div>
+            <div class="card__text">
+                <span class="card__description">
+                    {{product.title}}
+                </span>
+                <span class="card__price">{{product.price}}€</span>
+            </div>
+        </button>
+        <button
+            class="btn-socials card__actions card__actions--left"
+            (click)="editProduct(product)"
+        >
+            <fa-icon [icon]="faPenSquare"></fa-icon>
+        </button>
+        <button 
+            class="btn-socials card__actions card__actions--right"
+            (click)="removeProduct(product)"
+        >
+            <fa-icon [icon]="faTrash"></fa-icon>
+        </button>
+    </div>
+
+    <app-update-product *ngIf='updateBoolean' [product]="updateProduct" (close)="triggerEventClose($event)"></app-update-product>
+</section>
