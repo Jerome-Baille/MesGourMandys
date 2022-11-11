@@ -7,6 +7,7 @@ import { Users } from '../models/users';
   providedIn: 'root'
 })
 export class AuthService {
+  baseUrl = 'https://backend-mesgourmandys.onrender.com/api'
   token!: any;
   userId!: any;
   role: any = false;
@@ -16,11 +17,11 @@ export class AuthService {
   ) { }
 
   register(email: string, password: string){
-    return this.http.post('http://localhost:3000/api/auth/register', {email, password});
+    return this.http.post(this.baseUrl+'/auth/register', {email, password});
   }
 
   login(email: string, password: string){
-    return this.http.post('http://localhost:3000/api/auth/login', {email, password});
+    return this.http.post(this.baseUrl+'/auth/login', {email, password});
   }
 
   logout(){
@@ -32,15 +33,15 @@ export class AuthService {
   }
 
   getUserById(userId: any){
-    return this.http.get(`http://localhost:3000/api/auth/${userId}`);
+    return this.http.get(this.baseUrl+`/auth/${userId}`);
   }
 
   getUserProfile(){
-    return this.http.get('http://localhost:3000/api/auth/profile');
+    return this.http.get(this.baseUrl+'/auth/profile');
   }
 
   updateUser(userId: any, data: any){
-    return this.http.put(`http://localhost:3000/api/auth/${userId}`, data);
+    return this.http.put(this.baseUrl+`/auth/${userId}`, data);
   }
 
   getToken(){
@@ -49,7 +50,7 @@ export class AuthService {
   }
 
   getAllUsers(): Observable<Users[]> {
-    return this.http.get<Users[]>('http://localhost:3000/api/auth');
+    return this.http.get<Users[]>(this.baseUrl+'/auth');
   }
 
   checkIsAdmin(): boolean {
@@ -62,6 +63,6 @@ export class AuthService {
   }
 
   deleteUser(userId: any){
-    return this.http.delete(`http://localhost:3000/api/auth/${userId}`);
+    return this.http.delete(this.baseUrl+`/auth/${userId}`);
   }
 }

@@ -11,7 +11,7 @@ export class ProductsService {
   constructor(
     private http: HttpClient,
   ) { }
-    API_URL = 'http://localhost:3000/api/product';
+    API_URL = 'https://backend-mesgourmandys.onrender.com/api/product';
 
     createProduct(title: string, id: string, image: string, thumbImage: string, price: number, sku: string, description: string, allergens: string) {
         return this.http.post(`${this.API_URL}/new`, {title, id, image, thumbImage, price, sku, description, allergens});
