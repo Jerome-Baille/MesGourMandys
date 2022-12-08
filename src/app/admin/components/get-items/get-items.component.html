@@ -26,7 +26,12 @@
                         [routerLink]="['/detail/', item.id]"
                     ></button>
                     <div class="hero__container__img">
-                        <img [src]="item.thumbImage" width="200" height="200" alt="image">
+                        <img 
+                            [src]="item.thumbImage" 
+                            width="200" height="200" 
+                            alt={{item.title}}
+                            crossorigin="anonymous"
+                        >
                     </div>
                     <div class="hero__main">
                         <div class="hero__sku">

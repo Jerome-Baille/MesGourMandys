@@ -22,7 +22,11 @@
               <tr *ngFor="let item of cart">
                 <td>
                     <div class="cart__table__header">
-                        <img [src]="item.thumbImage" alt="Image du produit" />
+                        <img 
+                          [src]="item.thumbImage" 
+                          alt={{item.title}}
+                          crossorigin="anonymous" 
+                          />
                         <span 
                           class="cart__table__header__title"
                           [routerLink]="['/detail/', item.id]"

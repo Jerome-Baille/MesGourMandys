@@ -18,7 +18,11 @@
         </a>
     </div>
     <div class="img-container">
-        <img [src]="highlight.thumbImage" alt="Cake">
+        <img 
+            [src]="highlight.thumbImage" 
+            crossorigin="anonymous" 
+            alt={{highlight.title}}
+        >
         <span class="hero__label">Nouveau</span>
     </div>
 </section>
@@ -34,7 +38,11 @@
             class="card btn-card"
         >
             <div class="card__img">
-                <img [src]="popular.thumbImage" alt="Cake marbré">
+                <img 
+                    [src]="popular.thumbImage" 
+                    crossorigin="anonymous"
+                    alt={{popular.title}}
+                >
             </div>
             <div class="card__text">
                 <span class="card__description">

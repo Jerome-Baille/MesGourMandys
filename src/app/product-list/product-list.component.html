@@ -2,7 +2,11 @@
     <div *ngFor="let product of products$ | async" class="card__container">
         <button [routerLink]="['/detail/', product.id]" class="card btn-card">
             <div class="card__img">
-                <img src={{product.thumbImage}} alt={{product.title}}>
+                <img 
+                    src={{product.thumbImage}} 
+                    crossorigin="anonymous"
+                    alt={{product.title}}
+                >
             </div>
             <div class="card__text">
                 <span class="card__description">
