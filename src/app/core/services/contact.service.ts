@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ContactService {
-  baseUrl = 'https://backend-mesgourmandys.onrender.com/api/order'
+  baseUrl = 'https://backend-mesgourmandys.onrender.com/api'
   // baseUrl = 'http://localhost:3000/api/order'
   
   constructor(

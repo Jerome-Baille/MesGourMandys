@@ -63,6 +63,7 @@
                 <button 
                     [routerLink]="'accueil'"
                     class="btn-nav"
+                    (click)="onDropdownClick($event)"
                 >
                     Accueil
                 </button>
@@ -73,6 +74,7 @@
                 <button 
                     [routerLink]="'boutique'"
                     class="btn-nav"
+                    (click)="onDropdownClick($event)"
                 >
                     Boutique
                 </button>
@@ -83,17 +85,20 @@
                 <button 
                     [routerLink]="'panier'"
                     class="btn-nav"
+                    (click)="onDropdownClick($event)"
                 >
                     Panier
                 </button>
             </li>
-            <li>
+            <li
+                [routerLinkActive]="['active']"
+            >
                 <button
-                    [routerLink]="'admin'"
+                    [routerLink]="'auth'"
                     class="btn-nav"
-                    [routerLinkActive]="['active']"
+                    (click)="onDropdownClick($event)"
                 >
-                    Admin
+                    Mon compte
                 </button>
             </li>
         </ul>
