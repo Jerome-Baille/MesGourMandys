@@ -15,7 +15,11 @@
 
     <section class="card">
         <div class="img-container">
-            <img src={{product.image}} loading="lazy" alt="Cake">
+            <img 
+                src={{product.image}} 
+                loading="lazy" 
+                crossorigin="anonymous"
+                alt={{product.title}}>
         </div>
         <div class="card__text">
             <div class="card__main">
