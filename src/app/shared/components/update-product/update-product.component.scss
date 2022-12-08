@@ -30,6 +30,12 @@ $primaryColor: #5a3a22;
         justify-content: center;
         align-items: flex-start;
         row-gap: 10px;
+        margin-bottom: 10px;
+
+        & .helperContainer {
+            color: $primaryColor;
+            margin: auto;
+        }
     }
 
     &__left {
@@ -54,7 +60,6 @@ $primaryColor: #5a3a22;
             padding: 10px;
             border: 1px solid $accentColor;
             border-radius: 8px;
-            margin-bottom: 10px;
         }
 
         & textarea {

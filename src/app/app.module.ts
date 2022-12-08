@@ -16,6 +16,8 @@ import { ContactService } from './core/services/contact.service';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { httpInterceptorProviders } from './interceptors';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -25,10 +27,12 @@ import { httpInterceptorProviders } from './interceptors';
     ProductListComponent,
     LegalNoticesComponent,
     TermsAndConditionsComponent,
-    CartComponent
+    CartComponent,
+    OrderConfirmationComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,

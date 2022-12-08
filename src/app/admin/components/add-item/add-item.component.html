@@ -11,17 +11,10 @@
         <div class="addItemForm__group">
             <label for="price">Image:</label>
             <input
-                type="text"
+                type="file"
+                id="image"
                 placeholder="image"
-                formControlName="image"
-            >
-        </div>
-        <div class="addItemForm__group">
-            <label for="price">Image (aperçu):</label>
-            <input
-                type="text"
-                placeholder="image (aperçu)"
-                formControlName="thumbImage"
+                (change)="imageSelected($event)"
             >
         </div>
         <div class="addItemForm__group">
@@ -38,15 +31,16 @@
                 type="text"
                 placeholder="SKU"
                 formControlName="sku"
+                class="addItemForm__sku"
             >
         </div>
         <div class="addItemForm__group">
             <label for="price">Description:</label>
-            <input
-                type="text"
+            <textarea 
                 placeholder="Description"
                 formControlName="description"
             >
+            </textarea>
         </div>
         <div class="addItemForm__group">
             <label for="price">Allergènes:</label>
@@ -72,3 +66,5 @@
         </button>
     </div>
 </form>
+
+<app-toast></app-toast>

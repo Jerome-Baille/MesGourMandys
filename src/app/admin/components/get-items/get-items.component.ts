@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Products } from 'src/app/core/models/products';
-import { Observable } from 'rxjs';
 import { faCheckCircle, faEye, faEyeSlash, faLightbulb as faLightbulbS, faMedal, faPenSquare, faStar as faStarS, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ProductsService } from 'src/app/core/services/products.service';
 import { faStar, faLightbulb } from '@fortawesome/free-regular-svg-icons';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-get-items',
@@ -11,7 +11,6 @@ import { faStar, faLightbulb } from '@fortawesome/free-regular-svg-icons';
   styleUrls: ['./get-items.component.scss']
 })
 export class GetItemsComponent implements OnInit {
-  products$!: Observable<Products[]>;
   @Input() products!: any;
   @Input() favsCount: number = 0;
 
@@ -31,7 +30,8 @@ export class GetItemsComponent implements OnInit {
   faTrash = faTrash;
 
   constructor(
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +46,12 @@ export class GetItemsComponent implements OnInit {
   triggerEventClose(eventData: any) {
     if (eventData.message === 'close popup') {
       this.updateBoolean = !this.updateBoolean;
-      this.products$ = this.productsService.getProducts(null); 
+      this.productsService.getProducts(null)
+        .subscribe({
+          next: (v) => {
+            this.products = v;
+          }
+        })
     }
   }
 
@@ -89,7 +94,7 @@ export class GetItemsComponent implements OnInit {
 
     this.productsService.updateProduct(product)
     .subscribe({
-      next: (v) => {
+      next: (v) => {        
         console.log(v);
       }
     })
@@ -99,11 +104,21 @@ export class GetItemsComponent implements OnInit {
   deleteProduct(product: any) {
     // open an alert box to confirm deletion
     if (confirm('Etes-vous sûr de vouloir supprimer ce produit?')) {
-      console.log('delete product');
-      this.productsService.deleteProduct(product)
+      this.productsService.deleteProduct(product._id)
         .subscribe({
-          next: (v) => {
-            console.log(v);
+          next: (v: any) => {
+            this.toast.initiate({
+              title: 'Success',
+              message: v.message,
+            })
+
+            this.products = this.products.filter((p: any) => p._id !== product._id);
+          },
+          error: (err) => {
+            this.toast.initiate({
+              title: 'Error',
+              message: err.message,
+            })
           }
         })
     }

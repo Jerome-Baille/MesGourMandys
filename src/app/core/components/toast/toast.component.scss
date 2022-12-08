@@ -1,0 +1,63 @@
+$accentColor: #E58F6C;
+$bgColor: #f6d8cc;
+$primaryColor: #5a3a22;
+
+.toast-bg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.5);
+  inset: 0; 
+}
+
+.toast_wrapper {
+    border-radius: 4px;
+    background-color: #ffffff;
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 380px;
+    max-width: 420px;
+    word-break: break-word;
+    border: 1px solid $accentColor;
+  }
+  
+  // .img {
+  //   margin-right: 22px;
+  // }
+  
+  .inner_wrapper {
+    position: relative;
+    padding: 16px 22px;
+  }
+  
+  .toast_title {
+    color: $primaryColor;
+    margin-bottom: 4px;
+    text-transform: capitalize;
+  }
+  
+  .toast_text {
+    white-space: pre-line;
+    color: $primaryColor;
+  }
+  
+  .progress_bar {
+    width: 100%;
+    background: $accentColor;
+    height: 8px;
+    transition: width 0.1s;
+    transition-timing-function: ease-out;
+  }
+  
+  .progress_bar.success {
+    background: #46a958;
+  }
+  
+  .error_title {
+    color: #fd3825;
+  }
+  

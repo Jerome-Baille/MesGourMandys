@@ -125,6 +125,7 @@
         <button 
             class="btn-action"
             (click)="onLogout()"
+            *ngIf="router.url === '/auth/profil'"
         >
             <fa-icon [icon]="faSignOutAlt"></fa-icon>
         </button>
@@ -132,7 +133,7 @@
         <h2>Commandes passées</h2>
 
         <div class="orderslist" *ngIf="userOrders?.length!=0; else noOrders">
-            <table *ngFor="let order of userOrders">
+            <table *ngFor="let order of userOrders; let first = first">
                 <tr>
                     <th>Commande n°</th>
                     <td>{{ order._id }}</td>
@@ -166,25 +167,19 @@
         <ng-template #noOrders>
             <p>Aucune commande passée.</p>
         </ng-template>
-
-
-
-
-        <!-- <div class="orders">
-            <div class="order" *ngFor="let order of userOrders">
-                <div class="order__header">
-                    <h3 class="order__title">Commande du {{ order.date | date: 'dd/MM/yyyy' }}</h3>
-                    <span class="order__price">{{ order.totalPrice | currency: 'EUR' }}</span>
-                </div>
-                <div class="order__body">
-                    <div class="order__item" *ngFor="let item of order.products">
-                        <div class="order__item__header">
-                            <h4 class="order__item__title">{{ item.quantity }} X {{ item.title }}</h4>
-                            <span class="order__item__price">{{ item.price | currency: 'EUR' }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </aside>
+
+    <span
+        class="deleteAccount"
+    >
+        Vous souhaitez supprimer votre compte ? 
+        <button
+            class="deleteAccount__btn"
+            (click)="onDeleteAccount()"
+        >
+            Cliquez ici
+        </button>
+    </span>
 </section>
+
+<app-toast></app-toast>

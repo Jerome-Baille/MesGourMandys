@@ -3,9 +3,22 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        @media screen and (max-width: 768px){
+            flex-direction: column;
+            row-gap: 20px;
+        }
     }
 }
 
-.logout{
-    margin-bottom: 20px;
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+
+    &__header{
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+    }
 }

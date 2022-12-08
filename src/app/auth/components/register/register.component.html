@@ -3,7 +3,7 @@
         <div class="left-col">
             <label>Créer un compte</label>
             <form [formGroup]="registerForm" class="form">  
-                <!-- <div class="form-group">
+                <div class="form-group">
                     <input 
                         id="firstName" 
                         type="text" 
@@ -28,7 +28,7 @@
                     <span *ngIf="formSubmitted && registerForm.get('lastName')!.invalid" class="helperContainer">
                         Merci de fournir un nom de famille.
                     </span>
-                </div> -->
+                </div>
                 <div class="form-group">
                     <input 
                         id="email" 
@@ -93,3 +93,5 @@
     <!-- <app-loading [ngClass]="isLoading? 'loading--show' : 'loading--hide'"></app-loading>
     <app-toast [ngClass]="showToast? 'toast--show' : 'toast--hide'" [toastData]="toastData"></app-toast> -->
 </section>
+
+<app-toast></app-toast>

@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CoreModule } from '../core/core.module';
 import { OrdersListComponent } from './components/orders-list/orders-list.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
+import { AuthModule } from '../auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UsersListComponent } from './components/users-list/users-list.component
     FormsModule,
     FontAwesomeModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    AuthModule
   ],
   exports: [
     DashboardComponent

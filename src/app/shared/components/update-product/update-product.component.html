@@ -11,23 +11,30 @@
                         placeholder={{product.title}}
                         formControlName="title"
                     >
+                    <span *ngIf="updateProduct.get('title')!.invalid && updateProduct.get('title')!.touched" class="helperContainer">
+                        Merci de fournir un nom de produit.
+                    </span>
                 </div>
                 <div class="updateForm__group">
                     <label for="price">Image:</label>
                     <input  
-                        type="text" 
+                        type="file" 
+                        id="image"
                         placeholder={{product.image}}
-                        formControlName="image"
+                        (change)="imageSelected($event)"
                     >
+                    <span *ngIf="updateProduct.get('image')!.invalid && updateProduct.get('image')!.touched" class="helperContainer">
+                        Merci de fournir une image.
+                    </span>
                 </div>
-                <div class="updateForm__group">
+                <!-- <div class="updateForm__group">
                     <label for="price">Image (aperçu):</label>
                     <input  
                         type="text" 
                         placeholder={{product.thumbImage}}
                         formControlName="thumbImage"
                     >
-                </div>
+                </div> -->
                 <div class="updateForm__group">
                     <label for="price">Prix:</label>
                     <input  
@@ -35,6 +42,9 @@
                         placeholder={{product.price}}
                         formControlName="price"
                     >
+                    <span *ngIf="updateProduct.get('price')!.invalid && updateProduct.get('price')!.touched" class="helperContainer">
+                        Merci de fournir un prix valide.
+                    </span>
                 </div>
                 <div class="updateForm__group">
                     <label for="price">SKU:</label>
@@ -43,6 +53,9 @@
                         placeholder={{product.sku}}
                         formControlName="sku"
                     >
+                    <span *ngIf="updateProduct.get('sku')!.invalid && updateProduct.get('sku')!.touched" class="helperContainer">
+                        Merci de fournir un SKU valide.
+                    </span>
                 </div>
                 <div class="updateForm__group">
                     <label for="price">Description:</label>
@@ -51,6 +64,9 @@
                         placeholder={{product.description}}
                         formControlName="description"
                     >
+                    <span *ngIf="updateProduct.get('description')!.invalid && updateProduct.get('description')!.touched" class="helperContainer">
+                        Merci de fournir une description.
+                    </span>
                 </div>
                 <div class="updateForm__group">
                     <label for="price">Allergènes:</label>
@@ -59,6 +75,9 @@
                         placeholder={{product.allergens}}
                         formControlName="allergens"
                     >
+                    <span *ngIf="updateProduct.get('allergens')!.invalid && updateProduct.get('allergens')!.touched" class="helperContainer">
+                        Merci de fournir un allergène.
+                    </span>
                 </div>
                 <div class="updateForm__group">
                     <label for="isActive">Produit disponible:</label>
@@ -88,3 +107,10 @@
         </button>
     </div>
 </ng-template>
+
+<!-- <app-alert-message 
+    *ngIf="alertMessage"
+    [(message)]="alertMessage"
+></app-alert-message> -->
+
+<app-toast></app-toast>

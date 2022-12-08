@@ -1,5 +1,7 @@
 <app-loading-spinner *ngIf="!isLoaded"></app-loading-spinner>
 
+<app-order-confirmation *ngIf="orderConfirmed" [order]="order"></app-order-confirmation>
+
 <main *ngIf="cart.length > 0">
   <form [formGroup]="orderForm">
     <div>
@@ -21,7 +23,12 @@
                 <td>
                     <div class="cart__table__header">
                         <img [src]="item.thumbImage" alt="Image du produit" />
-                        <span class="cart__table__header__title">{{ item.title }}</span>
+                        <span 
+                          class="cart__table__header__title"
+                          [routerLink]="['/detail/', item.id]"
+                        >
+                          {{ item.title }}
+                        </span>
                     </div>
                 </td>
                 <td>{{ item.price | currency: 'EUR': 'symbol' }}</td>
@@ -73,34 +80,58 @@
 
         <div class="cart__order">
           <div class="cart__order__right">
-              <input 
-                  id="lastName"
-                  type="text" 
-                  name="lastName"
-                  placeholder="Nom"
-                  formControlName="lastName"
-              >
+            <div class="form-group">
               <input 
                   id="firstName"
                   type="text" 
                   name="firstName"
                   placeholder="Prénom"
                   formControlName="firstName"
+                  [ngStyle]="{'border': orderForm.get('firstName')!.invalid ? '1px solid red' : ''}"
               >
+              <span *ngIf="orderForm.get('firstName')!.invalid" class="helperContainer">
+                  Merci de fournir un prénom.
+              </span>
+            </div>
+            <div class="form-group">
+              <input 
+                  id="lastName"
+                  type="text" 
+                  name="lastName"
+                  placeholder="Nom"
+                  formControlName="lastName"
+                  [ngStyle]="{'border': orderForm.get('lastName')!.invalid ? '1px solid red' : ''}"
+              >
+              <span *ngIf="orderForm.get('lastName')!.invalid" class="helperContainer">
+                  Merci de fournir un nom de famille.
+              </span>
+            </div>
+            <div class="form-group">
               <input 
                   id="email"
                   type="email" 
                   name="email"
                   placeholder="E-mail"
                   formControlName="email"
+                  [ngStyle]="{'border': orderForm.get('email')!.invalid ? '1px solid red' : ''}"
               >
-              <input  
-                  id="address"
-                  type="text" 
-                  name="address"
+              <span *ngIf="orderForm.get('email')!.invalid" class="helperContainer">
+                  Merci de fournir une adresse e-mail valide.
+              </span>
+            </div>
+            <div class="form-group">
+              <input 
+                  id="phone"
+                  type="tel" 
+                  name="phone"
                   placeholder="Téléphone"
                   formControlName="phone"
+                  [ngStyle]="{'border': orderForm.get('phone')!.invalid ? '1px solid red' : ''}"
               >
+              <span *ngIf="orderForm.get('phone')!.invalid" class="helperContainer">
+                  Merci de fournir un numéro de téléphone valide.
+              </span>
+            </div>
               <textarea 
                   placeholder="Une demande particulière ? Précisez la ici"
                   formControlName="message"
@@ -109,6 +140,7 @@
                   type="submit" 
                   class="btn-action"
                   (click)="onSubmit()"
+                  [disabled]="orderForm.invalid"
               >
                   Passer la commande
               </button>
@@ -119,10 +151,13 @@
   </form>
 </main>
 
-<main *ngIf="cart.length === 0" class="emptyCart">
+<main *ngIf="cart.length === 0 && !orderConfirmed" class="emptyCart">
   <h1>Votre panier est vide</h1>
   <p>Vous n'avez pas encore ajouté d'articles à votre panier.</p>
   <button [routerLink]="'/boutique'" class="btn-action">
     Retourner à la boutique
   </button>
 </main>
+
+<app-toast></app-toast>
+

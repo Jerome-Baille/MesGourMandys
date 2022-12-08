@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.productsService.getProducts(null)
+      this.productsService.getProducts(null)
       .subscribe({
         next: (v) => {
           this.products = v;
@@ -58,5 +58,16 @@ export class DashboardComponent implements OnInit {
 
   onLogout(){
     this.authService.logout();
+  }
+
+  triggerRefresh(eventData: any){
+    if(eventData.message === 'refresh'){
+      this.productsService.getProducts(null)
+      .subscribe({
+        next: (v) => {
+          this.products = v;
+        }
+      })
+    }
   }
 }

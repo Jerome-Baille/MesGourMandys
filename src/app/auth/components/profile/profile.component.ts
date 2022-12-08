@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { faPowerOff, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ContactService } from 'src/app/core/services/contact.service';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +16,7 @@ export class ProfileComponent implements OnInit {
   userOrders!: any;
   userProfileForm!: FormGroup;
   formSubmitted: boolean = false;
+  origin!: string;
 
   userId!: any;
 
@@ -23,7 +26,9 @@ export class ProfileComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private toast: ToastService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
@@ -60,9 +65,20 @@ export class ProfileComponent implements OnInit {
       }
 
       if(Object.keys(this.userProfileForm.value).length > 0){
-        this.authService.updateUser(this.userId, this.userProfileForm.value)
-          .subscribe((res: any) => {
-            console.log(res);
+        this.authService.updateUser(this.userProfile._id, this.userProfileForm.value)
+          .subscribe({
+            next: (v: any) => {
+              this.toast.initiate({
+                title: 'Profil mis à jour!',
+                message: v.message,
+              })
+            },
+            error: (err: any) => {
+              this.toast.initiate({
+                title: 'Erreur!',
+                message: err.error.message,
+              })
+            }            
           });
       }
     }
@@ -70,5 +86,31 @@ export class ProfileComponent implements OnInit {
 
   onLogout(){
     this.authService.logout();
+  }
+
+  onDeleteAccount(){
+    if (confirm('Etes-vous sûr de vouloir supprimer votre compte?')) {
+      this.authService.deleteUser(this.userProfile._id)
+        .subscribe({
+          next: (v: any) => {
+            this.toast.initiate({
+              title: 'Compte supprimé!',
+              message: v.message,
+            })
+          },
+          error: (err: any) => {
+            this.toast.initiate({
+              title: 'Erreur!',
+              message: err.error.message,
+            })
+          },
+          complete: () => {
+            // set timeout to wait for the toast to be displayed
+            setTimeout(() => {
+              this.authService.logout();
+            }, 2500);
+          }
+        });
+    }
   }
 }

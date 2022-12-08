@@ -134,6 +134,11 @@ fa-icon{
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
         color: #fff
     }
+
+    &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
 }
 
 .img-container {

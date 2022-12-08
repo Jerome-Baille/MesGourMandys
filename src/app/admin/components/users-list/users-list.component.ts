@@ -3,6 +3,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { Users } from 'src/app/core/models/users';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-users-list',
@@ -16,6 +17,7 @@ export class UsersListComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -27,12 +29,18 @@ export class UsersListComponent implements OnInit {
     if(confirm('Voulez-vous vraiment supprimer cet utilisateur?')){
       this.authService.deleteUser(user)
         .subscribe({
-          next: (v) => {
-            console.log(v)
+          next: (v: any) => {
+            this.toast.initiate({
+              title: 'Compte supprimé!',
+              message: v.message,
+            })
             this.users$ = this.authService.getAllUsers()
           },
           error: (err) => {
-            console.log(err);
+            this.toast.initiate({
+              title: 'Erreur!',
+              message: err.error.message,
+            })
           }
         })
     }

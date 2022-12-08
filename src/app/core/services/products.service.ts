@@ -12,9 +12,28 @@ export class ProductsService {
     private http: HttpClient,
   ) { }
     API_URL = 'https://backend-mesgourmandys.onrender.com/api/product';
+    // API_URL = 'http://localhost:3000/api/product';
 
-    createProduct(title: string, id: string, image: string, thumbImage: string, price: number, sku: string, description: string, allergens: string) {
-        return this.http.post(`${this.API_URL}/new`, {title, id, image, thumbImage, price, sku, description, allergens});
+    createProduct(
+        title:          string, 
+        id:             string, 
+        image:          File,  
+        price:          string, 
+        sku:            string, 
+        description:    string, 
+        allergens:      string,
+        isActive:       boolean
+    ) {
+        const productData = new FormData();
+        productData.append('title', title);
+        productData.append('id', id);
+        productData.append('image', image);
+        productData.append('price', price);
+        productData.append('sku', sku);
+        productData.append('description', description);
+        productData.append('allergens', allergens);
+        productData.append('isActive', isActive.toString());
+        return this.http.post(`${this.API_URL}/new`, productData);
     }
 
     getProducts(filter: any): Observable<Products[]> {
@@ -30,8 +49,15 @@ export class ProductsService {
     }
 
     updateProduct(product: any) {
-        const id = product.id;
-        return this.http.put(`${this.API_URL}/${id}`, product);
+            // const productData = new FormData();
+            // productData.append('title', product.title);
+            // productData.append('id', product.id);
+            // productData.append('image', product.image);
+            // productData.append('price', product.price);
+            // productData.append('sku', product.sku);
+            // productData.append('description', product.description);
+            // productData.append('allergens', product.allergens);
+        return this.http.put(`${this.API_URL}/${product.id}`, product);
     }
 
     deleteProduct(id: string) {

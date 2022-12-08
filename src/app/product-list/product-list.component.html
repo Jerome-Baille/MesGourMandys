@@ -14,12 +14,14 @@
         <button
             class="btn-socials card__actions card__actions--left"
             (click)="editProduct(product)"
+            *ngIf="isAdmin"
         >
             <fa-icon [icon]="faPenSquare"></fa-icon>
         </button>
         <button 
             class="btn-socials card__actions card__actions--right"
             (click)="removeProduct(product)"
+            *ngIf="isAdmin"
         >
             <fa-icon [icon]="faTrash"></fa-icon>
         </button>

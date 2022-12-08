@@ -1,4 +1,4 @@
-<div *ngFor="let order of orders">
+<div>
     <table>
         <tr>
             <th>Numéro de commande</th>
@@ -8,7 +8,7 @@
             <th>Prix</th>
             <th>Statut</th>
         </tr>
-        <tr>
+        <tr *ngFor="let order of orders">
             <td>{{order._id}}</td>
             <td>
                 <span>{{order.firstName}} {{order.lastName}}</span>

@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Products } from '../core/models/products';
 import { faPenSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../core/services/auth.service';
+import { ToastService } from '../core/services/toast.service';
 
 
 @Component({
@@ -15,8 +17,12 @@ import { faPenSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 export class ProductDetailComponent implements OnInit {
   id: any;
   product$!: Observable<Products>;
+  isAdmin: boolean = false;
+
+  product!: Products;
 
   isLoaded: boolean = true;
+  imgLoaded: boolean = false;
 
   updateBoolean: boolean = false;
   updateProduct!: Products;
@@ -30,8 +36,15 @@ export class ProductDetailComponent implements OnInit {
     private productsService: ProductsService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private router: Router
-  ) { }
+    private router: Router,
+    private auth: AuthService,
+    private toast: ToastService
+  ) { 
+    this.orderForm = this.formBuilder.group({
+      sku: '',
+      quantity: 1
+    })
+  }
 
   ngOnInit(): void {
     this.isLoaded = false;
@@ -40,42 +53,59 @@ export class ProductDetailComponent implements OnInit {
       this.id = params.get('id')
     })
 
-    this.product$ = this.productsService.getProductById(this.id)
+    this.productsService.getProductById(this.id)
+      .subscribe((product: any) => {
+        this.product = product;
+        this.isLoaded = true;
 
-    this.product$.subscribe(() => {
-      this.isLoaded = true;
-    })
+        // Check in local storage, in the key "produits" if the product is already in the cart and change the quantity
+        var cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        var item = cart.find((item: any) => item.sku === this.product.sku);
+        if (item) {
+          this.orderForm.controls['quantity'].setValue(item.quantity);
+        }
+      })
 
-    this.orderForm = this.formBuilder.group({
-      sku: '',
-      quantity: 1
-    })
+
+
+    this.isAdmin = this.auth.checkIsAdmin();
+
+
   }
 
   onOrder() {
     var { quantity } = this.orderForm.value;
+    var { sku } = this.product;
+    var message = '';
 
-    this.product$.subscribe(product => {
-      var { sku } = product;
+    //add the product and quantity to the local storage
+    var cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    var item = cart.find((item: any) => item.sku === sku);
+    if (item) {
+      item.quantity = quantity;
+      message = `La quantité de ${this.product.title} a été mise à jour`;
+    } else {
+      cart.push({ sku, quantity });
 
-      //add the product and quantity to the local storage
-      var cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      var item = cart.find((item: any) => item.sku === sku);
-      if (item) {
-        item.quantity += quantity;
+      if(quantity > 1) {
+        message = `${quantity} ${this.product.title} ont été ajoutés au panier`;
       } else {
-        cart.push({ sku, quantity });
+        message = `${quantity} ${this.product.title} a été ajouté au panier`;
       }
-      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    this.toast.initiate({
+      title: 'Success!',
+      message: `${message}`,
     })
+
   }
 
   editProduct(product: any) {
     this.updateBoolean = !this.updateBoolean;
     
-    this.updateProduct = product.subscribe((product: any) => {
-      this.updateProduct = product;
-    })
+    this.updateProduct = product;
   }
 
   removeProduct(product: any) {

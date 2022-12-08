@@ -7,6 +7,8 @@ import { Products } from '../core/models/products';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../core/services/auth.service';
 import { Users } from '../core/models/users';
+import { ToastService } from '../core/services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -19,6 +21,10 @@ export class CartComponent implements OnInit {
   cart: any = [];
   isLoaded: boolean = true;
   orderForm!: FormGroup;
+  phoneRegex!: RegExp;
+
+  orderConfirmed: boolean = false;
+  order: any = {};
 
   product$!: Observable<Products>;
   user$!: Observable<Users>;
@@ -29,13 +35,17 @@ export class CartComponent implements OnInit {
     private productsService: ProductsService,
     private contactService: ContactService,
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toast: ToastService,
+    private router: Router
   ) { 
+    this.phoneRegex = /^(\+33|0)[1-9](\d{2}){4}$/;
+
     this.orderForm = this.formBuilder.group({
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
-      phone: [null, Validators.required],
+      phone: [null, [Validators.required, Validators.pattern(this.phoneRegex)]],
       message: [null],
       
       products: this.formBuilder.array([]),
@@ -59,33 +69,35 @@ export class CartComponent implements OnInit {
     
     this.createCart();
 
-    this.authService.getUserProfile()
+    var token = this.authService.getToken()
+
+    if(token) {
+      this.authService.getUserProfile()
       .subscribe({
         next: (v: any) => {
-          this.authService.getUserById(v._id).subscribe((user: any) => {
-            this.orderForm.patchValue({
-              firstName: user.firstName,
-              lastName: user.lastName,
-              email: user.email,
-              phone: user.phone,
-            });
-          })
+          if(v) {
+            this.authService.getUserById(v._id)
+              .subscribe({
+                next: (user: any) => {
+                  this.orderForm.patchValue({
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    phone: user.phone,
+                  });
+                  this.userId = v._id;
+                },
+                error: (err) => {
+                  console.log(err)
+                }
+            })
+          }
         },
         error: (err) => {
           console.log(err)
         }
       })
-
-    // if (this.userId) {
-    //   this.authService.getUserById(this.userId).subscribe((user: any) => {
-    //     this.orderForm.patchValue({
-    //       firstName: user.firstName,
-    //       lastName: user.lastName,
-    //       email: user.email,
-    //       phone: user.phone,
-    //     });
-    //   })
-    // }
+    }
   }
 
   onAddQuantity(sku: string) {
@@ -143,7 +155,6 @@ export class CartComponent implements OnInit {
 
   onSubmit() {
     this.isLoaded = false;
-    const userId = document.cookie.split('; ').find(row => row.startsWith('MesGourmandysUser='))?.split('=')[1];
     const { firstName, lastName, email, phone, message } = this.orderForm.value;
     const { totalPrice, totalQuantity } = this.cart;
 
@@ -155,22 +166,30 @@ export class CartComponent implements OnInit {
       }
     });
 
-    this.contactService.PostMessage(userId, firstName, lastName, email, phone, message, products, totalQuantity, totalPrice)
+    this.contactService.PostMessage(this.userId, firstName, lastName, email, phone, message, products, totalQuantity, totalPrice)
     .subscribe({
-      next: (v) => {
-        console.log(v)
+      next: (v: any) => {
         this.isLoaded = true;
+
+        // empty the cart
+        this.cart = [];
+        this.basket = [];
+        localStorage.setItem('cart', JSON.stringify(this.basket));
+
+        this.orderConfirmed = true;
+        this.order = v.order;
       },
       error: (err) => {
-        console.log(err)
         this.isLoaded = true;
+        this.toast.initiate({
+          title: 'Erreur',
+          message: err.error.message,
+        })
       }
     })
   }
 
   createCart(){    
-    // this.products.push(new FormControl({ quantity: ['']}));
-
     for (let item of this.cart) {
       let formGroup = this.formBuilder.group({
         title: item.title,

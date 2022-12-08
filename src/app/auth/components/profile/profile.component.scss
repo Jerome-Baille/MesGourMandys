@@ -7,6 +7,7 @@ $primaryColor: #5a3a22;
     display: grid;
     grid-template-columns: 1fr 1fr;
     position: relative;
+    row-gap: 1rem;
 
     @media screen and (max-width: 768px) {
         grid-template-columns: 1fr;
@@ -107,8 +108,31 @@ $primaryColor: #5a3a22;
         padding: 20px 0;
         width: 100%;
 
+        /* select all table children except the first one */
+        & > table:not(:first-child) {
+            border-top: 1px solid $accentColor;
+            padding-top: 1rem;
+        }
+
         table {
             margin: auto;
+        }
+    }
+}
+
+.deleteAccount {
+    grid-column: 1 / span 2;
+    margin: auto;
+
+    &__btn {
+        border: none;
+        background-color: transparent;
+        color: $accentColor;
+        font-size: 1rem;
+        cursor: pointer;
+
+        &:hover {
+            font-weight: bold;
         }
     }
 }

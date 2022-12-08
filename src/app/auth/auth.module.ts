@@ -26,7 +26,8 @@ import { ProfileComponent } from './components/profile/profile.component';
   ],
   exports: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent
   ]
 })
 export class AuthModule { }

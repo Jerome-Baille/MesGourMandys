@@ -1,0 +1,49 @@
+$accentColor: #E58F6C;
+$bgColor: #f6d8cc;
+$primaryColor: #5a3a22;
+
+.order-confirmation {
+    &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        row-gap: 1rem;
+        height: calc(100vh - 370px);
+
+        & .ng-fa-icon {
+            font-size: 3rem;
+            color: green;
+        }
+
+        & .accent {
+            color: $accentColor;
+            font-weight: bold;
+        }
+
+        table {
+            margin-bottom: 1rem;
+        }
+
+        table, th, td {
+            border-collapse: collapse;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        th, td {
+            border: 1px solid $accentColor;
+        }
+
+        thead::after, 
+        tfoot::before {
+            content:'';
+            display: table-row;
+            height: 15px;
+        }
+
+        & .btn-confirmation {
+            margin-top: 2rem;
+        }
+    }
+}

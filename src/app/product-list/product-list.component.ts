@@ -2,6 +2,7 @@ import { Component, OnInit  } from '@angular/core';
 import { faPenSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { Products } from '../core/models/products';
+import { AuthService } from '../core/services/auth.service';
 import { ProductsService } from '../core/services/products.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { ProductsService } from '../core/services/products.service';
 })
 export class ProductListComponent implements OnInit {
   products$!: Observable<Products[]>;
+  isAdmin: boolean = false;
 
   updateBoolean: boolean = false;
   updateProduct!: Products;
@@ -19,11 +21,14 @@ export class ProductListComponent implements OnInit {
   faPenSquare = faPenSquare;
 
   constructor(
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
     this.products$ = this.productsService.getProducts('isActive=true')
+
+    this.isAdmin = this.auth.checkIsAdmin();
   }
 
   removeProduct(product: any) {

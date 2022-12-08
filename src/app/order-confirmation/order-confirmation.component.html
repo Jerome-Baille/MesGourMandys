@@ -1,0 +1,47 @@
+<section class="order-confirmation__container">
+    <span>
+        <fa-icon [icon]="faCheckCircle"></fa-icon>
+    </span>
+    <h1>
+        Votre commande a bien été enregistrée !
+    </h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Numéro de commande</th>
+                <th>{{order._id}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Quantité</th>
+                <th>Produit</th>
+            </tr>
+            <tr *ngFor="let item of order.products">
+                <td>{{item.quantity}}</td>
+                <td>{{item.title}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Montant total</th>
+                <th>{{order.totalPrice | currency:'EUR':'symbol':'1.2-2'}}</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <p>
+        Vous allez recevoir un e-mail de confirmation à l'adresse suivante : <span class="accent">{{order.email}}</span>.
+    </p>
+    <p>
+        Dès que votre commande sera prête à être récuperer vous recevrez un nouvel e-mail pour vous en avertir.
+    </p>
+    <p>
+        En attendant vous pouvez suivre l'état de votre commande depuis 
+        <span><a [routerLink]="'/auth/profil'" class="accent"> votre compte</a></span>
+    </p>
+    
+
+    <a [routerLink]="'/boutique'" class="btn-action btn-confirmation">Retour à la boutique</a>
+</section>

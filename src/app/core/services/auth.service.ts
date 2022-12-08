@@ -8,6 +8,7 @@ import { Users } from '../models/users';
 })
 export class AuthService {
   baseUrl = 'https://backend-mesgourmandys.onrender.com/api'
+  // baseUrl = 'http://localhost:3000/api'
   token!: any;
   userId!: any;
   role: any = false;
@@ -16,8 +17,8 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
-  register(email: string, password: string){
-    return this.http.post(this.baseUrl+'/auth/register', {email, password});
+  register(firstName: string, lastName: string, email: string, password: string){
+    return this.http.post(this.baseUrl+'/auth/register', {firstName, lastName, email, password});
   }
 
   login(email: string, password: string){
@@ -27,7 +28,7 @@ export class AuthService {
   logout(){
     // delete the cookie "MesGourmandysToken" and "MesGourmandysUser"
     document.cookie = "MesGourmandysToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    document.cookie = "MesGourmandysUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    document.cookie = "MesGourmandysRole=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     // redirect to login page
     window.location.href = '/auth/login';
   }
@@ -55,10 +56,10 @@ export class AuthService {
 
   checkIsAdmin(): boolean {
     this.role = document.cookie.split('; ').find(row => row.startsWith('MesGourmandysRole='))?.split('=')[1];
-    if(this.role === 'true'){
-      return true;
-    } else {
+    if(!this.role || this.role === 'false'){
       return false;
+    } else {
+      return true;
     }
   }
 

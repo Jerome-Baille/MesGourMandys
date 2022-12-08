@@ -6,7 +6,7 @@ $primaryColor: #5a3a22;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 60px;
+    padding: 0 60px;
 
     @media screen and (max-width: 768px) {
         flex-direction: column;
@@ -64,5 +64,9 @@ $primaryColor: #5a3a22;
     &__text {
         text-align: center;
         line-height: 3rem;
+    }
+
+    &__sku {
+        text-transform: uppercase;
     }
 }

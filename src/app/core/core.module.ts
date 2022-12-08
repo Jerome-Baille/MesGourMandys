@@ -5,7 +5,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
-
+import { AlertMessageComponent } from './components/alert-message/alert-message.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 
 @NgModule({
@@ -13,17 +14,21 @@ import { RouterModule } from '@angular/router';
     LoadingSpinnerComponent,
     HeaderComponent,
     FooterComponent,
+    AlertMessageComponent,
+    ToastComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
-    FontAwesomeModule,
+    FontAwesomeModule
   ],
   exports: [
     FontAwesomeModule,
     LoadingSpinnerComponent,
     HeaderComponent,
     FooterComponent,
+    AlertMessageComponent,
+    ToastComponent,
   ]
 })
 export class CoreModule { }

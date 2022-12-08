@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductsService } from 'src/app/core/services/products.service';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-add-item',
@@ -10,9 +11,12 @@ import { ProductsService } from 'src/app/core/services/products.service';
 export class AddItemComponent implements OnInit {
   addItem!: FormGroup;
 
+  @Output() newProduct : EventEmitter<any> =  new EventEmitter();
+
   constructor(
     private formBuilder: FormBuilder,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -20,7 +24,7 @@ export class AddItemComponent implements OnInit {
       title: [null, Validators.required],
       id: [null, Validators.required],
       image: [null, Validators.required],
-      thumbImage: [null, [Validators.required, Validators.email]],
+      // thumbImage: [null, [Validators.required, Validators.email]],
       price: [null, Validators.required],
       sku: [null, Validators.required],
       description: [null, Validators.required],
@@ -30,25 +34,50 @@ export class AddItemComponent implements OnInit {
   }
 
   onCreateItem() {
-    const { title, image, thumbImage, price, sku, description, allergens } = this.addItem.value;
+    const { title, price, sku, description, allergens, isActive } = this.addItem.value;
+    var image = this.addItem.get('image')!.value;
+
+    let skuUpper = sku.toUpperCase();
 
     // create a slug from the title
     const id = title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, 'and').replace(/ - /g, '-').replace(/ /g, '-').replace(/[^\w-]+/g, '');
 
-    this.productsService.createProduct(title, id, image, thumbImage, price, sku, description, allergens)
+    this.productsService.createProduct(title, id, image, price, skuUpper, description, allergens, isActive)
       .subscribe({
-        next: (v) => {
-          console.log(v);
+        next: (v: any) => {
+          this.toast.initiate({
+            title: 'Success',
+            message: v.message,
+          })
 
-          this.addItem.reset();
+          this.newProduct.emit({message: "refresh"});
+          // in local storage, add product to the key "produits"
+          // if(localStorage.getItem('produits')){
+          //   let products = JSON.parse(localStorage.getItem('produits')!);
+          //   products.push(v.product);
+          //   localStorage.setItem('produits', JSON.stringify(products));
+          // } else {
+          //   localStorage.setItem('produits', JSON.stringify([v.product]));
+          // }
+
+          this.addItem.reset({
+            isActive: true,
+          });
         },
         error: (err) => {
-          console.log(err);
-        },
-        complete: () => {
-          console.log('complete');
+          this.toast.initiate({
+            title: 'Erreur',
+            message: err.message,
+          })
         }
       })
   }
 
+  imageSelected(event: any) {
+    const target = event.target.files[0];
+    this.addItem.get('image')!.setValue(target);
+    this.addItem.updateValueAndValidity();
+    const reader = new FileReader();
+    reader.readAsDataURL(target);
+  }
 }
