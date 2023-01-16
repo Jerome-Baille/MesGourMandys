@@ -1,5 +1,5 @@
 <div>
-    <table>
+    <table class="table--lg">
         <tr>
             <th>Numéro de commande</th>
             <th>Client</th>
@@ -39,6 +39,53 @@
                     <option value="En cours de préparation">En cours de préparation</option>
                     <option value="Prêt">Prêt</option>
                 </select>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table--sm">
+        <tr *ngFor="let order of orders">
+            <td>
+                <div class="table--sm__body">
+                    <div>
+                        <span><strong>Commande : </strong>{{order._id}}</span>
+                    </div>
+                    
+                    <div>
+                        <span><strong>Date : </strong>{{order.date | date: 'dd/MM/yyyy' }}</span>
+                    </div>
+    
+                    <div class="flex-col">
+                        <span><strong>Infos client :</strong></span>
+                        <span>{{order.firstName}} {{order.lastName}}</span>
+                        <span>{{order.email}}</span>
+                        <span *ngIf="order.address">{{order.address}}</span>
+                        <span *ngIf="order.city">{{order.city}}</span>
+                        <span *ngIf="order.postalCode">{{order.postalCode}}</span>
+                    </div>
+    
+                    <div class="flex-col">
+                        <span><strong>Produits :</strong></span>
+                        <span *ngFor="let product of order.products">
+                            {{ product.quantity }} x {{ product.title }}
+                        </span>
+                    </div>
+    
+                    <div>
+                        <span><strong>Prix total : </strong>{{order.totalPrice | currency: 'EUR'}}</span>
+                    </div>
+
+                    <div>
+                        <select 
+                            [(ngModel)]="order.status"
+                            (ngModelChange)="updateStatus(order)"
+                        >
+                            <option value="Commande enregistrée">Commande enregistrée</option>
+                            <option value="En cours de préparation">En cours de préparation</option>
+                            <option value="Prêt">Prêt</option>
+                        </select>
+                    </div>
+                </div>
             </td>
         </tr>
     </table>

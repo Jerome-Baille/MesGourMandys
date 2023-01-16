@@ -14,6 +14,10 @@
     </section>
 
     <section class="card">
+        <app-card-product [product]="product"></app-card-product>
+    </section>
+
+    <!-- <section class="card">
         <div class="img-container">
             <img 
                 src={{product.image}} 
@@ -82,7 +86,7 @@
         </div>
 
         <app-update-product *ngIf='updateBoolean' [product]="updateProduct" (close)="triggerEventClose($event)"></app-update-product>
-    </section>
+    </section> -->
 </ng-template>
 
 <app-toast></app-toast>

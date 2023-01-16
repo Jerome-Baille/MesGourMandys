@@ -1,0 +1,106 @@
+<article  class="card__container">
+    <div *ngIf="isAdmin" class="card__admin">
+        <button
+            class="btn-socials"
+            (click)="editProduct(product)"
+            *ngIf="isAdmin"
+        >
+            <fa-icon [icon]="faPenSquare"></fa-icon>
+        </button>
+        <button 
+            class="btn-socials"
+            (click)="removeProduct(product)"
+            *ngIf="isAdmin"
+        >
+            <fa-icon [icon]="faTrash"></fa-icon>
+        </button>
+    </div>
+    <div class="card__img">
+        <a [routerLink]="['/detail/', product.id]" class="card__link"></a>
+        <img 
+            [src]="imgRes === 'low'? product.thumbImage : product.image"
+            loading="lazy" 
+            crossorigin="anonymous"
+            alt={{product.title}}
+        >
+    </div>
+    <div class="card__content">
+        <a [routerLink]="['/detail/', product.id]" class="card__link"></a>
+        <h3>
+            {{product.title}}
+        </h3>
+        <p class="card__description">
+            {{ product.description }}
+        </p>
+        <div class="card__content__footer" *ngIf="infoLength === 'long'">
+            <span class="card__sku">SKU : {{ product.sku }}</span>
+            <span>
+                <span class="text-accent">Allergènes : </span>
+                {{ product.allergens }}
+            </span>
+        </div>
+    </div>
+    <div class="card__footer">
+        <div class="card__price">
+            <div class="card__price__tag">
+                <span>Prix : </span>
+            </div>
+            <div class="card__price__value">
+                <span>{{product.price}}€</span>
+            </div>
+        </div>
+        <div class="card__cart" *ngIf="infoLength === 'long'">
+            <form [formGroup]="orderForm">
+                <div class="card__order__quantity">
+                    <div class="card__quantity">
+                        <div class="card__quantity__tag">
+                            <span>Quantité : </span>
+                        </div>
+                        <div class="card__quantity__value">
+                            <button
+                                class="card__quantity__btn"
+                                (click)="removeQuantity()"
+                            >
+                                -
+                            </button>
+                    
+                            <input 
+                                type="number" 
+                                id="quantity" 
+                                name="quantity" 
+                                formControlName="quantity"
+                                min="1" 
+                                max="10" 
+                                value="1"
+                            >
+                            <button
+                                (click)="addQuantity()"
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <button 
+                    class="btn-action card__cart__btn-order"
+                    type="submit"
+                    (click)="onOrder()"
+                >
+                    Ajouter au panier
+                </button>
+            </form>
+        </div>
+        <div class="card__cart" *ngIf="infoLength === 'short'">
+            <button
+                class="btn-action card__cart__btn-order"
+                (click)="addTocart(product)"
+            >
+                Ajouter au panier
+            </button>
+        </div>
+    </div>
+</article>
+
+<app-update-product *ngIf='updateBoolean' [product]="updateProduct" (close)="triggerEventClose($event)"></app-update-product>
+<app-toast></app-toast>

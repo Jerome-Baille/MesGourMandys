@@ -8,7 +8,7 @@
       <h1>Votre panier</h1>
 
       <section class="cart">
-        <table class="cart__table">
+        <table class="cart__table cart__table--md">
             <thead>
               <tr>
                 <th>Produit</th>
@@ -64,6 +64,64 @@
                 </td>
               </tr>
             </tbody>
+        </table>
+
+        <table class="cart__table cart__table--sm">
+          <tr *ngFor="let item of cart">
+            <td>
+              <div class="img-container">
+                <img 
+                  [src]="item.thumbImage" 
+                  alt={{item.title}}
+                  crossorigin="anonymous" 
+                  />
+              </div>
+            </td>
+            <td class="cart__table__content">
+              <div class="cart__table__header">   
+                <span 
+                  class="cart__table__header__title"
+                  [routerLink]="['/detail/', item.id]"
+                >
+                  {{ item.title }}
+                </span>
+                <button 
+                    class="btn-socials"
+                    (click)="onRemoveItem(item.sku)"
+                >
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+              </div>
+              <div class="cart__table__body__price">
+                <span>Prix à l'unité : </span>
+                <span>{{ item.price | currency: 'EUR': 'symbol' }}</span>
+              </div>
+              <div class="cart__table__body">
+                <div class="cart__table__footer">
+                  <div class="cart__table__body__total">
+                    <strong>
+                      <span>{{ item.price * item.quantity | currency: 'EUR': 'symbol' }}</span>
+                    </strong>
+                    </div>
+                  <div class="cart__table__quantity">
+                    <button 
+                        (click)="onDecreaseQuantity(item.sku)" 
+                        class="btn-action"
+                    >
+                        -
+                    </button>
+                    <span>{{ item.quantity }}</span>
+                    <button 
+                        (click)="onAddQuantity(item.sku)" 
+                        class="btn-action"
+                    >
+                        +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
         </table>
 
         <div class="cart__price">

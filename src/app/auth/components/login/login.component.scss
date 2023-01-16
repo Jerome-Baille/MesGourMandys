@@ -2,6 +2,14 @@ $accentColor: #E58F6C;
 $bgColor: #f6d8cc;
 $primaryColor: #5a3a22;
 
+.login {
+    @media screen and (max-width: 768px) {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        height: calc(100vh - 160px);
+    }
+}
+
 .main{
     width: 100%;
     height: 100%;
@@ -83,6 +91,10 @@ input{
                 margin-bottom: 10px;
                 background-color: $bgColor;
                 color: $primaryColor;
+
+                @media screen and (max-width: 768px) {
+                    width: fit-content;
+                }
             }
     
             & textarea {

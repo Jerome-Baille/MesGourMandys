@@ -240,6 +240,10 @@ export class CartComponent implements OnInit {
   }
 
   onRemoveItem(sku: string) {
+    // ask user for confirmation
+    if (!confirm('Voulez-vous vraiment supprimer cet article ?')) {
+      return;
+    }
     // find the item corresponding to the sku in cart and remove it
     this.cart = this.cart.filter((item: any) => item.sku !== sku);
 

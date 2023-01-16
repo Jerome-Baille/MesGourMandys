@@ -15,6 +15,18 @@ table {
     width: 100%;
     border-collapse: collapse;
 
+    &.table--sm {
+        & .hero__container {
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+        }
+        & .hero__actions {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
     td, th {
         border: 1px solid $primaryColor;
         padding: 8px;
@@ -77,6 +89,24 @@ table {
             font-size: 1rem;
             color: $accentColor;
             font-weight: bold;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        &.table--md {
+            display: none;
+        }
+        &.table--sm {
+            display: block;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        &.table--md {
+            display: block;
+        }
+        &.table--sm {
+            display: none;
         }
     }
 }

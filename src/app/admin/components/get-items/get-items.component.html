@@ -1,7 +1,7 @@
 <app-loading-spinner *ngIf="!isLoaded; else loaded"></app-loading-spinner>
 
 <ng-template #loaded>
-    <table>
+    <table class="table--md">
         <tr>
             <th>Modifié</th>
             <th>Produit</th>
@@ -87,6 +87,88 @@
         </tr>
     </table>
 
+    <table class="table--sm">
+        <tr>
+            <th>Produit</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let item of products">
+            <td>
+                <div class="hero__container">
+                    <div class="hero__container__img">
+                        <img 
+                            [src]="item.thumbImage" 
+                            width="200" height="200" 
+                            alt={{item.title}}
+                            crossorigin="anonymous"
+                        >
+                    </div>
+                    <div class="hero__main
+                        hero__main--sm"
+                    >
+                        <div class="hero__sku">
+                            <span>SKU : {{ item.sku }}</span>
+                            <span class="hero__price">{{ item.price | currency: 'EUR' }}</span>
+                        </div>
+                        <h1 class="hero__title">
+                            {{ item.title }}
+                        </h1>
+                        <p class="hero__description">
+                            {{ item.description }}
+                        </p>
+    
+                        <p>
+                            <span class="text-accent">Allergènes : </span>
+                            <span>{{ item.allergens }}</span>
+                        </p>
+                    </div>
+                    <div class="hero__actions">
+                        <button
+                            class="btn-socials"
+                            (click)="editProduct(item)"
+                        >
+                            <fa-icon [icon]="faPenSquare"></fa-icon>
+                        </button>
+                        <button
+                            class="btn-socials"
+                            (click)="deleteProduct(item)"
+                        >
+                            <fa-icon [icon]="faTrash"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+            </td>
+            <td class="table--sm__actions">
+                <div>                
+                    <button
+                        class="btn-socials"
+                        (click)="updateProductData('isActive', item)"
+                    >
+                        <fa-icon *ngIf='item.isActive' [icon]="faEye"></fa-icon>
+                        <fa-icon *ngIf='!item.isActive' [icon]="faEyeSlash"></fa-icon>
+                    </button>
+                </div>
+                <div>
+                    <button 
+                        class="btn-socials"
+                        (click)="updateProductData('highlight', item)"
+                    >
+                        <fa-icon *ngIf="item.highlight" [icon]="faLightbulbS"></fa-icon>
+                        <fa-icon *ngIf="!item.highlight" [icon]="faLightbulbReg"></fa-icon>
+                    </button>
+                </div>
+                <div>
+                    <button
+                        class="btn-socials"
+                        (click)="updateProductData('popular', item)"
+                        [disabled]="!item.popular && favsCount >=4"
+                    >
+                        <fa-icon *ngIf="item.popular" [icon]="faStarS"></fa-icon>
+                        <fa-icon *ngIf="!item.popular" [icon]="faStarReg"></fa-icon>
+                    </button>
+                </div>
+            </td>
+    </table>
 
 
     <app-update-product *ngIf='updateBoolean' [product]="updateProduct" (close)="triggerEventClose($event)"></app-update-product>

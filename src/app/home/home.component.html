@@ -1,561 +1,549 @@
-<section *ngFor="let highlight of highlight$ | async" id="hero" class="hero">
-    <div class="hero__text">
-        <div class="hero__main">
-            <h1 class="hero__title">
-                {{ highlight.title }}
-                <span class="hero__price">{{ highlight.price }}€</span>
-            </h1>
-            <p class="hero__description">
-                {{ highlight.description }}
-            </p>
-        </div>
-        <div>
-            <span class="text-accent">Allergènes : </span>
-            <span>{{ highlight.allergens }}</span>
-        </div>
-        <a [routerLink]="['/detail/', highlight.id]" class="btn-action">
-            Commander
-        </a>
-    </div>
-    <div class="img-container">
-        <img 
-            [src]="highlight.thumbImage" 
-            crossorigin="anonymous" 
-            alt={{highlight.title}}
-        >
-        <span class="hero__label">Nouveau</span>
-    </div>
-</section>
+<app-loading-spinner *ngIf="!isLoaded; else loaded"></app-loading-spinner>
 
-<section class="best-seller">
-    <h2 class="best-seller__title">
-        Nos pâtisseries les plus populaires
-    </h2>
-    <div class="best-seller__grid">
-        <button 
-            *ngFor="let popular of popular$ | async" 
-            [routerLink]="['/detail/', popular.id]" 
-            class="card btn-card"
-        >
-            <div class="card__img">
-                <img 
-                    [src]="popular.thumbImage" 
-                    crossorigin="anonymous"
-                    alt={{popular.title}}
-                >
+<ng-template #loaded>
+    <section *ngFor="let highlight of highlight$ | async" id="hero" class="hero">
+        <div class="hero__text">
+            <div class="hero__main">
+                <h1 class="hero__title">
+                    {{ highlight.title }}
+                    <span class="hero__price">{{ highlight.price }}€</span>
+                </h1>
+                <p class="hero__description">
+                    {{ highlight.description }}
+                </p>
             </div>
-            <div class="card__text">
-                <span class="card__description">
-                    {{ popular.title }}
-                </span>
-                <span class="card__price">{{ popular.price }}€</span>
+            <div>
+                <span class="text-accent">Allergènes : </span>
+                <span>{{ highlight.allergens }}</span>
             </div>
-        </button>
-    </div>
-
-    <div class="best-seller__action">
-        <button class="btn-action" [routerLink]="'/boutique'">
-            Voir tous nos gâteaux
-        </button>
-    </div>
-</section>
-
-<section id="about" class="about">
-    <div class="blob">
-        <h3 class="about__title">
-            Qui suis-je ?
-        </h3>
-        <span class="about__text">
-            Dans sa boutique en ligne, 
-            <br/>Amandine vous propose un retour en enfance.
-            <br/>Redécouvrez un univers rempli de cakes, brownies, cookies 
-            <br/>et autres gourmandises régressives qui raviront petits et grands.
-        </span>
-        <span class="about__text">
-            Dans une démarche éco-responsable de lutte contre le gaspillage alimentaire, 
-            <br/>les pâtisseries sont préparées à la commande.
-        </span>
-        <span class="about__text">
-            Prise de commande, via le formulaire de contact, 
-            <br/>du lundi au vendredi avant 13h pour un retrait en click and collect le lendemain. 
-        </span>
-        <span class="about__text">
-            Pour vos événements, 
-            <br/>vous avez la possibilité de commander un gâteau 100% personnalisé.
-            <br/>Les commandes se font minimum <strong>15 jours</strong> avant la date souhaitée 
-            <br/>(tarif sur devis uniquement).
-        </span>
-        <hr width="150px" color="#E58F6C"/>
-        <span class="about__text">
-            <span class="text-accent">Horaires boutique:</span>
-            <br/>mardi - vendredi : 13h30 - 18h30
-            <br/>samedi : 10h30 - 15h
-        </span>
-    </div>
-</section>
-
-<section id="contact" class="contact">
-    <div class="contact__left">
-        <h3 class="contact__title">
-            Une commande ?
-            <br/>Un message ?
-            <br/>C'est par ici !!
-        </h3>
-        <span class="contact__text">
-            2 rue du panais 30132 Caissargues
-        </span>
-        <a href="mailto:mesgourmandys@gmail.com" class="contact__text">
-            mesgourmandys@gmail.com
-        </a>
-        <a href="tel:+33621915844" class="contact__text">
-            06 21 91 58 44
-        </a>
-        <span class="contact__text">
-            <a 
-                href="https://www.instagram.com/mesgourmandys/" target="_blank"
-            >
-                <fa-icon [icon]="faInstagram"></fa-icon>
+            <a [routerLink]="['/detail/', highlight.id]" class="btn-action">
+                Commander
             </a>
-        </span>
-    </div>
-
-    <form action="." class="contact__right">
-        <input type="text" placeholder="Nom Prénom">
-        <input type="email" placeholder="E-mail">
-        <input type="text" placeholder="Téléphone">
-        <input type="text" placeholder="Objet">
-        <textarea placeholder="Rédigez votre message ici..."></textarea>
-        <button type="submit" class="btn-action">Envoyer</button>
-    </form>
-</section>
-
-<section id="testimonials" class="testimonials">
-    <div class="testimonials__container">
-        <div class="card">
-            <div class="card__text">
-                <span class="card__quote-mark">
-                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" xml:space="preserve">
-                    <g>
-                        <path d="M150.299,26.634v58.25c0,7.9-6.404,14.301-14.304,14.301c-28.186,0-43.518,28.909-45.643,85.966h45.643
-                            c7.9,0,14.304,6.407,14.304,14.304v122.992c0,7.896-6.404,14.298-14.304,14.298H14.301C6.398,336.745,0,330.338,0,322.447V199.455
-                            c0-27.352,2.754-52.452,8.183-74.611c5.568-22.721,14.115-42.587,25.396-59.048c11.608-16.917,26.128-30.192,43.16-39.44
-                            C93.886,17.052,113.826,12.333,136,12.333C143.895,12.333,150.299,18.734,150.299,26.634z M334.773,99.186
-                            c7.896,0,14.305-6.407,14.305-14.301v-58.25c0-7.9-6.408-14.301-14.305-14.301c-22.165,0-42.108,4.72-59.249,14.023
-                            c-17.035,9.248-31.563,22.523-43.173,39.44c-11.277,16.461-19.824,36.328-25.393,59.054c-5.426,22.166-8.18,47.266-8.18,74.605
-                            v122.992c0,7.896,6.406,14.298,14.304,14.298h121.69c7.896,0,14.299-6.407,14.299-14.298V199.455
-                            c0-7.896-6.402-14.304-14.299-14.304h-44.992C291.873,128.095,306.981,99.186,334.773,99.186z"/>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    </svg>
-                </span>
-
-                <blockquote>
-                    Grand régal et un beau dessert d'été !
-                </blockquote>
-                
-                <span class="card__quote-mark card__quote-mark--right">
-                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" style="enable-background:new 0 0 349.078 349.078;" xml:space="preserve">
-                    <g>
-                        <path d="M198.779,322.441v-58.245c0-7.903,6.406-14.304,14.304-14.304c28.183,0,43.515-28.904,45.643-85.961h-45.643
-                            c-7.897,0-14.304-6.41-14.304-14.304V26.64c0-7.9,6.406-14.301,14.304-14.301h121.69c7.896,0,14.305,6.408,14.305,14.301v122.988
-                            c0,27.349-2.761,52.446-8.181,74.611c-5.568,22.722-14.115,42.587-25.398,59.049c-11.604,16.917-26.132,30.192-43.155,39.437
-                            c-17.152,9.304-37.09,14.026-59.267,14.026C205.186,336.745,198.779,330.338,198.779,322.441z M14.301,249.887
-                            C6.404,249.887,0,256.293,0,264.185v58.257c0,7.896,6.404,14.298,14.301,14.298c22.166,0,42.114-4.723,59.255-14.026
-                            c17.032-9.244,31.558-22.508,43.161-39.437c11.29-16.462,19.836-36.328,25.404-59.061c5.423-22.165,8.178-47.263,8.178-74.6V26.628
-                            c0-7.9-6.41-14.301-14.304-14.301H14.301C6.404,12.327,0,18.734,0,26.628v122.988c0,7.899,6.404,14.304,14.301,14.304h45.002
-                            C57.201,220.982,42.09,249.887,14.301,249.887z"/>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    </svg>
-                </span>
-            </div>
-            <div class="card__footer">
-                <span class="card__author">
-                    Josée B.
-                </span>
-                    à propos du 
-                <span class="card__type">
-                    Ring Cake Framboise
-                </span>
+        </div>
+        <div class="img-container">
+            <img 
+                [src]="highlight.thumbImage" 
+                crossorigin="anonymous" 
+                alt={{highlight.title}}
+            >
+            <span class="hero__label">Nouveau</span>
+        </div>
+    </section>
+    
+    <section class="best-seller">
+        <h2 class="best-seller__title">
+            Nos pâtisseries les plus populaires
+        </h2>
+        <div class="best-seller__grid">
+            <div *ngFor="let popular of popular$ | async">
+                <app-card-product [product]="popular"></app-card-product>
             </div>
         </div>
-        <div class="card">
-            <div class="card__text">
-                <span class="card__quote-mark">
-                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" xml:space="preserve">
-                    <g>
-                        <path d="M150.299,26.634v58.25c0,7.9-6.404,14.301-14.304,14.301c-28.186,0-43.518,28.909-45.643,85.966h45.643
-                            c7.9,0,14.304,6.407,14.304,14.304v122.992c0,7.896-6.404,14.298-14.304,14.298H14.301C6.398,336.745,0,330.338,0,322.447V199.455
-                            c0-27.352,2.754-52.452,8.183-74.611c5.568-22.721,14.115-42.587,25.396-59.048c11.608-16.917,26.128-30.192,43.16-39.44
-                            C93.886,17.052,113.826,12.333,136,12.333C143.895,12.333,150.299,18.734,150.299,26.634z M334.773,99.186
-                            c7.896,0,14.305-6.407,14.305-14.301v-58.25c0-7.9-6.408-14.301-14.305-14.301c-22.165,0-42.108,4.72-59.249,14.023
-                            c-17.035,9.248-31.563,22.523-43.173,39.44c-11.277,16.461-19.824,36.328-25.393,59.054c-5.426,22.166-8.18,47.266-8.18,74.605
-                            v122.992c0,7.896,6.406,14.298,14.304,14.298h121.69c7.896,0,14.299-6.407,14.299-14.298V199.455
-                            c0-7.896-6.402-14.304-14.299-14.304h-44.992C291.873,128.095,306.981,99.186,334.773,99.186z"/>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    </svg>
-                </span>
-
-                <blockquote>
-                    Tout simplement délicieux.... on s'est sincèrement régalé, vraiment au top 😍😍😍 merci beaucoup pour Laora 😁
-                </blockquote>
-                
-                <span class="card__quote-mark card__quote-mark--right">
-                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" style="enable-background:new 0 0 349.078 349.078;" xml:space="preserve">
-                    <g>
-                        <path d="M198.779,322.441v-58.245c0-7.903,6.406-14.304,14.304-14.304c28.183,0,43.515-28.904,45.643-85.961h-45.643
-                            c-7.897,0-14.304-6.41-14.304-14.304V26.64c0-7.9,6.406-14.301,14.304-14.301h121.69c7.896,0,14.305,6.408,14.305,14.301v122.988
-                            c0,27.349-2.761,52.446-8.181,74.611c-5.568,22.722-14.115,42.587-25.398,59.049c-11.604,16.917-26.132,30.192-43.155,39.437
-                            c-17.152,9.304-37.09,14.026-59.267,14.026C205.186,336.745,198.779,330.338,198.779,322.441z M14.301,249.887
-                            C6.404,249.887,0,256.293,0,264.185v58.257c0,7.896,6.404,14.298,14.301,14.298c22.166,0,42.114-4.723,59.255-14.026
-                            c17.032-9.244,31.558-22.508,43.161-39.437c11.29-16.462,19.836-36.328,25.404-59.061c5.423-22.165,8.178-47.263,8.178-74.6V26.628
-                            c0-7.9-6.41-14.301-14.304-14.301H14.301C6.404,12.327,0,18.734,0,26.628v122.988c0,7.899,6.404,14.304,14.301,14.304h45.002
-                            C57.201,220.982,42.09,249.887,14.301,249.887z"/>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    </svg>
-                </span>
+    
+        <div class="best-seller__action">
+            <button class="btn-action" [routerLink]="'/boutique'">
+                Voir tous nos gâteaux
+            </button>
+        </div>
+    </section>
+    
+    <section id="about" class="about">
+        <div class="blob">
+            <h3 class="about__title">
+                Qui suis-je ?
+            </h3>
+            <span class="about__text">
+                Dans sa boutique en ligne, 
+                <br/>Amandine vous propose un retour en enfance.
+                <br/>Redécouvrez un univers rempli de cakes, brownies, cookies 
+                <br/>et autres gourmandises régressives qui raviront petits et grands.
+            </span>
+            <span class="about__text">
+                Dans une démarche éco-responsable de lutte contre le gaspillage alimentaire, 
+                <br/>les pâtisseries sont préparées à la commande.
+            </span>
+            <span class="about__text">
+                Prise de commande, via le formulaire de contact, 
+                <br/>du lundi au vendredi avant 13h pour un retrait en click and collect le lendemain. 
+            </span>
+            <span class="about__text">
+                Pour vos événements, 
+                <br/>vous avez la possibilité de commander un gâteau 100% personnalisé.
+                <br/>Les commandes se font minimum <strong>15 jours</strong> avant la date souhaitée 
+                <br/>(tarif sur devis uniquement).
+            </span>
+            <hr width="150px" color="#E58F6C"/>
+            <span class="about__text">
+                <span class="text-accent">Horaires boutique:</span>
+                <br/>mardi - vendredi : 13h30 - 18h30
+                <br/>samedi : 10h30 - 15h
+            </span>
+        </div>
+    </section>
+    
+    <section id="contact" class="contact">
+        <div class="contact__left">
+            <h3 class="contact__title">
+                Une commande ?
+                <br/>Un message ?
+                <br/>C'est par ici !!
+            </h3>
+            <span class="contact__text">
+                2 rue du panais 30132 Caissargues
+            </span>
+            <a href="mailto:mesgourmandys@gmail.com" class="contact__text">
+                mesgourmandys@gmail.com
+            </a>
+            <a href="tel:+33621915844" class="contact__text">
+                06 21 91 58 44
+            </a>
+            <span class="contact__text">
+                <a 
+                    href="https://www.instagram.com/mesgourmandys/" target="_blank"
+                >
+                    <fa-icon [icon]="faInstagram"></fa-icon>
+                </a>
+            </span>
+        </div>
+    
+        <form action="." class="contact__right">
+            <input type="text" placeholder="Nom Prénom">
+            <input type="email" placeholder="E-mail">
+            <input type="text" placeholder="Téléphone">
+            <input type="text" placeholder="Objet">
+            <textarea placeholder="Rédigez votre message ici..."></textarea>
+            <button type="submit" class="btn-action">Envoyer</button>
+        </form>
+    </section>
+    
+    <section id="testimonials" class="testimonials">
+        <div class="testimonials__container">
+            <div class="card">
+                <div class="card__text">
+                    <span class="card__quote-mark">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" xml:space="preserve">
+                        <g>
+                            <path d="M150.299,26.634v58.25c0,7.9-6.404,14.301-14.304,14.301c-28.186,0-43.518,28.909-45.643,85.966h45.643
+                                c7.9,0,14.304,6.407,14.304,14.304v122.992c0,7.896-6.404,14.298-14.304,14.298H14.301C6.398,336.745,0,330.338,0,322.447V199.455
+                                c0-27.352,2.754-52.452,8.183-74.611c5.568-22.721,14.115-42.587,25.396-59.048c11.608-16.917,26.128-30.192,43.16-39.44
+                                C93.886,17.052,113.826,12.333,136,12.333C143.895,12.333,150.299,18.734,150.299,26.634z M334.773,99.186
+                                c7.896,0,14.305-6.407,14.305-14.301v-58.25c0-7.9-6.408-14.301-14.305-14.301c-22.165,0-42.108,4.72-59.249,14.023
+                                c-17.035,9.248-31.563,22.523-43.173,39.44c-11.277,16.461-19.824,36.328-25.393,59.054c-5.426,22.166-8.18,47.266-8.18,74.605
+                                v122.992c0,7.896,6.406,14.298,14.304,14.298h121.69c7.896,0,14.299-6.407,14.299-14.298V199.455
+                                c0-7.896-6.402-14.304-14.299-14.304h-44.992C291.873,128.095,306.981,99.186,334.773,99.186z"/>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        </svg>
+                    </span>
+    
+                    <blockquote>
+                        Grand régal et un beau dessert d'été !
+                    </blockquote>
+                    
+                    <span class="card__quote-mark card__quote-mark--right">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" style="enable-background:new 0 0 349.078 349.078;" xml:space="preserve">
+                        <g>
+                            <path d="M198.779,322.441v-58.245c0-7.903,6.406-14.304,14.304-14.304c28.183,0,43.515-28.904,45.643-85.961h-45.643
+                                c-7.897,0-14.304-6.41-14.304-14.304V26.64c0-7.9,6.406-14.301,14.304-14.301h121.69c7.896,0,14.305,6.408,14.305,14.301v122.988
+                                c0,27.349-2.761,52.446-8.181,74.611c-5.568,22.722-14.115,42.587-25.398,59.049c-11.604,16.917-26.132,30.192-43.155,39.437
+                                c-17.152,9.304-37.09,14.026-59.267,14.026C205.186,336.745,198.779,330.338,198.779,322.441z M14.301,249.887
+                                C6.404,249.887,0,256.293,0,264.185v58.257c0,7.896,6.404,14.298,14.301,14.298c22.166,0,42.114-4.723,59.255-14.026
+                                c17.032-9.244,31.558-22.508,43.161-39.437c11.29-16.462,19.836-36.328,25.404-59.061c5.423-22.165,8.178-47.263,8.178-74.6V26.628
+                                c0-7.9-6.41-14.301-14.304-14.301H14.301C6.404,12.327,0,18.734,0,26.628v122.988c0,7.899,6.404,14.304,14.301,14.304h45.002
+                                C57.201,220.982,42.09,249.887,14.301,249.887z"/>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        </svg>
+                    </span>
+                </div>
+                <div class="card__footer">
+                    <span class="card__author">
+                        Josée B.
+                    </span>
+                        à propos du 
+                    <span class="card__type">
+                        Ring Cake Framboise
+                    </span>
+                </div>
             </div>
-            <div class="card__footer">
-                <span class="card__author">
-                    Agnès C.
-                </span>
-                    à propos du 
-                <span class="card__type">
-                    Gâteau Sonic
-                </span>
+            <div class="card">
+                <div class="card__text">
+                    <span class="card__quote-mark">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" xml:space="preserve">
+                        <g>
+                            <path d="M150.299,26.634v58.25c0,7.9-6.404,14.301-14.304,14.301c-28.186,0-43.518,28.909-45.643,85.966h45.643
+                                c7.9,0,14.304,6.407,14.304,14.304v122.992c0,7.896-6.404,14.298-14.304,14.298H14.301C6.398,336.745,0,330.338,0,322.447V199.455
+                                c0-27.352,2.754-52.452,8.183-74.611c5.568-22.721,14.115-42.587,25.396-59.048c11.608-16.917,26.128-30.192,43.16-39.44
+                                C93.886,17.052,113.826,12.333,136,12.333C143.895,12.333,150.299,18.734,150.299,26.634z M334.773,99.186
+                                c7.896,0,14.305-6.407,14.305-14.301v-58.25c0-7.9-6.408-14.301-14.305-14.301c-22.165,0-42.108,4.72-59.249,14.023
+                                c-17.035,9.248-31.563,22.523-43.173,39.44c-11.277,16.461-19.824,36.328-25.393,59.054c-5.426,22.166-8.18,47.266-8.18,74.605
+                                v122.992c0,7.896,6.406,14.298,14.304,14.298h121.69c7.896,0,14.299-6.407,14.299-14.298V199.455
+                                c0-7.896-6.402-14.304-14.299-14.304h-44.992C291.873,128.095,306.981,99.186,334.773,99.186z"/>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        </svg>
+                    </span>
+    
+                    <blockquote>
+                        Tout simplement délicieux.... on s'est sincèrement régalé, vraiment au top 😍😍😍 merci beaucoup pour Laora 😁
+                    </blockquote>
+                    
+                    <span class="card__quote-mark card__quote-mark--right">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" style="enable-background:new 0 0 349.078 349.078;" xml:space="preserve">
+                        <g>
+                            <path d="M198.779,322.441v-58.245c0-7.903,6.406-14.304,14.304-14.304c28.183,0,43.515-28.904,45.643-85.961h-45.643
+                                c-7.897,0-14.304-6.41-14.304-14.304V26.64c0-7.9,6.406-14.301,14.304-14.301h121.69c7.896,0,14.305,6.408,14.305,14.301v122.988
+                                c0,27.349-2.761,52.446-8.181,74.611c-5.568,22.722-14.115,42.587-25.398,59.049c-11.604,16.917-26.132,30.192-43.155,39.437
+                                c-17.152,9.304-37.09,14.026-59.267,14.026C205.186,336.745,198.779,330.338,198.779,322.441z M14.301,249.887
+                                C6.404,249.887,0,256.293,0,264.185v58.257c0,7.896,6.404,14.298,14.301,14.298c22.166,0,42.114-4.723,59.255-14.026
+                                c17.032-9.244,31.558-22.508,43.161-39.437c11.29-16.462,19.836-36.328,25.404-59.061c5.423-22.165,8.178-47.263,8.178-74.6V26.628
+                                c0-7.9-6.41-14.301-14.304-14.301H14.301C6.404,12.327,0,18.734,0,26.628v122.988c0,7.899,6.404,14.304,14.301,14.304h45.002
+                                C57.201,220.982,42.09,249.887,14.301,249.887z"/>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        </svg>
+                    </span>
+                </div>
+                <div class="card__footer">
+                    <span class="card__author">
+                        Agnès C.
+                    </span>
+                        à propos du 
+                    <span class="card__type">
+                        Gâteau Sonic
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="testimonials__container">
-        <div class="card">
-            <div class="card__text">
-                <span class="card__quote-mark">
-                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" xml:space="preserve">
-                    <g>
-                        <path d="M150.299,26.634v58.25c0,7.9-6.404,14.301-14.304,14.301c-28.186,0-43.518,28.909-45.643,85.966h45.643
-                            c7.9,0,14.304,6.407,14.304,14.304v122.992c0,7.896-6.404,14.298-14.304,14.298H14.301C6.398,336.745,0,330.338,0,322.447V199.455
-                            c0-27.352,2.754-52.452,8.183-74.611c5.568-22.721,14.115-42.587,25.396-59.048c11.608-16.917,26.128-30.192,43.16-39.44
-                            C93.886,17.052,113.826,12.333,136,12.333C143.895,12.333,150.299,18.734,150.299,26.634z M334.773,99.186
-                            c7.896,0,14.305-6.407,14.305-14.301v-58.25c0-7.9-6.408-14.301-14.305-14.301c-22.165,0-42.108,4.72-59.249,14.023
-                            c-17.035,9.248-31.563,22.523-43.173,39.44c-11.277,16.461-19.824,36.328-25.393,59.054c-5.426,22.166-8.18,47.266-8.18,74.605
-                            v122.992c0,7.896,6.406,14.298,14.304,14.298h121.69c7.896,0,14.299-6.407,14.299-14.298V199.455
-                            c0-7.896-6.402-14.304-14.299-14.304h-44.992C291.873,128.095,306.981,99.186,334.773,99.186z"/>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    </svg>
-                </span>
-
-                <blockquote>
-                    Il était super bon *_* et super beau !!! Merci beaucoup !!! J'ai déjà le thème pour l'an prochain 😝😝
-                </blockquote>
-                
-                <span class="card__quote-mark card__quote-mark--right">
-                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" style="enable-background:new 0 0 349.078 349.078;" xml:space="preserve">
-                    <g>
-                        <path d="M198.779,322.441v-58.245c0-7.903,6.406-14.304,14.304-14.304c28.183,0,43.515-28.904,45.643-85.961h-45.643
-                            c-7.897,0-14.304-6.41-14.304-14.304V26.64c0-7.9,6.406-14.301,14.304-14.301h121.69c7.896,0,14.305,6.408,14.305,14.301v122.988
-                            c0,27.349-2.761,52.446-8.181,74.611c-5.568,22.722-14.115,42.587-25.398,59.049c-11.604,16.917-26.132,30.192-43.155,39.437
-                            c-17.152,9.304-37.09,14.026-59.267,14.026C205.186,336.745,198.779,330.338,198.779,322.441z M14.301,249.887
-                            C6.404,249.887,0,256.293,0,264.185v58.257c0,7.896,6.404,14.298,14.301,14.298c22.166,0,42.114-4.723,59.255-14.026
-                            c17.032-9.244,31.558-22.508,43.161-39.437c11.29-16.462,19.836-36.328,25.404-59.061c5.423-22.165,8.178-47.263,8.178-74.6V26.628
-                            c0-7.9-6.41-14.301-14.304-14.301H14.301C6.404,12.327,0,18.734,0,26.628v122.988c0,7.899,6.404,14.304,14.301,14.304h45.002
-                            C57.201,220.982,42.09,249.887,14.301,249.887z"/>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    </svg>
-                </span>
+        <div class="testimonials__container">
+            <div class="card">
+                <div class="card__text">
+                    <span class="card__quote-mark">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" xml:space="preserve">
+                        <g>
+                            <path d="M150.299,26.634v58.25c0,7.9-6.404,14.301-14.304,14.301c-28.186,0-43.518,28.909-45.643,85.966h45.643
+                                c7.9,0,14.304,6.407,14.304,14.304v122.992c0,7.896-6.404,14.298-14.304,14.298H14.301C6.398,336.745,0,330.338,0,322.447V199.455
+                                c0-27.352,2.754-52.452,8.183-74.611c5.568-22.721,14.115-42.587,25.396-59.048c11.608-16.917,26.128-30.192,43.16-39.44
+                                C93.886,17.052,113.826,12.333,136,12.333C143.895,12.333,150.299,18.734,150.299,26.634z M334.773,99.186
+                                c7.896,0,14.305-6.407,14.305-14.301v-58.25c0-7.9-6.408-14.301-14.305-14.301c-22.165,0-42.108,4.72-59.249,14.023
+                                c-17.035,9.248-31.563,22.523-43.173,39.44c-11.277,16.461-19.824,36.328-25.393,59.054c-5.426,22.166-8.18,47.266-8.18,74.605
+                                v122.992c0,7.896,6.406,14.298,14.304,14.298h121.69c7.896,0,14.299-6.407,14.299-14.298V199.455
+                                c0-7.896-6.402-14.304-14.299-14.304h-44.992C291.873,128.095,306.981,99.186,334.773,99.186z"/>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        </svg>
+                    </span>
+    
+                    <blockquote>
+                        Il était super bon *_* et super beau !!! Merci beaucoup !!! J'ai déjà le thème pour l'an prochain 😝😝
+                    </blockquote>
+                    
+                    <span class="card__quote-mark card__quote-mark--right">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" style="enable-background:new 0 0 349.078 349.078;" xml:space="preserve">
+                        <g>
+                            <path d="M198.779,322.441v-58.245c0-7.903,6.406-14.304,14.304-14.304c28.183,0,43.515-28.904,45.643-85.961h-45.643
+                                c-7.897,0-14.304-6.41-14.304-14.304V26.64c0-7.9,6.406-14.301,14.304-14.301h121.69c7.896,0,14.305,6.408,14.305,14.301v122.988
+                                c0,27.349-2.761,52.446-8.181,74.611c-5.568,22.722-14.115,42.587-25.398,59.049c-11.604,16.917-26.132,30.192-43.155,39.437
+                                c-17.152,9.304-37.09,14.026-59.267,14.026C205.186,336.745,198.779,330.338,198.779,322.441z M14.301,249.887
+                                C6.404,249.887,0,256.293,0,264.185v58.257c0,7.896,6.404,14.298,14.301,14.298c22.166,0,42.114-4.723,59.255-14.026
+                                c17.032-9.244,31.558-22.508,43.161-39.437c11.29-16.462,19.836-36.328,25.404-59.061c5.423-22.165,8.178-47.263,8.178-74.6V26.628
+                                c0-7.9-6.41-14.301-14.304-14.301H14.301C6.404,12.327,0,18.734,0,26.628v122.988c0,7.899,6.404,14.304,14.301,14.304h45.002
+                                C57.201,220.982,42.09,249.887,14.301,249.887z"/>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        </svg>
+                    </span>
+                </div>
+                <div class="card__footer">
+                    <span class="card__author">
+                        Caroline F.
+                    </span>
+                        à propos du 
+                    <span class="card__type">
+                        Gâteau Ronflex
+                    </span>
+                </div>
             </div>
-            <div class="card__footer">
-                <span class="card__author">
-                    Caroline F.
-                </span>
-                    à propos du 
-                <span class="card__type">
-                    Gâteau Ronflex
-                </span>
+            <div class="card">
+                <div class="card__text">
+                    <span class="card__quote-mark">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" xml:space="preserve">
+                        <g>
+                            <path d="M150.299,26.634v58.25c0,7.9-6.404,14.301-14.304,14.301c-28.186,0-43.518,28.909-45.643,85.966h45.643
+                                c7.9,0,14.304,6.407,14.304,14.304v122.992c0,7.896-6.404,14.298-14.304,14.298H14.301C6.398,336.745,0,330.338,0,322.447V199.455
+                                c0-27.352,2.754-52.452,8.183-74.611c5.568-22.721,14.115-42.587,25.396-59.048c11.608-16.917,26.128-30.192,43.16-39.44
+                                C93.886,17.052,113.826,12.333,136,12.333C143.895,12.333,150.299,18.734,150.299,26.634z M334.773,99.186
+                                c7.896,0,14.305-6.407,14.305-14.301v-58.25c0-7.9-6.408-14.301-14.305-14.301c-22.165,0-42.108,4.72-59.249,14.023
+                                c-17.035,9.248-31.563,22.523-43.173,39.44c-11.277,16.461-19.824,36.328-25.393,59.054c-5.426,22.166-8.18,47.266-8.18,74.605
+                                v122.992c0,7.896,6.406,14.298,14.304,14.298h121.69c7.896,0,14.299-6.407,14.299-14.298V199.455
+                                c0-7.896-6.402-14.304-14.299-14.304h-44.992C291.873,128.095,306.981,99.186,334.773,99.186z"/>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        </svg>
+                    </span>
+    
+                    <blockquote>
+                        Un grand grand merci pour ce superbe gâteau ❤️
+                    </blockquote>
+                    
+                    <span class="card__quote-mark card__quote-mark--right">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" style="enable-background:new 0 0 349.078 349.078;" xml:space="preserve">
+                        <g>
+                            <path d="M198.779,322.441v-58.245c0-7.903,6.406-14.304,14.304-14.304c28.183,0,43.515-28.904,45.643-85.961h-45.643
+                                c-7.897,0-14.304-6.41-14.304-14.304V26.64c0-7.9,6.406-14.301,14.304-14.301h121.69c7.896,0,14.305,6.408,14.305,14.301v122.988
+                                c0,27.349-2.761,52.446-8.181,74.611c-5.568,22.722-14.115,42.587-25.398,59.049c-11.604,16.917-26.132,30.192-43.155,39.437
+                                c-17.152,9.304-37.09,14.026-59.267,14.026C205.186,336.745,198.779,330.338,198.779,322.441z M14.301,249.887
+                                C6.404,249.887,0,256.293,0,264.185v58.257c0,7.896,6.404,14.298,14.301,14.298c22.166,0,42.114-4.723,59.255-14.026
+                                c17.032-9.244,31.558-22.508,43.161-39.437c11.29-16.462,19.836-36.328,25.404-59.061c5.423-22.165,8.178-47.263,8.178-74.6V26.628
+                                c0-7.9-6.41-14.301-14.304-14.301H14.301C6.404,12.327,0,18.734,0,26.628v122.988c0,7.899,6.404,14.304,14.301,14.304h45.002
+                                C57.201,220.982,42.09,249.887,14.301,249.887z"/>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        </svg>
+                    </span>
+                </div>
+                <div class="card__footer">
+                    <span class="card__author">
+                        Valérie P.
+                    </span>
+                        à propos du 
+                    <span class="card__type">
+                        Rainbow Cake
+                    </span>
+                </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card__text">
-                <span class="card__quote-mark">
-                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" xml:space="preserve">
-                    <g>
-                        <path d="M150.299,26.634v58.25c0,7.9-6.404,14.301-14.304,14.301c-28.186,0-43.518,28.909-45.643,85.966h45.643
-                            c7.9,0,14.304,6.407,14.304,14.304v122.992c0,7.896-6.404,14.298-14.304,14.298H14.301C6.398,336.745,0,330.338,0,322.447V199.455
-                            c0-27.352,2.754-52.452,8.183-74.611c5.568-22.721,14.115-42.587,25.396-59.048c11.608-16.917,26.128-30.192,43.16-39.44
-                            C93.886,17.052,113.826,12.333,136,12.333C143.895,12.333,150.299,18.734,150.299,26.634z M334.773,99.186
-                            c7.896,0,14.305-6.407,14.305-14.301v-58.25c0-7.9-6.408-14.301-14.305-14.301c-22.165,0-42.108,4.72-59.249,14.023
-                            c-17.035,9.248-31.563,22.523-43.173,39.44c-11.277,16.461-19.824,36.328-25.393,59.054c-5.426,22.166-8.18,47.266-8.18,74.605
-                            v122.992c0,7.896,6.406,14.298,14.304,14.298h121.69c7.896,0,14.299-6.407,14.299-14.298V199.455
-                            c0-7.896-6.402-14.304-14.299-14.304h-44.992C291.873,128.095,306.981,99.186,334.773,99.186z"/>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    </svg>
-                </span>
-
-                <blockquote>
-                    Un grand grand merci pour ce superbe gâteau ❤️
-                </blockquote>
-                
-                <span class="card__quote-mark card__quote-mark--right">
-                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 349.078 349.078" style="enable-background:new 0 0 349.078 349.078;" xml:space="preserve">
-                    <g>
-                        <path d="M198.779,322.441v-58.245c0-7.903,6.406-14.304,14.304-14.304c28.183,0,43.515-28.904,45.643-85.961h-45.643
-                            c-7.897,0-14.304-6.41-14.304-14.304V26.64c0-7.9,6.406-14.301,14.304-14.301h121.69c7.896,0,14.305,6.408,14.305,14.301v122.988
-                            c0,27.349-2.761,52.446-8.181,74.611c-5.568,22.722-14.115,42.587-25.398,59.049c-11.604,16.917-26.132,30.192-43.155,39.437
-                            c-17.152,9.304-37.09,14.026-59.267,14.026C205.186,336.745,198.779,330.338,198.779,322.441z M14.301,249.887
-                            C6.404,249.887,0,256.293,0,264.185v58.257c0,7.896,6.404,14.298,14.301,14.298c22.166,0,42.114-4.723,59.255-14.026
-                            c17.032-9.244,31.558-22.508,43.161-39.437c11.29-16.462,19.836-36.328,25.404-59.061c5.423-22.165,8.178-47.263,8.178-74.6V26.628
-                            c0-7.9-6.41-14.301-14.304-14.301H14.301C6.404,12.327,0,18.734,0,26.628v122.988c0,7.899,6.404,14.304,14.301,14.304h45.002
-                            C57.201,220.982,42.09,249.887,14.301,249.887z"/>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    </svg>
-                </span>
-            </div>
-            <div class="card__footer">
-                <span class="card__author">
-                    Valérie P.
-                </span>
-                    à propos du 
-                <span class="card__type">
-                    Rainbow Cake
-                </span>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+</ng-template>

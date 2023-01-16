@@ -49,7 +49,8 @@ export class DashboardComponent implements OnInit {
       .subscribe({
         next: (v) => {
           this.orders = v;
-        }
+        },
+        error: (err) => console.log(err)
       })
     }
 

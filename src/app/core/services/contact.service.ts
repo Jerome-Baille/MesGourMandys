@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Orders } from '../models/orders';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
-  baseUrl = 'https://backend-mesgourmandys.onrender.com/api'
+  baseUrl = 'https://backend-mesgourmandys.onrender.com/api/order'
   // baseUrl = 'http://localhost:3000/api/order'
   
   constructor(
@@ -30,8 +32,8 @@ export class ContactService {
     return this.http.get(this.baseUrl+`/${userId}`);
   }
 
-  getAllOrders() {
-    return this.http.get(this.baseUrl);
+  getAllOrders(): Observable<Orders[]> {
+    return this.http.get<Orders[]>(this.baseUrl);
   }
 
   updateOrder(orderId: any, data: any) {

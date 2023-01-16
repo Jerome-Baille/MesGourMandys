@@ -4,22 +4,27 @@ import { UpdateProductComponent } from './components/update-product/update-produ
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CoreModule } from '../core/core.module';
+import { CardProductComponent } from './components/card-product/card-product.component';
+import { RouterModule } from '@angular/router';
 
 
 
 @NgModule({
   declarations: [
-    UpdateProductComponent
+    UpdateProductComponent,
+    CardProductComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     FontAwesomeModule,
-    CoreModule
+    CoreModule,
+    RouterModule
   ],
   exports: [
-    UpdateProductComponent
+    UpdateProductComponent,
+    CardProductComponent
   ]
 })
 export class SharedModule { }

@@ -1,135 +1,142 @@
-<section class="main-container">
-    <main class="main">
-        <div class="img-container">
-            <img [src]="userProfile?.avatar ? userProfile.avatar : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'" alt="">
-        </div>
-        <form [formGroup]="userProfileForm" class="form">  
-            <div class="form-group">
-                <label for="firstName">Prénom : </label>
-                <input 
-                    id="firstName" 
-                    type="text" 
-                    name="firstName"
-                    formControlName="firstName" 
-                    placeholder="{{ userProfile?.firstName? userProfile.firstName : 'Prénom' }}"
-                    value="{{ userProfile?.firstName? userProfile.firstName : '' }}"
-                    [ngStyle]="{'border': formSubmitted && userProfileForm.get('firstName')!.invalid ? '1px solid red' : ''}"
-                >
-                <span *ngIf="formSubmitted && userProfileForm.get('firstName')!.invalid" class="helperContainer">
-                    Merci de fournir un prénom.
-                </span>
-            </div>
-            <div class="form-group">
-                <label for="lastName">Nom de famille : </label>
-                <input 
-                    id="lastName" 
-                    type="text" 
-                    name="lastName"
-                    formControlName="lastName" 
-                    placeholder="{{ userProfile?.lastName? userProfile.lastName : 'Nom de famille' }}"
-                    value="{{ userProfile?.lastName? userProfile.lastName : '' }}"
-                    [ngStyle]="{'border': formSubmitted && userProfileForm.get('lastName')!.invalid ? '1px solid red' : ''}"
-                >
-                <span *ngIf="formSubmitted && userProfileForm.get('lastName')!.invalid" class="helperContainer">
-                    Merci de fournir un nom de famille.
-                </span>
-            </div>
-            <div class="form-group">
-                <label for="email">E-mail : </label>
-                <input 
-                    id="email" 
-                    type="email" 
-                    name="email"
-                    formControlName="email" 
-                    placeholder="{{ userProfile?.email? userProfile.email : 'adresse e-mail' }}"
-                    value="{{ userProfile?.email? userProfile.email : '' }}"
-                    [ngStyle]="{'border': formSubmitted && userProfileForm.get('email')!.invalid ? '1px solid red' : ''}"
-                >
-                <span *ngIf="formSubmitted && userProfileForm.get('email')!.invalid" class="helperContainer">
-                    Merci de fournir une adresse e-mail valide.
-                </span>
-            </div>
-            <div class="form-group">
-                <label for="phone">Téléphone : </label>
-                <input 
-                    id="phone" 
-                    type="phone" 
-                    name="phone"
-                    formControlName="phone" 
-                    placeholder="{{ userProfile?.phone? userProfile.phone : 'Numéro de téléphone' }}"
-                    value="{{ userProfile?.phone? userProfile.phone : '' }}"
-                    [ngStyle]="{'border': formSubmitted && userProfileForm.get('phone')!.invalid ? '1px solid red' : ''}"
-                >
-                <span *ngIf="formSubmitted && userProfileForm.get('phone')!.invalid" class="helperContainer">
-                    Merci de fournir un numéro de téléphone valide.
-                </span>
-            </div>
-            <div class="form-group">
-                <label for="address">Adresse : </label>
-                <input 
-                    id="address" 
-                    type="text" 
-                    name="address"
-                    formControlName="address" 
-                    placeholder="{{ userProfile?.address? userProfile.address : 'Adresse postale' }}"
-                    value="{{ userProfile?.address? userProfile.address : '' }}"
-                    [ngStyle]="{'border': formSubmitted && userProfileForm.get('address')!.invalid ? '1px solid red' : ''}"
-                >
-                <span *ngIf="formSubmitted && userProfileForm.get('address')!.invalid" class="helperContainer">
-                    Merci de fournir une adresse valide.
-                </span>
-            </div>
-            <div class="form-group">
-                <label for="city">Ville : </label>
-                <input 
-                    id="city" 
-                    type="text" 
-                    name="city"
-                    formControlName="city" 
-                    placeholder="{{ userProfile?.city? userProfile.city : 'Ville' }}"
-                    value="{{ userProfile?.city? userProfile.city : '' }}"
-                    [ngStyle]="{'border': formSubmitted && userProfileForm.get('city')!.invalid ? '1px solid red' : ''}"
-                >
-                <span *ngIf="formSubmitted && userProfileForm.get('city')!.invalid" class="helperContainer">
-                    Merci de fournir une ville valide.
-                </span>
-            </div>
-            <div class="form-group">
-                <label for="zipCode">Code postal : </label>
-                <input 
-                    id="zipCode" 
-                    type="text" 
-                    name="zipCode"
-                    formControlName="zipCode" 
-                    placeholder="{{ userProfile?.zipCode? userProfile.zipCode : 'Code postal' }}"
-                    value="{{ userProfile?.zipCode? userProfile.zipCode : '' }}"
-                    [ngStyle]="{'border': formSubmitted && userProfileForm.get('zipCode')!.invalid ? '1px solid red' : ''}"
-                >
-                <span *ngIf="formSubmitted && userProfileForm.get('zipCode')!.invalid" class="helperContainer">
-                    Merci de fournir un code postal valide.
-                </span>
-            </div>
-            <div class="form-group__buttons">
-                <button
-                    class="btn-action" 
-                    type="submit" 
-                    (click)="onProfileUpdate()" 
-                    
-                >
-                    Modifier
-                </button>
-            </div>
-        </form>
-    </main>
-    <aside class="aside">
-        <button 
-            class="btn-action"
-            (click)="onLogout()"
-            *ngIf="router.url === '/auth/profil'"
-        >
-            <fa-icon [icon]="faSignOutAlt"></fa-icon>
-        </button>
+<section class="logout">
+    <button 
+        class="logout__btn btn-action"
+        (click)="onLogout()"
+        *ngIf="router.url === '/auth/profil'"
+    >
+        <span class="logout__text">Déconnexion</span>
+        <fa-icon [icon]="faSignOutAlt"></fa-icon>
+    </button>
+</section>
 
+<section class="profile">
+    <main class="main">
+        <h2>Mon Profil</h2>
+        <div class="main__body">
+            <div class="img-container">
+                <img [src]="userProfile?.avatar ? userProfile.avatar : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'" alt="">
+            </div>
+            <form [formGroup]="userProfileForm" class="form">  
+                <div class="form-group">
+                    <label for="firstName">Prénom : </label>
+                    <input 
+                        id="firstName" 
+                        type="text" 
+                        name="firstName"
+                        formControlName="firstName" 
+                        placeholder="{{ userProfile?.firstName? userProfile.firstName : 'Prénom' }}"
+                        value="{{ userProfile?.firstName? userProfile.firstName : '' }}"
+                        [ngStyle]="{'border': formSubmitted && userProfileForm.get('firstName')!.invalid ? '1px solid red' : ''}"
+                    >
+                    <span *ngIf="formSubmitted && userProfileForm.get('firstName')!.invalid" class="helperContainer">
+                        Merci de fournir un prénom.
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Nom de famille : </label>
+                    <input 
+                        id="lastName" 
+                        type="text" 
+                        name="lastName"
+                        formControlName="lastName" 
+                        placeholder="{{ userProfile?.lastName? userProfile.lastName : 'Nom de famille' }}"
+                        value="{{ userProfile?.lastName? userProfile.lastName : '' }}"
+                        [ngStyle]="{'border': formSubmitted && userProfileForm.get('lastName')!.invalid ? '1px solid red' : ''}"
+                    >
+                    <span *ngIf="formSubmitted && userProfileForm.get('lastName')!.invalid" class="helperContainer">
+                        Merci de fournir un nom de famille.
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail : </label>
+                    <input 
+                        id="email" 
+                        type="email" 
+                        name="email"
+                        formControlName="email" 
+                        placeholder="{{ userProfile?.email? userProfile.email : 'adresse e-mail' }}"
+                        value="{{ userProfile?.email? userProfile.email : '' }}"
+                        [ngStyle]="{'border': formSubmitted && userProfileForm.get('email')!.invalid ? '1px solid red' : ''}"
+                    >
+                    <span *ngIf="formSubmitted && userProfileForm.get('email')!.invalid" class="helperContainer">
+                        Merci de fournir une adresse e-mail valide.
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Téléphone : </label>
+                    <input 
+                        id="phone" 
+                        type="phone" 
+                        name="phone"
+                        formControlName="phone" 
+                        placeholder="{{ userProfile?.phone? userProfile.phone : 'Numéro de téléphone' }}"
+                        value="{{ userProfile?.phone? userProfile.phone : '' }}"
+                        [ngStyle]="{'border': formSubmitted && userProfileForm.get('phone')!.invalid ? '1px solid red' : ''}"
+                    >
+                    <span *ngIf="formSubmitted && userProfileForm.get('phone')!.invalid" class="helperContainer">
+                        Merci de fournir un numéro de téléphone valide.
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="address">Adresse : </label>
+                    <input 
+                        id="address" 
+                        type="text" 
+                        name="address"
+                        formControlName="address" 
+                        placeholder="{{ userProfile?.address? userProfile.address : 'Adresse postale' }}"
+                        value="{{ userProfile?.address? userProfile.address : '' }}"
+                        [ngStyle]="{'border': formSubmitted && userProfileForm.get('address')!.invalid ? '1px solid red' : ''}"
+                    >
+                    <span *ngIf="formSubmitted && userProfileForm.get('address')!.invalid" class="helperContainer">
+                        Merci de fournir une adresse valide.
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="city">Ville : </label>
+                    <input 
+                        id="city" 
+                        type="text" 
+                        name="city"
+                        formControlName="city" 
+                        placeholder="{{ userProfile?.city? userProfile.city : 'Ville' }}"
+                        value="{{ userProfile?.city? userProfile.city : '' }}"
+                        [ngStyle]="{'border': formSubmitted && userProfileForm.get('city')!.invalid ? '1px solid red' : ''}"
+                    >
+                    <span *ngIf="formSubmitted && userProfileForm.get('city')!.invalid" class="helperContainer">
+                        Merci de fournir une ville valide.
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="zipCode">Code postal : </label>
+                    <input 
+                        id="zipCode" 
+                        type="text" 
+                        name="zipCode"
+                        formControlName="zipCode" 
+                        placeholder="{{ userProfile?.zipCode? userProfile.zipCode : 'Code postal' }}"
+                        value="{{ userProfile?.zipCode? userProfile.zipCode : '' }}"
+                        [ngStyle]="{'border': formSubmitted && userProfileForm.get('zipCode')!.invalid ? '1px solid red' : ''}"
+                    >
+                    <span *ngIf="formSubmitted && userProfileForm.get('zipCode')!.invalid" class="helperContainer">
+                        Merci de fournir un code postal valide.
+                    </span>
+                </div>
+                <div class="form-group__buttons">
+                    <button
+                        class="btn-action" 
+                        type="submit" 
+                        (click)="onProfileUpdate()" 
+                        
+                    >
+                        Modifier
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <aside class="aside">
         <h2>Commandes passées</h2>
 
         <div class="orderslist" *ngIf="userOrders?.length!=0; else noOrders">
@@ -168,10 +175,10 @@
             <p>Aucune commande passée.</p>
         </ng-template>
     </aside>
+</section>
 
-    <span
-        class="deleteAccount"
-    >
+<section class="deleteAccount">
+    <span>
         Vous souhaitez supprimer votre compte ? 
         <button
             class="deleteAccount__btn"
@@ -181,5 +188,6 @@
         </button>
     </span>
 </section>
+
 
 <app-toast></app-toast>
