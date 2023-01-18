@@ -7,4 +7,7 @@ export class Products {
     sku?: String;
     description?: String;
     allergens?: String;
+    isActive?: Boolean;
+    popular?: Boolean;
+    highlight?: Boolean;
   }

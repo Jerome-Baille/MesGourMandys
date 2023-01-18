@@ -16,7 +16,7 @@
         </button>
     </div>
     <div class="card__img">
-        <a [routerLink]="['/detail/', product.id]" class="card__link"></a>
+        <a *ngIf="infoLength === 'short'" [routerLink]="['/detail/', product.id]" class="card__link"></a>
         <img 
             [src]="imgRes === 'low'? product.thumbImage : product.image"
             loading="lazy" 
@@ -25,7 +25,7 @@
         >
     </div>
     <div class="card__content">
-        <a [routerLink]="['/detail/', product.id]" class="card__link"></a>
+        <a *ngIf="infoLength === 'short'" [routerLink]="['/detail/', product.id]" class="card__link"></a>
         <h3>
             {{product.title}}
         </h3>
@@ -46,7 +46,11 @@
                 <span>Prix : </span>
             </div>
             <div class="card__price__value">
-                <span>{{product.price}}€</span>
+                <span>{{product.price}}€ </span>
+                <!-- Insert a span that multiply the product.price by the quantity if the value of the quantity input is greater than 1 -->
+                <span *ngIf="orderForm.get('quantity')?.value > 1">
+                    ( x {{ orderForm.get('quantity')?.value }} = {{ getTotalPrice() }}€)
+                </span>
             </div>
         </div>
         <div class="card__cart" *ngIf="infoLength === 'long'">
@@ -61,9 +65,8 @@
                                 class="card__quantity__btn"
                                 (click)="removeQuantity()"
                             >
-                                -
+                                <fa-icon [icon]="faMinusSquare"></fa-icon>
                             </button>
-                    
                             <input 
                                 type="number" 
                                 id="quantity" 
@@ -74,9 +77,10 @@
                                 value="1"
                             >
                             <button
+                                class="card__quantity__btn"
                                 (click)="addQuantity()"
                             >
-                                +
+                                <fa-icon [icon]="faPlusSquare"></fa-icon>
                             </button>
                         </div>
                     </div>

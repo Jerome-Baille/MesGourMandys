@@ -1,160 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+// Import all the variables and mixins
+@import 'Sass/Utils/Variables.scss';
 
-@font-face {
-    font-family: 'ARDECODE';
-    src: url('assets/fonts/ARDECODE.ttf');
-}
+// Import all the base styles
+@import 'Sass/Base/Base.scss';
+@import 'Sass/Base/Typography.scss';
 
+// Import all the layout styles
+@import 'Sass/Layout/Container.scss';
 
-$accentColor: #E58F6C;
-$bgColor: #f6d8cc;
-$primaryColor: #5a3a22;
+// Import all the modules
+@import 'Sass/Modules/Buttons.scss';
+@import 'Sass/Modules/Card.scss';
+@import 'Sass/Modules/Breadcrumb.scss';
 
-* {
-    box-sizing: border-box;
-    font-family: 'Raleway', sans-serif;
-}
+// Import all the pages
+@import 'Sass/Layout/Header.scss';
+@import 'Sass/Layout/Footer.scss';
 
-body {
-    margin: 0;
-    padding: 0;
-}
-
-p {
-    margin: 0;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-
-    &:hover {
-        color: $accentColor;
-        font-weight: bold;
-    }
-}
-
-.text-accent {
-    color: $accentColor;
-    font-weight: bold;
-}
-
-fa-icon{
-    font-size: 1.5rem;
-}
-
-.main-container {
-    max-width: 1400px;
-    margin: 0 auto 20px auto;
-    padding: 0 20px;
-
-    &:not(:first-of-type){
-        margin-bottom: 60px;
-    }
-}
-
-.btn-nav {
-    background: transparent;
-    color: $primaryColor;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-        color: #fff;
-        filter: drop-shadow(0 0 10px rgb(90 58 34 / 70%));
-    }
-
-    &.active {
-        color: #fff;
-        filter: drop-shadow(0 0 10px rgb(90 58 34 / 70%));
-    }
-}
-
-.btn-socials {
-    background: transparent;
-    color: $primaryColor;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-        color: #fff;
-        filter: drop-shadow(0 0 10px rgb(90 58 34 / 70%));
-    }
-}
-
-.btn-hamburger {
-    background: transparent;
-    color: $primaryColor;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    @media screen and (min-width: 768px) {
-        display: none;
-    }
-
-    &:hover {
-        color: #fff;
-        filter: drop-shadow(0 0 10px rgb(90 58 34 / 70%));
-    } 
-}
-
-.btn-card {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: all 0.3s ease-in-out;
-    font-size: 1rem;
-
-    &:hover {
-        border-radius: 8px;
-        box-shadow: 0 0 10px 0 $accentColor;
-    }
-}
-
-.btn-action {
-    width: fit-content;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: $accentColor;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 1.25rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-        color: #fff;
-        background-color: darken($accentColor, 25%);
-    }
-
-    &:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-    }
-}
-
-.img-container {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-
-    & img {
-        width: 100%;
-        height: 100%;
-    }
-}
+@import 'Sass/Pages/Product-list.scss';
+@import 'Sass/Pages/Auth.scss';

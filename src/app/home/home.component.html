@@ -3,6 +3,60 @@
 <ng-template #loaded>
     <section *ngFor="let highlight of highlight$ | async" id="hero" class="hero">
         <div class="hero__text">
+            <div *ngIf="isAdmin" class="card__admin">
+                <button
+                    class="btn-socials"
+                    (click)="editProduct(highlight)"
+                    *ngIf="isAdmin"
+                >
+                    <fa-icon [icon]="faPenSquare"></fa-icon>
+                </button>
+                <button 
+                    class="btn-socials"
+                    (click)="removeProduct(highlight)"
+                    *ngIf="isAdmin"
+                >
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+            </div>
+            <div class="card__content">
+                <a [routerLink]="['/detail/', highlight.id]" class="card__link"></a>
+                <h3>
+                    {{highlight.title}}
+                </h3>
+                <p class="card__description">
+                    {{ highlight.description }}
+                </p>
+                <div class="card__content__footer">
+                    <span class="card__sku">SKU : {{ highlight.sku }}</span>
+                    <span>
+                        <span class="text-accent">Allergènes : </span>
+                        {{ highlight.allergens }}
+                    </span>
+                </div>
+            </div>
+            <div class="card__footer">
+                <div class="card__price">
+                    <div class="card__price__tag">
+                        <span>Prix : </span>
+                    </div>
+                    <div class="card__price__value">
+                        <span>{{highlight.price}}€ </span>
+                    </div>
+                </div>
+                <div class="card__cart">
+                    <button
+                        class="btn-action card__cart__btn-order"
+                        (click)="addTocart(highlight)"
+                    >
+                        Ajouter au panier
+                    </button>
+                </div>
+            </div>
+        </div>
+       
+
+        <!-- <div class="hero__text">
             <div class="hero__main">
                 <h1 class="hero__title">
                     {{ highlight.title }}
@@ -19,7 +73,9 @@
             <a [routerLink]="['/detail/', highlight.id]" class="btn-action">
                 Commander
             </a>
-        </div>
+        </div> -->
+
+
         <div class="img-container">
             <img 
                 [src]="highlight.thumbImage" 
@@ -46,6 +102,9 @@
             </button>
         </div>
     </section>
+
+    <app-update-product *ngIf='updateBoolean' [product]="updateProduct" (close)="triggerEventClose($event)"></app-update-product>
+    <app-toast></app-toast>
     
     <section id="about" class="about">
         <div class="blob">

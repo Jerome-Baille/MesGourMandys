@@ -28,6 +28,11 @@ $primaryColor: #5a3a22;
         padding-top: 35px;
         font-size: 22px;
         text-align: right;
+
+        @media screen and (max-width: 768px) {
+            padding: 35px;
+            text-align: center;
+        }
         // display: flex;
         // justify-content: space-between;
         // align-items: center;
@@ -58,6 +63,7 @@ $primaryColor: #5a3a22;
         @media screen and (max-width: 768px) {
             flex-direction: column;
             align-items: center;
+            padding: 0;
         }
     
         &__left {
@@ -173,14 +179,43 @@ $primaryColor: #5a3a22;
 }
 
 .cart{
+    &__title {
+        font-size: 2.5rem;
+        text-align: center;
+    }
     &__table{
         width: 100%;
         border-collapse: collapse;
+        background-color: rgba(255, 255, 255, 0.6);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgb(0 0 0 / 60%);
+
+        & thead {
+            background-color: $accentColor;
+            color: white;
+            border-radius: 8px;
+        }
 
         td, th {
-            border: 1px solid $primaryColor;
-            padding: 8px;
+            padding: 20px;
             text-align: center;
+
+            @media screen and (max-width: 768px) {
+                padding: 0;
+            }
+        }
+
+        tbody tr {
+            border-top: 1px solid $accentColor;    
+        }
+
+        tr:nth-child(even) {
+            background-color: lighten($primaryColor, 60%)
+        }
+
+        & .card__quantity__value {
+            border: none !important;
         }
 
         @media screen and (min-width: 768px) {
@@ -227,10 +262,25 @@ $primaryColor: #5a3a22;
             }
         }
 
+        &__image {
+            @media screen and (max-width: 768px) {
+                padding: 10px !important;
+
+                .img-container {
+                    border-radius: 8px;
+                    overflow: hidden;
+                }
+            }
+        }
+
         &__content {
             display: flex;
             flex-direction: column;
             row-gap: 1rem;
+
+            @media screen and (max-width: 768px) {
+                padding: 10px 20px !important;
+            }
         }
 
         &__footer {

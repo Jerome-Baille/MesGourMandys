@@ -13,80 +13,9 @@
         </button>
     </section>
 
-    <section class="card">
+    <section>
         <app-card-product [product]="product"></app-card-product>
     </section>
-
-    <!-- <section class="card">
-        <div class="img-container">
-            <img 
-                src={{product.image}} 
-                loading="lazy" 
-                crossorigin="anonymous"
-                alt={{product.title}}>
-        </div>
-        <div class="card__text">
-            <div class="card__main">
-                <h1 class="card__title">
-                    {{ product.title }}
-                    <span class="card__price">{{ product.price }}€</span>
-                </h1>
-                <div class="card__sku">
-                    SKU : 
-                    <span>{{ product.sku }}</span>
-                </div>
-                <p class="card__description">
-                    {{ product.description }}
-                </p>
-            </div>
-            <div>
-                <span class="text-accent">Allergènes : </span>
-                <span>{{ product.allergens }}</span>
-            </div>
-
-            <div class="card__order">
-                <form [formGroup]="orderForm">
-                    <div class="card__order__quantity">
-                        <label for="quantity">Quantité</label>
-                        <input 
-                            type="number" 
-                            id="quantity" 
-                            name="quantity" 
-                            formControlName="quantity"
-                            min="1" 
-                            max="10" 
-                            value="1"
-                        >
-                    </div>
-                    <button 
-                        class="btn-action card__action"
-                        type="submit"
-                        (click)="onOrder()"
-                    >
-                        Ajouter au panier
-                    </button>
-                </form>
-            </div>
-        </div>
-        <div class="card__admin-btn">
-            <button
-                class="btn-socials"
-                (click)="editProduct(product)"
-                *ngIf="isAdmin"
-            >
-                <fa-icon [icon]="faPenSquare"></fa-icon>
-            </button>
-            <button 
-                class="btn-socials"
-                (click)="removeProduct(product)"
-                *ngIf="isAdmin"
-            >
-                <fa-icon [icon]="faTrash"></fa-icon>
-            </button>
-        </div>
-
-        <app-update-product *ngIf='updateBoolean' [product]="updateProduct" (close)="triggerEventClose($event)"></app-update-product>
-    </section> -->
 </ng-template>
 
 <app-toast></app-toast>

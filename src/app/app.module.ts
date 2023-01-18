@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,11 @@ import { SharedModule } from './shared/shared.module';
 import { httpInterceptorProviders } from './interceptors';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
+
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr);
+
 
 @NgModule({
   declarations: [
@@ -43,7 +48,11 @@ import { OrderConfirmationComponent } from './order-confirmation/order-confirmat
   ],
   providers: [
     ContactService,
-    httpInterceptorProviders
+    httpInterceptorProviders,
+    {
+      provide: LOCALE_ID,
+      useValue: 'fr-FR'
+    }
   ],
   bootstrap: [AppComponent]
 })

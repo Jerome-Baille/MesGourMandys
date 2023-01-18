@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ContactService } from '../core/services/contact.service';
 import { Observable } from 'rxjs';
 import { Products } from '../core/models/products';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faMinusSquare, faPlusSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../core/services/auth.service';
 import { Users } from '../core/models/users';
 import { ToastService } from '../core/services/toast.service';
@@ -16,12 +16,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
+  formSubmitted: boolean = false;
   userId!: any;
   basket: any = [];
   cart: any = [];
   isLoaded: boolean = true;
   orderForm!: FormGroup;
   phoneRegex!: RegExp;
+  emailRegex!: RegExp;
 
   orderConfirmed: boolean = false;
   order: any = {};
@@ -30,6 +32,8 @@ export class CartComponent implements OnInit {
   user$!: Observable<Users>;
 
   faTrash = faTrash;
+  faMinusSquare = faMinusSquare;
+  faPlusSquare = faPlusSquare;
 
   constructor(
     private productsService: ProductsService,
@@ -40,12 +44,13 @@ export class CartComponent implements OnInit {
     private router: Router
   ) { 
     this.phoneRegex = /^(\+33|0)[1-9](\d{2}){4}$/;
+    this.emailRegex = /^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
 
     this.orderForm = this.formBuilder.group({
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]],
-      phone: [null, [Validators.required, Validators.pattern(this.phoneRegex)]],
+      email: [null, [Validators.required, Validators.pattern(this.emailRegex)]],
+      phone: [null, Validators.pattern(this.phoneRegex)],
       message: [null],
       
       products: this.formBuilder.array([]),
@@ -154,9 +159,15 @@ export class CartComponent implements OnInit {
   }
 
   onSubmit() {
+    this.formSubmitted = true;
     this.isLoaded = false;
     const { firstName, lastName, email, phone, message } = this.orderForm.value;
     const { totalPrice, totalQuantity } = this.cart;
+
+    if(this.orderForm.invalid) {
+      this.isLoaded = true;
+      return;
+    }
 
     // get each item in the cart
     const products = this.cart.map((item: any) => {

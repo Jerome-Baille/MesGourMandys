@@ -3,88 +3,127 @@
 <app-order-confirmation *ngIf="orderConfirmed" [order]="order"></app-order-confirmation>
 
 <main *ngIf="cart.length > 0">
-  <form [formGroup]="orderForm">
-    <div>
-      <h1>Votre panier</h1>
+  <form 
+    [formGroup]="orderForm"
+    (ngSubmit)="onSubmit(); formSubmitted = true"
+  >
+    <section class="cart">
+      <h1 class="cart__title">Votre panier</h1>
+      <table class="cart__table cart__table--md">
+          <thead>
+            <tr>
+              <th>Produit</th>
+              <th>Prix</th>
+              <th>Quantité</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of cart">
+              <td>
+                  <div class="cart__table__header">
+                      <img 
+                        [src]="item.thumbImage" 
+                        alt={{item.title}}
+                        crossorigin="anonymous" 
+                        />
+                      <span 
+                        class="cart__table__header__title"
+                        [routerLink]="['/detail/', item.id]"
+                      >
+                        {{ item.title }}
+                      </span>
+                  </div>
+              </td>
+              <td>{{ item.price | currency: 'EUR': 'symbol' }}</td>
+              <td>
+                  <div class="card__quantity__value">
+                      <button 
+                          (click)="onDecreaseQuantity(item.sku)" 
+                          class="btn btn-secondary"
+                      >
+                        <fa-icon [icon]="faMinusSquare"></fa-icon>
+                      </button>
+                      <input 
+                          type="number" 
+                          id="quantity" 
+                          name="quantity" 
+                          min="1" 
+                          max="10" 
+                          value={{item.quantity}}
+                      >
+                      <button 
+                          (click)="onAddQuantity(item.sku)" 
+                          class="btn btn-secondary"
+                      >
+                        <fa-icon [icon]="faPlusSquare"></fa-icon>
+                      </button>
+                  </div>
+              </td>
+              <td>{{ item.price * item.quantity | currency: 'EUR': 'symbol' }}</td>
+              <td>
+                  <button 
+                      class="btn-socials"
+                      (click)="onRemoveItem(item.sku)"
+                  >
+                      <fa-icon [icon]="faTrash"></fa-icon>
+                  </button>
+              </td>
+            </tr>
+          </tbody>
+      </table>
 
-      <section class="cart">
-        <table class="cart__table cart__table--md">
-            <thead>
-              <tr>
-                <th>Produit</th>
-                <th>Prix</th>
-                <th>Quantité</th>
-                <th>Total</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of cart">
-                <td>
-                    <div class="cart__table__header">
-                        <img 
-                          [src]="item.thumbImage" 
-                          alt={{item.title}}
-                          crossorigin="anonymous" 
-                          />
-                        <span 
-                          class="cart__table__header__title"
-                          [routerLink]="['/detail/', item.id]"
-                        >
-                          {{ item.title }}
-                        </span>
-                    </div>
-                </td>
-                <td>{{ item.price | currency: 'EUR': 'symbol' }}</td>
-                <td>
-                    <div class="cart__table__quantity">
-                        <button 
-                            (click)="onDecreaseQuantity(item.sku)" 
-                            class="btn btn-secondary"
-                        >
-                            -
-                        </button>
-                        <span>{{ item.quantity }}</span>
-                        <button 
-                            (click)="onAddQuantity(item.sku)" 
-                            class="btn btn-secondary"
-                        >
-                            +
-                        </button>
-                    </div>
-                </td>
-                <td>{{ item.price * item.quantity | currency: 'EUR': 'symbol' }}</td>
-                <td>
-                    <button 
-                        class="btn-socials"
-                        (click)="onRemoveItem(item.sku)"
-                    >
-                        <fa-icon [icon]="faTrash"></fa-icon>
-                    </button>
-                </td>
-              </tr>
-            </tbody>
-        </table>
-
-        <table class="cart__table cart__table--sm">
-          <tr *ngFor="let item of cart">
-            <td>
-              <div class="img-container">
-                <img 
-                  [src]="item.thumbImage" 
-                  alt={{item.title}}
-                  crossorigin="anonymous" 
-                  />
-              </div>
-            </td>
-            <td class="cart__table__content">
-              <div class="cart__table__header">   
-                <span 
-                  class="cart__table__header__title"
-                  [routerLink]="['/detail/', item.id]"
-                >
-                  {{ item.title }}
+      <table class="cart__table cart__table--sm">
+        <tr *ngFor="let item of cart; let i = index">
+          <td class="cart__table__image">
+            <div class="img-container">
+              <img 
+                [src]="item.thumbImage" 
+                alt={{item.title}}
+                crossorigin="anonymous" 
+                />
+            </div>
+          </td>
+          <td class="cart__table__content">
+            <span 
+              class="cart__table__header__title"
+              [routerLink]="['/detail/', item.id]"
+            >
+              {{ item.title }}
+            </span>
+            <div class="cart__table__price">
+              <span>
+                {{ item.price | currency: 'EUR': 'symbol' }} 
+                <span *ngIf="item.quantity>1">
+                  ( x {{item.quantity}} = {{ item.price * item.quantity | currency: 'EUR': 'symbol' }})
                 </span>
+              </span>
+            </div>
+            <div class="cart__table__body">
+              <div class="cart__table__footer">
+                <div class="card__quantity__value">
+                  <button 
+                      (click)="onDecreaseQuantity(item.sku)" 
+                      class="btn btn-secondary"
+                  >
+                    <fa-icon [icon]="faMinusSquare"></fa-icon>
+                  </button>
+                  <input 
+                      type="number" 
+                      id="quantity" 
+                      name="quantity" 
+                      min="1" 
+                      max="10" 
+                      value={{item.quantity}}
+                  >
+                  <button 
+                      (click)="onAddQuantity(item.sku)" 
+                      class="btn btn-secondary"
+                  >
+                    <fa-icon [icon]="faPlusSquare"></fa-icon>
+                  </button>
+                </div>
                 <button 
                     class="btn-socials"
                     (click)="onRemoveItem(item.sku)"
@@ -92,124 +131,95 @@
                     <fa-icon [icon]="faTrash"></fa-icon>
                 </button>
               </div>
-              <div class="cart__table__body__price">
-                <span>Prix à l'unité : </span>
-                <span>{{ item.price | currency: 'EUR': 'symbol' }}</span>
-              </div>
-              <div class="cart__table__body">
-                <div class="cart__table__footer">
-                  <div class="cart__table__body__total">
-                    <strong>
-                      <span>{{ item.price * item.quantity | currency: 'EUR': 'symbol' }}</span>
-                    </strong>
-                    </div>
-                  <div class="cart__table__quantity">
-                    <button 
-                        (click)="onDecreaseQuantity(item.sku)" 
-                        class="btn-action"
-                    >
-                        -
-                    </button>
-                    <span>{{ item.quantity }}</span>
-                    <button 
-                        (click)="onAddQuantity(item.sku)" 
-                        class="btn-action"
-                    >
-                        +
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
+            </div>
+          </td>
+        </tr>
+      </table>
 
-        <div class="cart__price">
-          <!-- <div class="cart__price__actions">
-              <button 
-                  class="btn-action"
-                  (click)="onUpdateCart()"
-              >
-                  Mettre à jour le panier
-              </button>
-              <button class="btn-continue">
-                  Continuer ses achats
-              </button>
-          </div> -->
+      <div class="cart__price">
+        <!-- <div class="cart__price__actions">
+            <button 
+                class="btn-action"
+                (click)="onUpdateCart()"
+            >
+                Mettre à jour le panier
+            </button>
+            <button class="btn-continue">
+                Continuer ses achats
+            </button>
+        </div> -->
 
-          <p>Total (<span id="totalQuantity">{{ getTotalQuantity() }}</span> articles) : <span id="totalPrice">{{ getTotalPrice() | currency: 'EUR':'symbol' }}</span></p>
-        </div>
+        <p>Total (<span id="totalQuantity">{{ getTotalQuantity() }}</span> articles) : <span id="totalPrice">{{ getTotalPrice() | currency: 'EUR':'symbol' }}</span></p>
+      </div>
 
-        <div class="cart__order">
-          <div class="cart__order__right">
-            <div class="form-group">
-              <input 
-                  id="firstName"
-                  type="text" 
-                  name="firstName"
-                  placeholder="Prénom"
-                  formControlName="firstName"
-                  [ngStyle]="{'border': orderForm.get('firstName')!.invalid ? '1px solid red' : ''}"
-              >
-              <span *ngIf="orderForm.get('firstName')!.invalid" class="helperContainer">
-                  Merci de fournir un prénom.
-              </span>
-            </div>
-            <div class="form-group">
-              <input 
-                  id="lastName"
-                  type="text" 
-                  name="lastName"
-                  placeholder="Nom"
-                  formControlName="lastName"
-                  [ngStyle]="{'border': orderForm.get('lastName')!.invalid ? '1px solid red' : ''}"
-              >
-              <span *ngIf="orderForm.get('lastName')!.invalid" class="helperContainer">
-                  Merci de fournir un nom de famille.
-              </span>
-            </div>
-            <div class="form-group">
-              <input 
-                  id="email"
-                  type="email" 
-                  name="email"
-                  placeholder="E-mail"
-                  formControlName="email"
-                  [ngStyle]="{'border': orderForm.get('email')!.invalid ? '1px solid red' : ''}"
-              >
-              <span *ngIf="orderForm.get('email')!.invalid" class="helperContainer">
-                  Merci de fournir une adresse e-mail valide.
-              </span>
-            </div>
-            <div class="form-group">
-              <input 
-                  id="phone"
-                  type="tel" 
-                  name="phone"
-                  placeholder="Téléphone"
-                  formControlName="phone"
-                  [ngStyle]="{'border': orderForm.get('phone')!.invalid ? '1px solid red' : ''}"
-              >
-              <span *ngIf="orderForm.get('phone')!.invalid" class="helperContainer">
-                  Merci de fournir un numéro de téléphone valide.
-              </span>
-            </div>
-              <textarea 
-                  placeholder="Une demande particulière ? Précisez la ici"
-                  formControlName="message"
-              ></textarea>
-              <button 
-                  type="submit" 
-                  class="btn-action"
-                  (click)="onSubmit()"
-                  [disabled]="orderForm.invalid"
-              >
-                  Passer la commande
-              </button>
+      <div class="cart__order">
+        <div class="cart__order__right">
+          <div class="form-group">
+            <input 
+                id="firstName"
+                type="text" 
+                name="firstName"
+                placeholder="Prénom"
+                formControlName="firstName"
+                [ngStyle]="{'border': orderForm.get('firstName')!.invalid && formSubmitted ? '1px solid red' : ''}"
+            >
+            <span *ngIf="orderForm.get('firstName')!.invalid && formSubmitted" class="helperContainer">
+                Ce champs est requis.
+            </span>
           </div>
+          <div class="form-group">
+            <input 
+                id="lastName"
+                type="text" 
+                name="lastName"
+                placeholder="Nom"
+                formControlName="lastName"
+                [ngStyle]="{'border': orderForm.get('lastName')!.invalid  && formSubmitted ? '1px solid red' : ''}"
+            >
+            <span *ngIf="orderForm.get('lastName')!.invalid && formSubmitted" class="helperContainer">
+                Ce champs est requis.
+            </span>
+          </div>
+          <div class="form-group">
+            <input 
+                id="email"
+                type="email" 
+                name="email"
+                placeholder="E-mail"
+                formControlName="email"
+                [ngStyle]="{'border': orderForm.get('email')!.invalid  && formSubmitted ? '1px solid red' : ''}"
+            >
+            <span *ngIf="orderForm.get('email')!.invalid  && formSubmitted" class="helperContainer">
+                Merci de fournir une adresse e-mail valide.
+            </span>
+          </div>
+          <div class="form-group">
+            <input 
+                id="phone"
+                type="tel" 
+                name="phone"
+                placeholder="Téléphone"
+                formControlName="phone"
+                [ngStyle]="{'border': orderForm.get('phone')!.invalid && (orderForm.get('phone')!.touched || orderForm.get('phone')!.dirty) ? '1px solid red' : ''}"
+            >
+            <span *ngIf="orderForm.get('phone')!.invalid && (orderForm.get('phone')!.touched || orderForm.get('phone')!.dirty)" class="helperContainer">
+                Merci de fournir un numéro de téléphone valide.
+            </span>
+          </div>
+            <textarea 
+                placeholder="Une demande particulière ? Précisez la ici"
+                formControlName="message"
+            ></textarea>
+            <button 
+                type="submit" 
+                class="btn-action"
+                [disabled]="formSubmitted && orderForm.invalid"
+            >
+                Passer la commande
+            </button>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </form>
 </main>
 

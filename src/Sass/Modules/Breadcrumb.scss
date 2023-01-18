@@ -1,0 +1,15 @@
+.breadcrumb {
+    font-size: 12px;
+    margin-bottom: 20px;
+
+    & button {
+        background-color: transparent;
+        border: none;
+
+        &:hover {
+            cursor: pointer;
+            color: #fff;
+            text-shadow: 0 0 10px rgb(90 58 34 / 70%);
+        }
+    }
+}

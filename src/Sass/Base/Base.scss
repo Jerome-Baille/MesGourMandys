@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+        color: $accentColor;
+        font-weight: bold;
+    }
+}
+
+.text-accent {
+    color: $accentColor;
+    font-weight: bold;
+}
+
+fa-icon{
+    font-size: 1.5rem;
+}

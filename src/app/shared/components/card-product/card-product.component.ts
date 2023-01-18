@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Products } from 'src/app/core/models/products';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ProductsService } from 'src/app/core/services/products.service';
-import { faPenSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faMinusSquare, faPenSquare, faPlusSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-card-product',
@@ -29,6 +29,8 @@ export class CardProductComponent implements OnInit {
 
   faTrash = faTrash;
   faPenSquare = faPenSquare;
+  faPlusSquare = faPlusSquare;
+  faMinusSquare = faMinusSquare;
 
   constructor(
     private productsService: ProductsService,
@@ -38,7 +40,7 @@ export class CardProductComponent implements OnInit {
   ) { 
     this.orderForm = this.formBuilder.group({
       sku: '',
-      quantity: 1
+      quantity: [1, [Validators.max(10), Validators.min(1)]]
     })
   }
 
@@ -126,10 +128,25 @@ export class CardProductComponent implements OnInit {
     }
   }
 
+  getTotalPrice() {
+    var { quantity } = this.orderForm.value;
+    var { price } = this.product;
+    return quantity * price!.valueOf();
+  }
+
   onOrder() {
     var { quantity } = this.orderForm.value;
     var { sku } = this.product;
     var message = '';
+
+    // if the form is not valid, return
+    if(!this.orderForm.valid){
+      this.toast.initiate({
+        title: 'Erreur!',
+        message: 'La quantité doit être comprise entre 1 et 10',
+      })
+      return;
+    };
 
     //add the product and quantity to the local storage
     var cart = JSON.parse(localStorage.getItem('cart') || '[]');

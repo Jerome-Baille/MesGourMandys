@@ -1,0 +1,91 @@
+.btn-nav {
+    background: transparent;
+    color: $primaryColor;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        color: #fff;
+        filter: drop-shadow(0 0 10px rgb(90 58 34 / 70%));
+    }
+
+    &.active {
+        color: #fff;
+        filter: drop-shadow(0 0 10px rgb(90 58 34 / 70%));
+    }
+}
+
+.btn-socials {
+    background: transparent;
+    color: $primaryColor;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        color: #fff;
+        filter: drop-shadow(0 0 10px rgb(90 58 34 / 70%));
+    }
+}
+
+.btn-hamburger {
+    background: transparent;
+    color: $primaryColor;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    @media screen and (min-width: 768px) {
+        display: none;
+    }
+
+    &:hover {
+        color: #fff;
+        filter: drop-shadow(0 0 10px rgb(90 58 34 / 70%));
+    } 
+}
+
+.btn-card {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease-in-out;
+    font-size: 1rem;
+
+    &:hover {
+        border-radius: 8px;
+        box-shadow: 0 0 10px 0 $accentColor;
+    }
+}
+
+.btn-action {
+    width: fit-content;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $accentColor;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        color: #fff;
+        background-color: darken($accentColor, 25%);
+    }
+
+    &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+}
