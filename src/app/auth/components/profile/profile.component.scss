@@ -138,17 +138,27 @@ $primaryColor: #5a3a22;
         border-radius: 16px;
         border: 1px solid $primaryColor;
         background-color: rgba(255, 255, 255, 0.5);
-        padding: 40px;
         width: 100%;
+        overflow: hidden;
+
+        > table {
+            width: 100%;
+            margin: auto;
+            padding: 40px;
+            table-layout:fixed;
+
+            & ul {
+                padding-left: 1rem;
+            }
+        }
+
+        > table:nth-child(even) {
+            background-color: lighten($primaryColor, 60%)
+        }
 
         /* select all table children except the first one */
         & > table:not(:first-child) {
             border-top: 1px solid $accentColor;
-            padding-top: 1rem;
-        }
-
-        table {
-            margin: auto;
         }
 
         @media screen and (max-width: 768px) {
