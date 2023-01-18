@@ -5,7 +5,6 @@
 <main *ngIf="cart.length > 0">
   <form 
     [formGroup]="orderForm"
-    (ngSubmit)="onSubmit(); formSubmitted = true"
   >
     <section class="cart">
       <h1 class="cart__title">Votre panier</h1>
@@ -155,7 +154,12 @@
       <div class="cart__order">
         <!-- <div class="cart__order__right"> -->
           <div class="form-group">
-            <label for="firstName">Prénom</label>
+            <label 
+              for="firstName"
+              class="form-label"
+            >
+              Prénom (requis)
+            </label>
             <input 
                 id="firstName"
                 type="text" 
@@ -169,6 +173,12 @@
             </span>
           </div>
           <div class="form-group">
+            <label 
+              for="lastName"
+              class="form-label"
+            >
+              Nom (requis)
+            </label>
             <input 
                 id="lastName"
                 type="text" 
@@ -182,6 +192,12 @@
             </span>
           </div>
           <div class="form-group">
+            <label 
+              for="email"
+              class="form-label"
+            >
+              E-mail (requis)
+            </label>
             <input 
                 id="email"
                 type="email" 
@@ -195,6 +211,12 @@
             </span>
           </div>
           <div class="form-group">
+            <label 
+              for="phone"
+              class="form-label"
+            >
+              Téléphone
+            </label>
             <input 
                 id="phone"
                 type="tel" 
@@ -207,13 +229,22 @@
                 Merci de fournir un numéro de téléphone valide.
             </span>
           </div>
+          <div class="form-group">
+            <label 
+              for="message"
+              class="form-label"
+            >
+              Message
+            </label>
             <textarea 
                 placeholder="Une demande particulière ? Précisez la ici"
                 formControlName="message"
             ></textarea>
+          </div>
             <button 
                 type="submit" 
                 class="btn-action"
+                (click)="onSubmit(); formSubmitted = true"
                 [disabled]="formSubmitted && orderForm.invalid"
             >
                 Passer la commande
