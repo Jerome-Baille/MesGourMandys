@@ -28,6 +28,12 @@
         color: #fff;
         filter: drop-shadow(0 0 10px rgb(90 58 34 / 70%));
     }
+
+    &:disabled {
+        opacity: 0.5;
+        color: $primaryColor;
+        cursor: not-allowed;
+    }
 }
 
 .btn-hamburger {
@@ -62,30 +68,43 @@
     }
 }
 
-.btn-action {
+.btn {
     width: fit-content;
     margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $accentColor;
-    color: #fff;
     border: none;
     padding: 10px;
     border-radius: 8px;
     font-size: 1.25rem;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    transition: width 0.1s;
+    transition-timing-function: ease-out;
 
     &:hover {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-        color: #fff;
-        background-color: darken($accentColor, 25%);
     }
 
     &:disabled {
         background-color: #ccc;
         cursor: not-allowed;
+    }
+
+    &--primary {
+        background-color: $accentColor;
+        color: #fff;
+
+        &:hover {
+            color: #fff;
+            background-color: darken($accentColor, 25%);
+        }
+    }
+
+    &--secondary {
+        background-color: #fff;
+        color: $accentColor;
+        border: 2px solid $accentColor;
     }
 }

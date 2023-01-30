@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductsService } from '../core/services/products.service';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ContactService } from '../core/services/contact.service';
@@ -132,10 +132,9 @@ export class CartComponent implements OnInit {
     // find the item corresponding to the sku in cart and decrease the quantity
     this.cart = this.cart.map((item: any) => {
       if (item.sku === sku) {
-        item.quantity--;
-
-        if (item.quantity === 0) {
-          
+        if (item.quantity > 1){
+          item.quantity--;
+        } else {
           itemForRemoval = item;
         }
       }
@@ -145,7 +144,9 @@ export class CartComponent implements OnInit {
     // in this.basket, find the item corresponding to the sku and decrease the quantity
     this.basket = this.basket.map((item: any) => {
       if (item.sku === sku) {
-        item.quantity--;
+        if(item.quantity > 1){
+          item.quantity--;
+        }         
       }
       return item;
     });
@@ -251,17 +252,34 @@ export class CartComponent implements OnInit {
   }
 
   onRemoveItem(sku: string) {
-    // ask user for confirmation
-    if (!confirm('Voulez-vous vraiment supprimer cet article ?')) {
-      return;
-    }
-    // find the item corresponding to the sku in cart and remove it
-    this.cart = this.cart.filter((item: any) => item.sku !== sku);
+    this.toast.initiate({
+      title: 'Suppression',
+      message: 'Voulez-vous vraiment supprimer cet article ?',
+      type: 'confirm'
+    });
 
-    // in this.basket, find the item corresponding to the sku and delete it
-    this.basket = this.basket.filter((item: any) => item.sku !== sku);
+    this.toast.isConfirmed.subscribe({
+      next: (v: any) => {
+        if(!!v) {
+          // find the item corresponding to the sku in cart and remove it
+          this.cart = this.cart.filter((item: any) => item.sku !== sku);
 
-    // update the local storage
-    localStorage.setItem('cart', JSON.stringify(this.basket));
+          // in this.basket, find the item corresponding to the sku and delete it
+          this.basket = this.basket.filter((item: any) => item.sku !== sku);
+
+          // update the local storage
+          localStorage.setItem('cart', JSON.stringify(this.basket));
+        } else {
+          return
+        }
+      },
+      error: (err) => {
+        this.toast.initiate({
+          title: 'Erreur!',
+          message: err.message,
+          type: 'error'
+        })
+      }
+    })
   }
 }

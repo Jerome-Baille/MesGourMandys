@@ -25,24 +25,42 @@ export class UsersListComponent implements OnInit {
   }
 
   deleteUser(user: any){
-    // ask for confirmation
-    if(confirm('Voulez-vous vraiment supprimer cet utilisateur?')){
-      this.authService.deleteUser(user)
-        .subscribe({
-          next: (v: any) => {
-            this.toast.initiate({
-              title: 'Compte supprimé!',
-              message: v.message,
-            })
-            this.users$ = this.authService.getAllUsers()
-          },
-          error: (err) => {
-            this.toast.initiate({
-              title: 'Erreur!',
-              message: err.error.message,
-            })
-          }
+    this.toast.initiate({
+      title: 'Supression',
+      message: 'Voulez-vous vraiment supprimer cet utilisateur?',
+      type: 'confirm'
+    })
+
+    this.toast.isConfirmed.subscribe({
+      next: (v: any) => {
+        if(!!v){
+          this.authService.deleteUser(user)
+          .subscribe({
+            next: (v: any) => {
+              this.toast.initiate({
+                title: 'Compte supprimé!',
+                message: v.message,
+              })
+              this.users$ = this.authService.getAllUsers()
+            },
+            error: (err) => {
+              this.toast.initiate({
+                title: 'Erreur!',
+                message: err.message,
+              })
+            }
+          })
+        } else {
+          return
+        }
+      },
+      error: (err) => {
+        this.toast.initiate({
+          title: 'Erreur!',
+          message: err.message,
+          type: 'error'
         })
-    }
+      }
+    })
   }
 }

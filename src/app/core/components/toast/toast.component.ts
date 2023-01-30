@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
 import { ToastService } from '../../services/toast.service';
 
 @Component({
@@ -21,17 +21,24 @@ import { ToastService } from '../../services/toast.service';
           right: '40px',
         })
       ),
-      transition('open <=> closed', [animate('0.5s ease-in-out')]),
+      transition('open <=> closed', [animate('0.1s ease-in-out')]),
     ]),
   ],
 })
-export class ToastComponent implements OnInit {
+export class ToastComponent implements OnInit {  
+  toastType: string = 'success';
+
   @ViewChild('element', { static: false }) progressBar!: ElementRef;
   progressInterval:any;
 
   constructor(public toastService: ToastService) {
     this.toastService.open.subscribe((data) => {
       if (data.show) {
+        data.type? this.toastType = data.type : this.toastType = 'success';
+
+        if(data.type === 'confirm') {
+          return
+        }
         this.countDown();
       }
     });
@@ -61,5 +68,24 @@ export class ToastComponent implements OnInit {
 
   stopCountDown() {
     clearInterval(this.progressInterval);
+  }
+
+  confirm() {
+    this.toastService.isConfirmed.next(true);
+    this.toastService.hide();
+  }
+
+  cancel() {
+    this.toastService.isConfirmed.next(false);
+    this.toastService.hide();
+  }
+
+  @ViewChild('toast', { static: true }) toast!: ElementRef;
+
+  @HostListener('click', ['$event'])
+  public onClick(event: MouseEvent): void {
+    if (!this.toast.nativeElement.contains(event.target)) {
+      this.toastService.hide();
+    }
   }
 }

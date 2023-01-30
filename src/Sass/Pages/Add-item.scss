@@ -1,0 +1,54 @@
+.addItemForm {
+    &__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 30px auto;
+        row-gap: 1rem;
+
+        & input {
+            width: 100%;
+            max-width: 350px;
+            height: 40px;
+            padding: 10px;
+            border: 1px solid $accentColor;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        & textarea {
+            width: 100%;
+            max-width: 350px;
+            height: 125px;
+            padding: 10px;
+            border: 1px solid $accentColor;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+    }
+
+    &__group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        row-gap: 10px;
+        width: 100%;
+    }
+
+    &__title {
+        font-size: 2.5rem;
+        margin: 0 20px 20px 20px;
+    }
+
+    &__text {
+        text-align: center;
+        line-height: 3rem;
+    }
+
+    &__sku {
+        text-transform: uppercase;
+    }
+}

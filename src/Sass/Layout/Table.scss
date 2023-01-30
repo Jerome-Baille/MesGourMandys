@@ -1,0 +1,28 @@
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgb(0 0 0 / 60%);
+
+    & thead {
+        background-color: $accentColor;
+        color: white;
+        border-radius: 8px;
+    }
+
+    td, th {
+        // border: 1px solid #5a3a22;
+        padding: 20px;
+        text-align: center;
+    }
+
+    tbody tr {
+        border-top: 1px solid $accentColor;    
+    }
+
+    tr:nth-child(even) {
+        background-color: lighten($primaryColor, 60%);
+    }
+}

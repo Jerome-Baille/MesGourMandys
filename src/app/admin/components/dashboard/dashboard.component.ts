@@ -34,10 +34,13 @@ export class DashboardComponent implements OnInit {
         next: (v) => {
           this.products = v;
 
+          this.productsService.changeObject(v);
+
           this.products.forEach((p: any) => {
             if (p.popular === true) {
               this.favsCount++;
             }
+            this.productsService.favsCount.next(this.favsCount)
           })
         }
       })

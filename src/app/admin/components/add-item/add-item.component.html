@@ -1,70 +1,70 @@
 <form [formGroup]="addItem" class="addItemForm">
-    <div class="addItemForm__right">
-        <div class="addItemForm__group">
-            <label for="title">Nom du produit:</label>
-            <input
-                type="text"
-                placeholder="Nom du produit"
-                formControlName="title"
+    <div class="card__container">
+        <div class="addItemForm__container">
+            <div class="addItemForm__group">
+                <label for="title">Nom du produit:</label>
+                <input
+                    type="text"
+                    placeholder="Nom du produit"
+                    formControlName="title"
+                >
+            </div>
+            <div class="addItemForm__group">
+                <label for="price">Image:</label>
+                <input
+                    type="file"
+                    id="image"
+                    placeholder="image"
+                    (change)="imageSelected($event)"
+                >
+            </div>
+            <div class="addItemForm__group">
+                <label for="price">Prix:</label>
+                <input
+                    type="text"
+                    placeholder="Prix"
+                    formControlName="price"
+                >
+            </div>
+            <div class="addItemForm__group">
+                <label for="price">SKU:</label>
+                <input
+                    type="text"
+                    placeholder="SKU"
+                    formControlName="sku"
+                    class="addItemForm__sku"
+                >
+            </div>
+            <div class="addItemForm__group">
+                <label for="price">Description:</label>
+                <textarea 
+                    placeholder="Description"
+                    formControlName="description"
+                >
+                </textarea>
+            </div>
+            <div class="addItemForm__group">
+                <label for="price">Allergènes:</label>
+                <input
+                    type="text"
+                    placeholder="Allergènes"
+                    formControlName="allergens"
+                >
+            </div>
+            <div class="addItemForm__group">
+                <label for="price">Produit disponible:</label>
+                <input
+                    type="checkbox"
+                    formControlName="isActive"
+                >
+            </div>
+            <button 
+                type="submit" 
+                class="btn btn--primary"
+                (click)="onCreateItem()"
             >
+                Ajouter un produit
+            </button>
         </div>
-        <div class="addItemForm__group">
-            <label for="price">Image:</label>
-            <input
-                type="file"
-                id="image"
-                placeholder="image"
-                (change)="imageSelected($event)"
-            >
-        </div>
-        <div class="addItemForm__group">
-            <label for="price">Prix:</label>
-            <input
-                type="text"
-                placeholder="Prix"
-                formControlName="price"
-            >
-        </div>
-        <div class="addItemForm__group">
-            <label for="price">SKU:</label>
-            <input
-                type="text"
-                placeholder="SKU"
-                formControlName="sku"
-                class="addItemForm__sku"
-            >
-        </div>
-        <div class="addItemForm__group">
-            <label for="price">Description:</label>
-            <textarea 
-                placeholder="Description"
-                formControlName="description"
-            >
-            </textarea>
-        </div>
-        <div class="addItemForm__group">
-            <label for="price">Allergènes:</label>
-            <input
-                type="text"
-                placeholder="Allergènes"
-                formControlName="allergens"
-            >
-        </div>
-        <div class="addItemForm__group">
-            <label for="price">Produit disponible:</label>
-            <input
-                type="checkbox"
-                formControlName="isActive"
-            >
-        </div>
-        <button 
-            type="submit" 
-            class="btn-action"
-            (click)="onCreateItem()"
-        >
-            Ajouter un produit
-        </button>
     </div>
 </form>
-
-<app-toast></app-toast>

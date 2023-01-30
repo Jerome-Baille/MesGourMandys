@@ -1,0 +1,110 @@
+.get-items {
+    &.table--sm {
+        & .hero__container {
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+        }
+        & .hero__actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        & td {
+            padding: 0 !important;
+        }
+
+        & .card__container {
+            border-radius: 0 !important;
+            margin-bottom: 20px;
+        }
+
+        & .last {
+            & .card__container {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    & .hero {
+        &__container{
+            display: flex;
+            column-gap: 10px;
+            justify-content: space-between;
+            position: relative;
+
+            &__img {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        &__btn {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        &__sku {
+            font-style: italic;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &__description {
+            white-space: pre-line;
+        }
+    
+        &__title {
+            color: $primaryColor;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: capitalize;
+        }
+    
+        &__main {
+            margin: auto;
+            padding: 0 10px;
+
+            &>h3 {
+                height: auto;
+            }
+        }
+    
+        &__price {
+            font-size: 1rem;
+            color: $accentColor;
+            font-weight: bold;
+        }
+    }
+
+    & .card__price__value, & .card__quantity__value {
+        border: 1px solid $bgColor;
+        background-color: #fff;
+    }
+
+    @media screen and (max-width: 768px) {
+        &.table--md {
+            display: none;
+        }
+        &.table--sm {
+            display: block;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        &.table--md {
+            display: block;
+        }
+        &.table--sm {
+            display: none;
+        }
+    }
+}

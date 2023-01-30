@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Products } from '../models/products';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -62,5 +62,14 @@ export class ProductsService {
 
     deleteProduct(id: string) {
         return this.http.delete(`${this.API_URL}/${id}`);
+    }
+
+
+    public favsCount = new BehaviorSubject<number>(0);
+    
+    public listProducts = new BehaviorSubject<Products[]>([]);
+
+    changeObject(object: any){
+        this.listProducts.next(object);
     }
 }

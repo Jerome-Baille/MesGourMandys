@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Products } from 'src/app/core/models/products';
-import { faCheckCircle, faEye, faEyeSlash, faLightbulb as faLightbulbS, faMedal, faPenSquare, faStar as faStarS, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash, faLightbulb as faLightbulbS, faPenSquare, faStar as faStarS, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ProductsService } from 'src/app/core/services/products.service';
 import { faStar, faLightbulb } from '@fortawesome/free-regular-svg-icons';
 import { ToastService } from 'src/app/core/services/toast.service';
@@ -18,9 +18,7 @@ export class GetItemsComponent implements OnInit {
   updateProduct!: Products;
   isLoaded: boolean = true;
 
-  faCheckCircle = faCheckCircle;
   faPenSquare = faPenSquare;
-  faMedal = faMedal;
   faStarS = faStarS;
   faStarReg = faStar;
   faEye = faEye;
@@ -102,25 +100,41 @@ export class GetItemsComponent implements OnInit {
 
 
   deleteProduct(product: any) {
-    // open an alert box to confirm deletion
-    if (confirm('Etes-vous sûr de vouloir supprimer ce produit?')) {
-      this.productsService.deleteProduct(product._id)
-        .subscribe({
-          next: (v: any) => {
-            this.toast.initiate({
-              title: 'Success',
-              message: v.message,
-            })
+    this.toast.initiate({
+      title: 'Suppression',
+      message: 'Etes-vous sûr de vouloir supprimer ce produit?',
+      type: 'confirm',
+    })
 
-            this.products = this.products.filter((p: any) => p._id !== product._id);
-          },
-          error: (err) => {
-            this.toast.initiate({
-              title: 'Error',
-              message: err.message,
-            })
-          }
+    this.toast.isConfirmed.subscribe({
+      next: (v) => {
+        if (!!v) {
+          this.productsService.deleteProduct(product._id)
+          .subscribe({
+            next: (v: any) => {
+              this.toast.initiate({
+                title: 'Success',
+                message: v.message,
+              })
+
+              this.products = this.products.filter((p: any) => p._id !== product._id);
+            },
+            error: (err) => {
+              this.toast.initiate({
+                title: 'Error',
+                message: err.message,
+              })
+            }
+          })
+        }
+      },
+      error: (err) => {
+        this.toast.initiate({
+          title: 'Error',
+          message: err.message,
+          type: 'error'
         })
-    }
+      }
+    })
   }
 }

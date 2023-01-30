@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
       phone: [''],
       address: [''],
       city: [''],
-      zipCode: [''],
+      zipcode: [''],
     });
 
     this.authService.getUserProfile()
@@ -89,28 +89,40 @@ export class ProfileComponent implements OnInit {
   }
 
   onDeleteAccount(){
-    if (confirm('Etes-vous sûr de vouloir supprimer votre compte?')) {
-      this.authService.deleteUser(this.userProfile._id)
-        .subscribe({
-          next: (v: any) => {
-            this.toast.initiate({
-              title: 'Compte supprimé!',
-              message: v.message,
-            })
-          },
-          error: (err: any) => {
-            this.toast.initiate({
-              title: 'Erreur!',
-              message: err.error.message,
-            })
-          },
-          complete: () => {
-            // set timeout to wait for the toast to be displayed
-            setTimeout(() => {
-              this.authService.logout();
-            }, 2500);
-          }
-        });
-    }
+    this.toast.initiate({
+      title: 'Suppression du compte',
+      message: 'Désirez-vous vraiment supprimer votre compte?',
+      type: 'confirm'
+    });
+
+    this.toast.isConfirmed.subscribe({
+      next: (v: any) => {
+        if(!!v){
+          this.authService.deleteUser(this.userProfile._id)
+          .subscribe({
+            next: (v: any) => {
+              this.toast.initiate({
+                title: 'Compte supprimé!',
+                message: v.message,
+              })
+            },
+            error: (err: any) => {
+              this.toast.initiate({
+                title: 'Erreur!',
+                message: err.error.message,
+              })
+            },
+            complete: () => {
+              // set timeout to wait for the toast to be displayed
+              setTimeout(() => {
+                this.authService.logout();
+              }, 2500);
+            }
+          });
+        } else {
+          return
+        }
+      }
+    })
   }
 }

@@ -7,15 +7,21 @@
 
 // Import all the layout styles
 @import 'Sass/Layout/Container.scss';
+@import 'Sass/Layout/Header.scss';
+@import 'Sass/Layout/Footer.scss';
+@import 'Sass/Layout/Table.scss';
 
 // Import all the modules
 @import 'Sass/Modules/Buttons.scss';
 @import 'Sass/Modules/Card.scss';
 @import 'Sass/Modules/Breadcrumb.scss';
+@import 'Sass/Modules/Toast.scss';
 
 // Import all the pages
-@import 'Sass/Layout/Header.scss';
-@import 'Sass/Layout/Footer.scss';
-
 @import 'Sass/Pages/Product-list.scss';
 @import 'Sass/Pages/Auth.scss';
+@import 'Sass/Pages/Checkout.scss';
+
+@import 'Sass/Pages/Orders-list.scss';
+@import 'Sass/Pages/Get-items.scss';
+@import 'Sass/Pages/Add-item.scss';

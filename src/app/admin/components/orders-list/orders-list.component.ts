@@ -7,6 +7,13 @@ import { ContactService } from 'src/app/core/services/contact.service';
   styleUrls: ['./orders-list.component.scss']
 })
 export class OrdersListComponent implements OnInit {
+  statusColors = new Map<string,string>([
+      ['Commande enregistrée', '#5a3a22'],
+      ['En cours de préparation', '#E58F6C'],
+      ['Prêt', 'green']
+  ]);
+
+
   @Input() orders: any;
 
   constructor(

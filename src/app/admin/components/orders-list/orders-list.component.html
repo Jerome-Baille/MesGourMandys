@@ -1,49 +1,67 @@
 <div>
-    <table class="table--lg">
-        <tr>
-            <th>Numéro de commande</th>
-            <th>Client</th>
-            <th>Date</th>
-            <th>Produits</th>
-            <th>Prix</th>
-            <th>Statut</th>
-        </tr>
-        <tr *ngFor="let order of orders">
-            <td>{{order._id}}</td>
-            <td>
-                <span>{{order.firstName}} {{order.lastName}}</span>
-                <br/>
-                <span>{{order.email}}</span>
-                <br/>
-                <span *ngIf="order.address">{{order.address}}</span>
-                <br/>
-                <span *ngIf="order.city">{{order.city}}</span>
-                <br/>
-                <span *ngIf="order.postalCode">{{order.postalCode}}</span>
-            </td>
-            <td>{{order.date | date: 'dd/MM/yyyy' }}</td>
-            <td>                        
-                <ul>
-                    <li *ngFor="let product of order.products">
-                        {{ product.quantity }} x {{ product.title }}
-                    </li>
-                </ul>
-            </td>
-            <td>{{order.totalPrice | currency: 'EUR'}}</td>
-            <td>
-                <select 
-                    [(ngModel)]="order.status"
-                    (ngModelChange)="updateStatus(order)"
-                >
-                    <option value="Commande enregistrée">Commande enregistrée</option>
-                    <option value="En cours de préparation">En cours de préparation</option>
-                    <option value="Prêt">Prêt</option>
-                </select>
-            </td>
-        </tr>
+    <table class="table table--lg orders-list">
+        <thead>
+            <tr>
+                <th>Numéro de commande</th>
+                <th>Client</th>
+                <th>Date</th>
+                <th>Produits</th>
+                <th>Prix</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let order of orders">
+                <td>{{order._id}}</td>
+                <td>
+                    <span>{{order.firstName}} {{order.lastName}}</span>
+                    <br/>
+                    <span>{{order.email}}</span>
+                    <br/>
+                    <span *ngIf="order.address">{{order.address}}</span>
+                    <br/>
+                    <span *ngIf="order.city">{{order.city}}</span>
+                    <br/>
+                    <span *ngIf="order.postalCode">{{order.postalCode}}</span>
+                </td>
+                <td>{{order.date | date: 'dd/MM/yyyy' }}</td>
+                <td>                        
+                    <ul>
+                        <li *ngFor="let product of order.products">
+                            {{ product.quantity }} x {{ product.title }}
+                        </li>
+                    </ul>
+                </td>
+                <td>{{order.totalPrice | currency: 'EUR'}}</td>
+                <td>
+                    <select 
+                        [(ngModel)]="order.status"
+                        (ngModelChange)="updateStatus(order)"
+                        [ngStyle]="{'color': statusColors.get(order.status)}"
+                    >
+                        <option 
+                            value="Commande enregistrée"
+                        >
+                            Commande enregistrée
+                        </option>
+                        <option 
+                            value="En cours de préparation"
+                        >
+                            En cours de préparation
+                        </option>
+                        <option 
+                            value="Prêt"
+                        >
+                            Prêt
+                        </option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
     </table>
 
-    <table class="table--sm">
+    <table class="table table--sm orders-list">
         <tr *ngFor="let order of orders">
             <td>
                 <div class="table--sm__body">
@@ -79,6 +97,7 @@
                         <select 
                             [(ngModel)]="order.status"
                             (ngModelChange)="updateStatus(order)"
+                            [ngStyle]="{'color': statusColors.get(order.status)}"
                         >
                             <option value="Commande enregistrée">Commande enregistrée</option>
                             <option value="En cours de préparation">En cours de préparation</option>

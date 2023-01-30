@@ -2,10 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Products } from 'src/app/core/models/products';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ProductsService } from 'src/app/core/services/products.service';
-import { faMinusSquare, faPenSquare, faPlusSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash, faLightbulb as faLightbulbS, faMinusSquare, faStar as faStarS, faPenSquare, faPlusSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faLightbulb } from '@fortawesome/free-regular-svg-icons';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-product',
@@ -16,12 +18,15 @@ export class CardProductComponent implements OnInit {
   @Input() products$!: Observable<Products[]>;
   @Input() product!: Products;
 
+  favsCount!: number;
+
   isAdmin: boolean = false;
   updateBoolean: boolean = false;
 
   imgRes: string = 'low';
   infoLength: string = 'short';
-
+  infoPrice: string = 'yes';
+  infoAdmin: string = 'no';
   
   orderForm!: FormGroup;
   
@@ -31,12 +36,19 @@ export class CardProductComponent implements OnInit {
   faPenSquare = faPenSquare;
   faPlusSquare = faPlusSquare;
   faMinusSquare = faMinusSquare;
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
+  faLightbulbS = faLightbulbS;
+  faLightbulbReg = faLightbulb;
+  faStarS = faStarS;
+  faStarReg = faStar;
 
   constructor(
     private productsService: ProductsService,
     private auth: AuthService,
     private toast: ToastService,
     private formBuilder: FormBuilder,
+    private router: Router
   ) { 
     this.orderForm = this.formBuilder.group({
       sku: '',
@@ -44,16 +56,32 @@ export class CardProductComponent implements OnInit {
     })
   }
 
+  location = this.router.url;
+
   ngOnInit(): void {
     this.isAdmin = this.auth.checkIsAdmin();
 
-    if (window.location.href.includes('detail')) {
-      this.imgRes = 'high';
-      this.infoLength = 'long';
-    } else {
-      this.imgRes = 'low';
-      this.infoLength = 'short';
-    }
+    this.getInfo();   
+    
+    this.productsService.favsCount.subscribe({
+      next: (v) => {
+        this.favsCount = v;
+      }
+    })
+  }
+
+  getInfo() {
+    const conditions = [
+      {key: "detail", imgRes: "high", infoLength: "long", infoPrice: "yes", infoAdmin: "no"},
+      {key: "admin", imgRes: "low", infoLength: "short", infoPrice: "no", infoAdmin: "yes"}
+    ]
+
+    const found = conditions.find(c => this.location.includes(c.key)) || {imgRes: "low", infoLength: "short", infoPrice: "yes", infoAdmin: "no"};
+
+    this.imgRes = found!.imgRes
+    this.infoLength = found!.infoLength 
+    this.infoPrice = found!.infoPrice;
+    this.infoAdmin = found!.infoAdmin;
   }
 
   removeProduct(product: any) {
@@ -101,6 +129,7 @@ export class CardProductComponent implements OnInit {
     this.toast.initiate({
       title: 'Success!',
       message: 'Produit ajouté au panier',
+      type: "success"
     })
   }
 
@@ -119,7 +148,61 @@ export class CardProductComponent implements OnInit {
     quantity += 1;
     this.orderForm.patchValue({ quantity });
   }
+  
+  updateProductData(src: string, product: any){
+    switch(src) {
+      case 'highlight':
+        product.highlight = !product.highlight;
 
+        this.productsService.listProducts.subscribe({
+          next: (v) => {
+            v.forEach((p: any) => {
+              if(p.id !== product.id && p.highlight === true) {
+                p.highlight = false;
+
+                this.productsService.updateProduct(p)
+                  .subscribe({
+                    next: (v) => {
+                      console.log(v);
+                    }
+                  })
+              }
+            })
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        })
+        break;
+
+      case 'popular':
+        product.popular = !product.popular;
+
+        if (product.popular === true) {
+          this.favsCount++;
+        } else {
+          this.favsCount--;
+        }
+
+        break;
+
+      case 'isActive':
+        product.isActive = !product.isActive;
+        break;
+
+      default:
+        break;
+    }
+
+    this.productsService.favsCount.next(this.favsCount);
+
+    this.productsService.updateProduct(product)
+      .subscribe({
+        next: (v) => {
+          console.log(v);
+        }
+      })
+  }
   
   triggerEventClose(eventData: any) {
     if (eventData.message === 'close popup') {
@@ -169,6 +252,5 @@ export class CardProductComponent implements OnInit {
       title: 'Success!',
       message: `${message}`,
     })
-
   }
 }

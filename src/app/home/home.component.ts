@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   popular$!: Observable<Products[]>;
   isLoaded: boolean = false;
 
+  // Fontawesome icons
   faPenSquare = faPenSquare;
   faTrash = faTrash;
   faInstagram = faInstagram;
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private auth: AuthService,
-    private toast: ToastService,
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +37,9 @@ export class HomeComponent implements OnInit {
     this.highlight$ = this.productsService.getProducts('highlight=true');
     this.popular$ = this.productsService.getProducts('popular=true');
 
-    this.isLoaded = true;
+    Promise.all([this.isAdmin, this.highlight$, this.popular$]).then(() => {
+      this.isLoaded = true;
+    });
   }
 
   editProduct(product: any) {

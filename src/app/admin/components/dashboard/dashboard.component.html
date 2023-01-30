@@ -1,14 +1,14 @@
 <section class="dashboard">
     <div class="dashboard__header">
         <button 
-            class="btn-action"
+            class="btn btn--primary"
             (click)="onLogout()"
         >
         <fa-icon [icon]="faPowerOff"></fa-icon>
         </button>
         
         <button
-            class="btn-action"
+            class="btn btn--primary"
             (click)="navBarClick('profile')"
         >
             Voir profil admin
@@ -16,25 +16,25 @@
         
         <div class="btn__container">
             <button 
-                class="btn-action" 
+                class="btn btn--primary" 
                 (click)="navBarClick('add item')"
             >
                 Ajouter un produit
             </button>
             <button
-                class="btn-action"
+                class="btn btn--primary"
                 (click)="navBarClick('get items')"
             >
                 Voir les produits
             </button>
             <button 
-                class="btn-action"
+                class="btn btn--primary"
                 (click)="navBarClick('get orders')"
             >
                 Voir les commandes
             </button>
             <button
-                class="btn-action"
+                class="btn btn--primary"
                 (click)="navBarClick('get users')"
             >
                 Voir les utilisateurs

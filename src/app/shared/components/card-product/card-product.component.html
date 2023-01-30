@@ -1,19 +1,23 @@
 <article  class="card__container">
     <div *ngIf="isAdmin" class="card__admin">
-        <button
-            class="btn-socials"
-            (click)="editProduct(product)"
-            *ngIf="isAdmin"
-        >
-            <fa-icon [icon]="faPenSquare"></fa-icon>
-        </button>
-        <button 
-            class="btn-socials"
-            (click)="removeProduct(product)"
-            *ngIf="isAdmin"
-        >
-            <fa-icon [icon]="faTrash"></fa-icon>
-        </button>
+        <div class="card__admin--left">
+            <button
+                class="btn-socials"
+                (click)="editProduct(product)"
+                *ngIf="isAdmin"
+            >
+                <fa-icon [icon]="faPenSquare"></fa-icon>
+            </button>
+        </div>
+        <div class="card__admin--right">
+            <button 
+                class="btn-socials"
+                (click)="removeProduct(product)"
+                *ngIf="isAdmin"
+            >
+                <fa-icon [icon]="faTrash"></fa-icon>
+            </button>
+        </div>
     </div>
     <div class="card__img">
         <a *ngIf="infoLength === 'short'" [routerLink]="['/detail/', product.id]" class="card__link"></a>
@@ -53,7 +57,50 @@
                 </span>
             </div>
         </div>
-        <div class="card__cart" *ngIf="infoLength === 'long'">
+        <div class="card__quantity" *ngIf="infoAdmin === 'yes'">
+            <div class="card__quantity__tag">
+                <span>Visibilité : </span>
+            </div>
+            <div class="card__quantity__value">
+                <button
+                    class="btn-socials"
+                    (click)="updateProductData('isActive', product)"                    
+                >
+                    <fa-icon *ngIf='product.isActive' [icon]="faEye"></fa-icon>
+                    <fa-icon *ngIf='!product.isActive' [icon]="faEyeSlash"></fa-icon>
+                </button>
+            </div>
+        </div>
+        <div class="card__quantity" *ngIf="infoAdmin === 'yes'">
+            <div class="card__quantity__tag">
+                <span>A la une : </span>
+            </div>
+            <div class="card__quantity__value">
+                <button 
+                class="btn-socials"
+                (click)="updateProductData('highlight', product)"
+            >
+                <fa-icon *ngIf="product.highlight" [icon]="faLightbulbS"></fa-icon>
+                <fa-icon *ngIf="!product.highlight" [icon]="faLightbulbReg"></fa-icon>
+            </button>
+            </div>
+        </div>
+        <div class="card__quantity" *ngIf="infoAdmin === 'yes'">
+            <div class="card__quantity__tag">
+                <span>Best-sellers : </span>
+            </div>
+            <div class="card__quantity__value">
+                <button
+                class="btn-socials"
+                (click)="updateProductData('popular', product)"
+                [disabled]="!product.popular && favsCount >=4"
+            >
+                <fa-icon *ngIf="product.popular" [icon]="faStarS"></fa-icon>
+                <fa-icon *ngIf="!product.popular" [icon]="faStarReg"></fa-icon>
+            </button>
+            </div>
+        </div>
+        <div class="card__cart" *ngIf="infoLength === 'long' && infoPrice === 'yes'">
             <form [formGroup]="orderForm">
                 <div class="card__order__quantity">
                     <div class="card__quantity">
@@ -87,17 +134,18 @@
                     
                 </div>
                 <button 
-                    class="btn-action card__cart__btn-order"
+                    class="btn btn--primary card__cart__btn-order"
                     type="submit"
                     (click)="onOrder()"
                 >
                     Ajouter au panier
                 </button>
             </form>
+
         </div>
-        <div class="card__cart" *ngIf="infoLength === 'short'">
+        <div class="card__cart" *ngIf="infoLength === 'short' && infoPrice === 'yes'">
             <button
-                class="btn-action card__cart__btn-order"
+                class="btn btn--primary card__cart__btn-order"
                 (click)="addTocart(product)"
             >
                 Ajouter au panier
@@ -107,4 +155,3 @@
 </article>
 
 <app-update-product *ngIf='updateBoolean' [product]="updateProduct" (close)="triggerEventClose($event)"></app-update-product>
-<app-toast></app-toast>

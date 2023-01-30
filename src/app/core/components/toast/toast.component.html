@@ -1,29 +1,52 @@
 <section 
-    class="toast-bg"
+    class="toast__bg"
     [@openClose]="toastService.data && toastService.data.show ? 'open' : 'closed'"
 >
     <div
+    #toast
     (mouseenter)="stopCountDown()"
-    (mouseleave)="countDown()"
-    class="toast_wrapper"
+    (mouseleave)="toastType === 'confirm'? null : countDown()"
+    class="toast__wrapper"
     
   >
-    <div class="inner_wrapper">
+    <div class="toast__inner_wrapper">
       <div *ngIf="toastService.data">
         <div>
-          <h1 class="toast_title">
+          <h1 class="toast__title">
             {{ toastService.data.title }}
           </h1>
-          <p class="toast_text">
+          <p class="toast__text">
             {{ toastService.data.message }}
           </p>
         </div>
       </div>
     </div>
+
+    <div 
+      *ngIf="toastType === 'confirm'"
+      class="toast__footer"
+    >
+      <button
+        class="btn btn--secondary"
+        (click)="cancel()"
+      >
+        Annuler
+      </button>
+      <button
+        class="btn btn--primary"
+        (click)="confirm()"
+      >
+        Confirmer
+      </button>
+    </div>
   
+    <!-- <div
+      class="toast__progress-bar"
+      [ngClass]="{ success: toastService.data && toastService.data.type === 'success' }"
+      #element
+    ></div> -->
     <div
-      class="progress_bar"
-      [ngClass]="{ success: toastService.data && toastService.data.type === 1 }"
+      class="toast__progress-bar"
       #element
     ></div>
   </div>

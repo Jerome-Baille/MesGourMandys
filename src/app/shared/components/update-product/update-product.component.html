@@ -90,7 +90,7 @@
 
                 <button 
                     type="submit" 
-                    class="btn-action"
+                    class="btn btn--primary"
                     (click)="onUpdateProduct()"
                 >
                     Modifier le produit
@@ -100,7 +100,7 @@
         
         <!-- display a button to close the component -->
         <button 
-            class="btn-action btn-close"
+            class="btn btn--primary btn-close"
             (click)="onClose()"
         >
             Fermer
@@ -112,5 +112,3 @@
     *ngIf="alertMessage"
     [(message)]="alertMessage"
 ></app-alert-message> -->
-
-<app-toast></app-toast>

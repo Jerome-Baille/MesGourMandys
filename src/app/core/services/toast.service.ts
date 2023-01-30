@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-export enum toastTypes {
-  error,
-  success
-};
-
 export interface ToastData {
   title: string;
   message: string;
   show?: boolean;
-  type?: toastTypes;
+  type?: string;
   progressWidth?: string;
 }
 
@@ -22,10 +17,7 @@ export class ToastService {
   public open = new Subject<ToastData>();
 
   initiate(data: ToastData) {
-    if (data.type){
-      this.data.type = toastTypes.error;
-    }
-    this.data = { ...data, show: true, progressWidth: '100%' };
+    this.data = { ...data, show: true, progressWidth: '100%'};
     this.open.next(this.data);
   }
 
@@ -33,4 +25,6 @@ export class ToastService {
     this.data = { ...this.data, show: false };
     this.open.next(this.data);
   }
+
+  isConfirmed: Subject<boolean> = new Subject();
 }

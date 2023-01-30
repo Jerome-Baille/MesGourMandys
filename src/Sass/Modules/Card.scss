@@ -52,10 +52,30 @@
 
     &__admin {
         width: 100%;
-        height: 30px;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        background-color: $bgColor;
+
+        &--left {
+            width: 100%;
+            height: 100%;
+            background-color: $bgColor;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &--right {
+            padding: 0 1rem;
+            font-weight: bold;
+            margin: auto;
+            width: 100%;
+            height: 2.5rem;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid $bgColor;
+            align-items: center;
+        }
 
         & button {
             width: fit-content;
@@ -98,13 +118,14 @@
             align-items: center;
 
             & button {
-                border: none;
-                background: transparent;
-                color: $accentColor;
+                border: none !important;
+                background: transparent !important;
+                color: $accentColor !important;
 
                 &:hover {
                     cursor: pointer;
-                    color: darken($accentColor, 25%);
+                    color: darken($accentColor, 25%) !important;
+                    box-shadow: none !important;
                 }
             }
 

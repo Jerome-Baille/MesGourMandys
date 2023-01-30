@@ -1,25 +1,142 @@
-<table>
-    <tr>
-        <th>Client</th>
-        <th>Adresse e-mail</th>
-        <th>Supprimer</th>
-    </tr>
-    <tr *ngFor="let user of users$ | async">
-        <td>
-            {{user.firstName}}
-            {{user.lastName}}
-        </td>
-        <td>{{user.email}}</td>
-        <td>
-            <button 
-                class="btn-socials"
-                (click)="deleteUser(user._id)"
-                *ngIf="user.isAdmin === false"
-            >
-                <fa-icon [icon]="faTrash"></fa-icon>
-            </button>
-        </td>
-    </tr>
+<table class="table table--md">
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Adresse e-mail</th>
+            <th>Adresse</th>
+            <th>Téléphone</th>
+            <th>Supprimer</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let user of users$ | async">
+            <td class="users-list__title">
+                {{user.firstName}}
+                {{user.lastName}}
+            </td>
+            <td>
+                <a href="mailto:{{user.email}}">
+                    {{user.email}}
+                </a>
+            </td>
+            <td>
+                <div class="users-list__address">
+                    <span 
+                        *ngIf="user.address"
+                    >
+                        {{ user.address }}
+                    </span>
+                    <div
+                        *ngIf="user.zipcode || user.city"
+                    >
+                        <span 
+                            *ngIf="user.zipcode"
+                            class="users-list__zipcode"
+                        >
+                            {{ user.zipcode }}
+                        </span>
+                        <span 
+                            *ngIf="user.city"
+                            class="users-list__city"
+                        >
+                            {{ user.city }}
+                        </span>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <a href="tel:{{user.phone}}">
+                    {{user.phone}}
+                </a>
+            </td>
+            <td>
+                <button 
+                    class="btn-socials"
+                    (click)="deleteUser(user._id)"
+                    *ngIf="user.isAdmin === false"
+                >
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+            </td>
+        </tr>
+    </tbody>
 </table>
 
-<app-toast></app-toast>
+<table class="table table--sm users-list">
+    <tr *ngFor="let user of users$ | async">
+        <td class="users-list__cell">
+            <h3 
+                class="users-list__title"
+                *ngIf="user.firstName && user.lastName"
+            >
+                {{ user.firstName }} {{ user.lastName }}
+            </h3>
+            <div *ngIf="user.email">
+                <label for="email">E-mail : </label>
+            </div>
+            <div *ngIf="user.email">
+                <span id="email">
+                    <a href="mailto:{{user.email}}">
+                        {{user.email}}
+                    </a>
+                </span>
+            </div>
+            <div *ngIf="user.address">
+                <label for="address">Adresse : </label>
+            </div>
+            <div *ngIf="user.address || user.zipcode || user.city" class="users-list__address">
+                <span 
+                    *ngIf="user.address"
+                    id="address"
+                >
+                    {{ user.address }}
+                </span>
+                <div
+                    *ngIf="user.zipcode || user.city"
+                >
+                    <span 
+                        *ngIf="user.zipcode"
+                        class="users-list__zipcode"
+                    >
+                        {{ user.zipcode }}
+                    </span>
+                    <span 
+                        *ngIf="user.city"
+                        class="users-list__city"
+                    >
+                        {{ user.city }}
+                    </span>
+                </div>
+            </div>
+            <div *ngIf="user.phone">
+                <label for="phone">Téléphone : </label>
+            </div>
+            <div *ngIf="user.phone">
+                <a href="tel:{{ user.phone }}" 
+                    id="phone"
+                >
+                    {{ user.phone }}
+                </a>
+            </div>
+            <div *ngIf="user.birthday">
+                <label for="birthday">Date d'anniversaire : </label>
+            </div>
+            <div *ngIf="user.birthday">
+                <span id="birthday">
+                    {{ user.birthday }}
+                </span>
+            </div>
+            <div class="users-list__footer" *ngIf="user.isAdmin === false">
+                <button 
+                    class="btn btn--primary"
+                    (click)="deleteUser(user._id)"
+                    *ngIf="user.isAdmin === false"
+                >
+                    Supprimer
+                </button>
+            </div>
+        </td>
+    </tr>
+
+</table>

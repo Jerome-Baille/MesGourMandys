@@ -8,7 +8,7 @@
   >
     <section class="cart">
       <h1 class="cart__title">Votre panier</h1>
-      <table class="cart__table cart__table--md">
+      <table class="table cart__table cart__table--md">
           <thead>
             <tr>
               <th>Produit</th>
@@ -40,7 +40,7 @@
                   <div class="card__quantity__value">
                       <button 
                           (click)="onDecreaseQuantity(item.sku)" 
-                          class="btn btn-secondary"
+                          class="btn btn--secondary"
                       >
                         <fa-icon [icon]="faMinusSquare"></fa-icon>
                       </button>
@@ -54,7 +54,7 @@
                       >
                       <button 
                           (click)="onAddQuantity(item.sku)" 
-                          class="btn btn-secondary"
+                          class="btn btn--secondary"
                       >
                         <fa-icon [icon]="faPlusSquare"></fa-icon>
                       </button>
@@ -73,7 +73,7 @@
           </tbody>
       </table>
 
-      <table class="cart__table cart__table--sm">
+      <table class="table cart__table cart__table--sm">
         <tr *ngFor="let item of cart; let i = index">
           <td class="cart__table__image">
             <div class="img-container">
@@ -104,7 +104,7 @@
                 <div class="card__quantity__value">
                   <button 
                       (click)="onDecreaseQuantity(item.sku)" 
-                      class="btn btn-secondary"
+                      class="btn btn--secondary"
                   >
                     <fa-icon [icon]="faMinusSquare"></fa-icon>
                   </button>
@@ -118,7 +118,7 @@
                   >
                   <button 
                       (click)="onAddQuantity(item.sku)" 
-                      class="btn btn-secondary"
+                      class="btn btn--secondary"
                   >
                     <fa-icon [icon]="faPlusSquare"></fa-icon>
                   </button>
@@ -138,7 +138,7 @@
       <div class="cart__price">
         <!-- <div class="cart__price__actions">
             <button 
-                class="btn-action"
+                class="btn btn--primary"
                 (click)="onUpdateCart()"
             >
                 Mettre à jour le panier
@@ -243,7 +243,7 @@
           </div>
             <button 
                 type="submit" 
-                class="btn-action"
+                class="btn btn--primary"
                 (click)="onSubmit(); formSubmitted = true"
                 [disabled]="formSubmitted && orderForm.invalid"
             >
@@ -258,10 +258,7 @@
 <main *ngIf="cart.length === 0 && !orderConfirmed" class="emptyCart">
   <h1>Votre panier est vide</h1>
   <p>Vous n'avez pas encore ajouté d'articles à votre panier.</p>
-  <button [routerLink]="'/boutique'" class="btn-action">
+  <button [routerLink]="'/boutique'" class="btn btn--primary">
     Retourner à la boutique
   </button>
 </main>
-
-<app-toast></app-toast>
-

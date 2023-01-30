@@ -4,20 +4,24 @@
     <section *ngFor="let highlight of highlight$ | async" id="hero" class="hero">
         <div class="hero__text">
             <div *ngIf="isAdmin" class="card__admin">
-                <button
-                    class="btn-socials"
-                    (click)="editProduct(highlight)"
-                    *ngIf="isAdmin"
-                >
-                    <fa-icon [icon]="faPenSquare"></fa-icon>
-                </button>
-                <button 
-                    class="btn-socials"
-                    (click)="removeProduct(highlight)"
-                    *ngIf="isAdmin"
-                >
-                    <fa-icon [icon]="faTrash"></fa-icon>
-                </button>
+                <div class="card__admin--left">
+                    <button
+                        class="btn-socials"
+                        (click)="editProduct(highlight)"
+                        *ngIf="isAdmin"
+                    >
+                        <fa-icon [icon]="faPenSquare"></fa-icon>
+                    </button>
+                </div>
+                <div class="card__admin--right">
+                    <button 
+                        class="btn-socials"
+                        (click)="removeProduct(highlight)"
+                        *ngIf="isAdmin"
+                    >
+                        <fa-icon [icon]="faTrash"></fa-icon>
+                    </button>
+                </div>
             </div>
             <div class="card__content">
                 <a [routerLink]="['/detail/', highlight.id]" class="card__link"></a>
@@ -46,7 +50,7 @@
                 </div>
                 <div class="card__cart">
                     <button
-                        class="btn-action card__cart__btn-order"
+                        class="btn btn--primary card__cart__btn-order"
                         (click)="addTocart(highlight)"
                     >
                         Ajouter au panier
@@ -70,7 +74,7 @@
                 <span class="text-accent">Allergènes : </span>
                 <span>{{ highlight.allergens }}</span>
             </div>
-            <a [routerLink]="['/detail/', highlight.id]" class="btn-action">
+            <a [routerLink]="['/detail/', highlight.id]" class="btn btn--primary">
                 Commander
             </a>
         </div> -->
@@ -97,14 +101,13 @@
         </div>
     
         <div class="best-seller__action">
-            <button class="btn-action" [routerLink]="'/boutique'">
+            <button class="btn btn--primary" [routerLink]="'/boutique'">
                 Voir tous nos gâteaux
             </button>
         </div>
     </section>
 
     <app-update-product *ngIf='updateBoolean' [product]="updateProduct" (close)="triggerEventClose($event)"></app-update-product>
-    <app-toast></app-toast>
     
     <section id="about" class="about">
         <div class="blob">
@@ -171,7 +174,7 @@
             <input type="text" placeholder="Téléphone">
             <input type="text" placeholder="Objet">
             <textarea placeholder="Rédigez votre message ici..."></textarea>
-            <button type="submit" class="btn-action">Envoyer</button>
+            <button type="submit" class="btn btn--primary">Envoyer</button>
         </form>
     </section>
     

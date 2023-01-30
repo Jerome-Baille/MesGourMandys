@@ -27,8 +27,8 @@ export class AuthService {
 
   logout(){
     // delete the cookie "MesGourmandysToken" and "MesGourmandysUser"
-    document.cookie = "MesGourmandysToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    document.cookie = "MesGourmandysRole=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    document.cookie = "MesGourmandysToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "MesGourmandysRole=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     // redirect to login page
     window.location.href = '/auth/login';
   }

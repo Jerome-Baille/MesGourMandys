@@ -1,0 +1,58 @@
+.toast {
+    &__bg {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 9999;
+        background-color: rgba(255, 255, 255, 0.7);
+        inset: 0; 
+    }
+  
+    &__wrapper {
+        border-radius: 4px;
+        background-color: #ffffff;
+        position: fixed;
+        z-index: 9999;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 380px;
+        max-width: 420px;
+        word-break: break-word;
+        border: 1px solid $accentColor;
+    }
+
+    &__inner_wrapper {
+        position: relative;
+        padding: 16px 22px;
+    }
+  
+    &__title {
+        color: $primaryColor;
+        margin-bottom: 4px;
+        text-transform: capitalize;
+    }
+    
+    &__text {
+        white-space: pre-line;
+        color: $primaryColor;
+    }
+  
+    &__footer {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 16px 0;
+    }
+
+    &__progress-bar {
+        width: 100%;
+        background: $accentColor;
+        height: 8px;
+        transition: width 0.1s;
+        transition-timing-function: ease-out;
+    }
+
+    // .progress_bar.success {
+    //     background: #46a958;
+    //   }
+  }   
