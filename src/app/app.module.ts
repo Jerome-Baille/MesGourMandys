@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { LegalNoticesComponent } from './legal-notices/legal-notices.component';
@@ -15,12 +15,12 @@ import { CartComponent } from './cart/cart.component';
 import { ContactService } from './core/services/contact.service';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { httpInterceptorProviders } from './interceptors';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 registerLocaleData(localeFr);
 
 
@@ -48,7 +48,7 @@ registerLocaleData(localeFr);
   ],
   providers: [
     ContactService,
-    httpInterceptorProviders,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     {
       provide: LOCALE_ID,
       useValue: 'fr-FR'

@@ -11,17 +11,11 @@ import { ProductsService } from '../core/services/products.service';
 export class ProductListComponent implements OnInit {
   products$!: Observable<Products[]>;
 
-  isLoaded: boolean = false;
-
   constructor(
     private productsService: ProductsService, 
   ) { }
 
   ngOnInit(): void {
     this.products$ = this.productsService.getProducts('isActive=true');
-
-    Promise.all([this.products$]).then(() => {
-      this.isLoaded = true;
-    });
   }
 }

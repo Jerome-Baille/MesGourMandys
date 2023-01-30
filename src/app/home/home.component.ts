@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
   
   highlight$!: Observable<Products[]>;
   popular$!: Observable<Products[]>;
-  isLoaded: boolean = false;
 
   // Fontawesome icons
   faPenSquare = faPenSquare;
@@ -36,10 +35,6 @@ export class HomeComponent implements OnInit {
     this.isAdmin = this.auth.checkIsAdmin();
     this.highlight$ = this.productsService.getProducts('highlight=true');
     this.popular$ = this.productsService.getProducts('popular=true');
-
-    Promise.all([this.isAdmin, this.highlight$, this.popular$]).then(() => {
-      this.isLoaded = true;
-    });
   }
 
   editProduct(product: any) {

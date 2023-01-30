@@ -1,19 +1,15 @@
-<app-loading-spinner *ngIf="!isLoaded; else loaded"></app-loading-spinner>
+<section class="breadcrumb">
+    <button [routerLink]="'/accueil'">
+        Accueil
+    </button> / 
+    <button [routerLink]="'/boutique'">
+        Boutique
+    </button> / 
+    <button>
+        {{ product.title }}
+    </button>
+</section>
 
-<ng-template #loaded>
-    <section class="breadcrumb">
-        <button [routerLink]="'/accueil'">
-            Accueil
-        </button> / 
-        <button [routerLink]="'/boutique'">
-            Boutique
-        </button> / 
-        <button>
-            {{ product.title }}
-        </button>
-    </section>
-
-    <section>
-        <app-card-product [product]="product"></app-card-product>
-    </section>
-</ng-template>
+<section>
+    <app-card-product [product]="product"></app-card-product>
+</section>

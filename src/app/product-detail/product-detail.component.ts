@@ -19,9 +19,8 @@ export class ProductDetailComponent implements OnInit {
   product$!: Observable<Products>;
   isAdmin: boolean = false;
 
-  product!: Products;
+  product: Products = {};
 
-  isLoaded: boolean = true;
   imgLoaded: boolean = false;
 
   updateBoolean: boolean = false;
@@ -47,16 +46,14 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoaded = false;
-
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = params.get('id')
     })
 
     this.productsService.getProductById(this.id)
-      .subscribe((product: any) => {
+    .subscribe({
+      next: (product: any) => {
         this.product = product;
-        this.isLoaded = true;
 
         // Check in local storage, in the key "produits" if the product is already in the cart and change the quantity
         var cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -64,13 +61,11 @@ export class ProductDetailComponent implements OnInit {
         if (item) {
           this.orderForm.controls['quantity'].setValue(item.quantity);
         }
-      })
-
-
+      },
+      error: (err: any) => console.log(err)
+    })
 
     this.isAdmin = this.auth.checkIsAdmin();
-
-
   }
 
   onOrder() {

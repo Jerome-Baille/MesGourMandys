@@ -20,7 +20,6 @@ export class CartComponent implements OnInit {
   userId!: any;
   basket: any = [];
   cart: any = [];
-  isLoaded: boolean = true;
   orderForm!: FormGroup;
   phoneRegex!: RegExp;
   emailRegex!: RegExp;
@@ -161,12 +160,10 @@ export class CartComponent implements OnInit {
 
   onSubmit() {
     this.formSubmitted = true;
-    this.isLoaded = false;
     const { firstName, lastName, email, phone, message } = this.orderForm.value;
     const { totalPrice, totalQuantity } = this.cart;
 
     if(this.orderForm.invalid) {
-      this.isLoaded = true;
       return;
     }
 
@@ -181,8 +178,6 @@ export class CartComponent implements OnInit {
     this.contactService.PostMessage(this.userId, firstName, lastName, email, phone, message, products, totalQuantity, totalPrice)
     .subscribe({
       next: (v: any) => {
-        this.isLoaded = true;
-
         // empty the cart
         this.cart = [];
         this.basket = [];
@@ -192,7 +187,6 @@ export class CartComponent implements OnInit {
         this.order = v.order;
       },
       error: (err) => {
-        this.isLoaded = true;
         this.toast.initiate({
           title: 'Erreur',
           message: err.error.message,

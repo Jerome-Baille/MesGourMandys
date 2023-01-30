@@ -16,7 +16,6 @@ export class GetItemsComponent implements OnInit {
 
   updateBoolean: boolean = false;
   updateProduct!: Products;
-  isLoaded: boolean = true;
 
   faPenSquare = faPenSquare;
   faStarS = faStarS;
