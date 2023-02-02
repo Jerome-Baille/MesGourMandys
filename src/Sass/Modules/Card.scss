@@ -159,15 +159,19 @@
         }
     }
     
-    &__img {    
-        height: auto;
+    &__img-container {    
+        height: 300px;
         width: 100%;
         position: relative;
+
+        &--full {
+            height: 100%;
+        }
                 
         & img {
-            height: auto;
+            height: 100%;
             width: 100%;
-            object-fit: contain;
+            object-fit: fill;
         }
     }
 

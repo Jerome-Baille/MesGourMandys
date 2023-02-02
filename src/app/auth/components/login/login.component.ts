@@ -29,33 +29,34 @@ export class LoginComponent implements OnInit {
 
   onLogin(){
     this.formSubmitted = true;
+
+    if (!this.loginForm.valid) {
+      return;
+    }
+
     const {email, password} = this.loginForm.value;
 
-    if(this.loginForm.valid){
-      this.authService.login(email, password)
-        .subscribe({
-          next: (res: any) => {
-            document.cookie = `MesGourmandysToken=${res.token}`;
-            document.cookie = `MesGourmandysRole=${res.isAdmin}`;
+    this.authService.login(email, password)
+      .subscribe({
+        next: (res: any) => {
+          this.authService.setToken(res.token);
 
-            this.toast.initiate({
-              title: 'Connexion réussie!',
-              message: `Bienvenue ${res.firstName} ${res.lastName}, nous sommes ravis de vous revoir!`,
-            });
-          },
-          error: (err: any) => {
-            this.toast.initiate({
-              title: 'Erreur',
-              message: err.error.message
-            });
-          },
-          complete: () => {
-            setTimeout(() => {
-              this.router.navigate(['/auth/profil']);
-            }, 2500);
-          }
-        });
-    }
+          this.toast.initiate({
+            title: 'Connexion réussie!',
+            message: `Bienvenue ${res.firstName} ${res.lastName}, nous sommes ravis de vous revoir!`,
+          });
+
+          setTimeout(() => {
+            this.router.navigate(['/auth/profil']);
+          }, 2500);
+        },
+        error: (err: any) => {
+          this.toast.initiate({
+            title: 'Erreur',
+            message: err.error.message
+          });
+        }
+      });
   }
 
 }

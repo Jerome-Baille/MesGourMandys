@@ -19,14 +19,20 @@ export class AdminGuard implements CanActivate {
     }
 
     checkIsAdmin(): any {
-        this.auth.getUserProfile()
-            .subscribe((res: any) => {
-                if (res.isAdmin) {
-                    return true;
-                } else {
-                    this.router.navigateByUrl('/auth/login');
-                    return false;
-                }
-        });
+        if(this.auth.checkIsAdmin()){
+            return true;
+        } else {
+            this.router.navigateByUrl('/auth/login');
+            return false;
+        }
+        // this.auth.getUserProfile()
+        //     .subscribe((res: any) => {
+        //         if (res.isAdmin) {
+        //             return true;
+        //         } else {
+        //             this.router.navigateByUrl('/auth/login');
+        //             return false;
+        //         }
+        // });
     }
 }

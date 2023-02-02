@@ -49,15 +49,16 @@ export class ProductsService {
     }
 
     updateProduct(product: any) {
-            // const productData = new FormData();
-            // productData.append('title', product.title);
-            // productData.append('id', product.id);
-            // productData.append('image', product.image);
-            // productData.append('price', product.price);
-            // productData.append('sku', product.sku);
-            // productData.append('description', product.description);
-            // productData.append('allergens', product.allergens);
-        return this.http.put(`${this.API_URL}/${product.id}`, product);
+            const productData = new FormData();
+            productData.append('title', product.title);
+            productData.append('id', product.id);
+            productData.append('image', product.image);
+            productData.append('price', product.price);
+            productData.append('sku', product.sku);
+            productData.append('description', product.description);
+            productData.append('allergens', product.allergens);
+            productData.append('isActive', product.isActive);
+        return this.http.put(`${this.API_URL}/${product.id}`, productData);
     }
 
     deleteProduct(id: string) {

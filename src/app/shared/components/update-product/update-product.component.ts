@@ -97,7 +97,7 @@ export class UpdateProductComponent implements OnInit {
           error: (err) => {
             this.toast.initiate({
               title: 'Erreur',
-              message: err,
+              message: err.error.error.message,
             })
           }
         })

@@ -14,17 +14,31 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const token = this.auth.getToken();
-    const role = this.auth.checkIsAdmin();
-    if (token) { 
-      if(role) {
-        this.router.navigateByUrl('/admin');
-        return false;
-      } else {  
-        return true;
-      }
-    } else {
+
+    if(!token) {
       this.router.navigateByUrl('/auth/login');
       return false;
+    } 
+
+    if(this.auth.checkIsAdmin()) {
+      this.router.navigateByUrl('/admin');
+      return false;
+    } else {
+      return true;
     }
   }
+
+  //   const role = this.auth.checkIsAdmin();
+  //   if (token) { 
+  //     if(role) {
+  //       this.router.navigateByUrl('/admin');
+  //       return false;
+  //     } else {  
+  //       return true;
+  //     }
+  //   } else {
+  //     this.router.navigateByUrl('/auth/login');
+  //     return false;
+  //   }
+  // }
 }
