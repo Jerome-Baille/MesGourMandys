@@ -58,6 +58,8 @@ export class ProductsService {
             productData.append('description', product.description);
             productData.append('allergens', product.allergens);
             productData.append('isActive', product.isActive);
+            if(product.highlight) productData.append('highlight', product.highlight);
+            if(product.isActive) productData.append('fav', product.isActive);
         return this.http.put(`${this.API_URL}/${product.id}`, productData);
     }
 
