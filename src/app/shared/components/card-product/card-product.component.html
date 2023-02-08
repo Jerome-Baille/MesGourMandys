@@ -22,7 +22,7 @@
     <div [ngClass]="infoLength === 'short'? 'card__img-container' : 'card__img-container card__img-container--full'">
         <a *ngIf="infoLength === 'short'" [routerLink]="['/detail/', product.id]" class="card__link"></a>
         <img 
-            [src]="imgRes === 'low'? product.thumbImage : product.image"
+            [src]="product.image"
             loading="lazy" 
             crossorigin="anonymous"
             alt={{product.title}}

@@ -36,22 +36,7 @@ export class UpdateProductComponent implements OnInit {
       allergens: [this.product.allergens, Validators.required],
       isActive: [this.product.isActive, Validators.required]
     })
-
-    // const data = await this.getData();
-    // this.toast.initiate({
-    //   title: 'Success',
-    //   message: data,
-    // })
-
   }
-
-  // getData(): Promise<string> {
-  //   return new Promise((resolve) => {
-  //     setTimeout(() => {
-  //       resolve('Data received');
-  //     }, 1000);
-  //   })
-  // }
 
   onUpdateProduct() {
     const { title, price, sku, description, allergens } = this.updateProduct.value;
@@ -72,13 +57,14 @@ export class UpdateProductComponent implements OnInit {
     }
 
     // if the form is valid 
-    if (
-          (this.updateProduct.get('title')!.invalid         && this.updateProduct.get('title')!.touched)
-      ||  (this.updateProduct.get('price')!.invalid         && this.updateProduct.get('price')!.touched)
-      ||  (this.updateProduct.get('sku')!.invalid           && this.updateProduct.get('sku')!.touched)
-      ||  (this.updateProduct.get('description')!.invalid   && this.updateProduct.get('description')!.touched)
-      ||  (this.updateProduct.get('allergens')!.invalid     && this.updateProduct.get('allergens')!.touched)
-    ) {
+    // if (
+    //       (this.updateProduct.get('title')!.invalid         && this.updateProduct.get('title')!.touched)
+    //   ||  (this.updateProduct.get('price')!.invalid         && this.updateProduct.get('price')!.touched)
+    //   ||  (this.updateProduct.get('sku')!.invalid           && this.updateProduct.get('sku')!.touched)
+    //   ||  (this.updateProduct.get('description')!.invalid   && this.updateProduct.get('description')!.touched)
+    //   ||  (this.updateProduct.get('allergens')!.invalid     && this.updateProduct.get('allergens')!.touched)
+    // ) {
+      if (this.updateProduct.invalid) {
         this.toast.initiate({
           title: 'Erreur',
           message: 'Le formulaire n\'est pas rempli correctement.',
@@ -92,7 +78,6 @@ export class UpdateProductComponent implements OnInit {
               title: 'Success',
               message: 'Les informations du produit ont été mises à jour avec succès',
             })
-            // this.onClose();
           },
           error: (err) => {
             this.toast.initiate({
@@ -117,12 +102,5 @@ export class UpdateProductComponent implements OnInit {
 
   onClose() {
     this.close.emit({message : 'close popup'})
-    // this.alertMessage = 'Hello World';
-
-    // setTimeout(() => {
-    //   this.close.emit({message : 'close popup'})
-    // }, 2000);
   }
-
-
 }

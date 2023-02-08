@@ -83,6 +83,9 @@ export class GetItemsComponent implements OnInit {
 
       case 'isActive':
         product.isActive = !product.isActive;
+
+        product.highlight === true ? product.highlight = false : null;
+        product.popular === true ? product.popular = false : null;
         break;
     
       default:

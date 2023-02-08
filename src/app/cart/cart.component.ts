@@ -64,10 +64,10 @@ export class CartComponent implements OnInit {
       this.product$ = this.productsService.getProductBySku(item.sku);
 
       this.product$.subscribe(product => {
-        var { id, title, sku, price, thumbImage } = product;
+        var { id, title, sku, price, image } = product;
         var quantity = item.quantity;
 
-        this.cart.push({ id, title, sku, price, thumbImage, quantity });
+        this.cart.push({ id, title, sku, price, image, quantity });
       });
     });
     
@@ -202,7 +202,7 @@ export class CartComponent implements OnInit {
         quantity: item.quantity,
         price: item.price,
         sku: item.sku,
-        thumbImage: item.thumbImage,
+        image: item.image,
       });
 
       this.products.push(formGroup);

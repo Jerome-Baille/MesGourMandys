@@ -23,7 +23,7 @@ export class ProductsService {
         description:    string, 
         allergens:      string,
         isActive:       boolean
-    ) {
+    ): Observable<any> {
         const productData = new FormData();
         productData.append('title', title);
         productData.append('id', id);
@@ -48,22 +48,30 @@ export class ProductsService {
         return this.http.get<Products>(`${this.API_URL}/sku/${sku}`);
     }
 
-    updateProduct(product: any) {
-            const productData = new FormData();
-            productData.append('title', product.title);
-            productData.append('id', product.id);
-            productData.append('image', product.image);
-            productData.append('price', product.price);
-            productData.append('sku', product.sku);
-            productData.append('description', product.description);
-            productData.append('allergens', product.allergens);
-            productData.append('isActive', product.isActive);
-            if(product.highlight) productData.append('highlight', product.highlight);
-            if(product.isActive) productData.append('fav', product.isActive);
+    // updateProduct(product: any) {
+    //         const productData = new FormData();
+    //         productData.append('title', product.title);
+    //         productData.append('id', product.id);
+    //         productData.append('image', product.image);
+    //         productData.append('price', product.price);
+    //         productData.append('sku', product.sku);
+    //         productData.append('description', product.description);
+    //         productData.append('allergens', product.allergens);
+    //         productData.append('isActive', product.isActive);
+    //         productData.append('highlight', product.highlight);
+    //         productData.append('popular', product.popular);
+    //     return this.http.put(`${this.API_URL}/${product.id}`, productData);
+    // }
+
+    updateProduct(product: Products): Observable<any> {
+        const productData = new FormData();
+        Object.entries(product).forEach(([key, value]) => {
+          productData.append(key, value);
+        });
         return this.http.put(`${this.API_URL}/${product.id}`, productData);
     }
 
-    deleteProduct(id: string) {
+    deleteProduct(id: string): Observable<any> {
         return this.http.delete(`${this.API_URL}/${id}`);
     }
 
