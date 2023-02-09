@@ -57,36 +57,35 @@ export class UpdateProductComponent implements OnInit {
     }
 
     // if the form is valid 
-    // if (
-    //       (this.updateProduct.get('title')!.invalid         && this.updateProduct.get('title')!.touched)
-    //   ||  (this.updateProduct.get('price')!.invalid         && this.updateProduct.get('price')!.touched)
-    //   ||  (this.updateProduct.get('sku')!.invalid           && this.updateProduct.get('sku')!.touched)
-    //   ||  (this.updateProduct.get('description')!.invalid   && this.updateProduct.get('description')!.touched)
-    //   ||  (this.updateProduct.get('allergens')!.invalid     && this.updateProduct.get('allergens')!.touched)
-    // ) {
-      if (this.updateProduct.invalid) {
-        this.toast.initiate({
-          title: 'Erreur',
-          message: 'Le formulaire n\'est pas rempli correctement.',
-        })
-     
-      } else {
-        this.productsService.updateProduct(product)
-        .subscribe({
-          next: (v) => {
-            this.toast.initiate({
-              title: 'Success',
-              message: 'Les informations du produit ont été mises à jour avec succès',
-            })
-          },
-          error: (err) => {
-            this.toast.initiate({
-              title: 'Erreur',
-              message: err.error.error.message,
-            })
-          }
-        })
-      }
+    if (
+          (this.updateProduct.get('title')!.invalid         && this.updateProduct.get('title')!.touched)
+      ||  (this.updateProduct.get('price')!.invalid         && this.updateProduct.get('price')!.touched)
+      ||  (this.updateProduct.get('sku')!.invalid           && this.updateProduct.get('sku')!.touched)
+      ||  (this.updateProduct.get('description')!.invalid   && this.updateProduct.get('description')!.touched)
+      ||  (this.updateProduct.get('allergens')!.invalid     && this.updateProduct.get('allergens')!.touched)
+    ) {
+      this.toast.initiate({
+        title: 'Erreur',
+        message: 'Le formulaire n\'est pas rempli correctement.',
+      })
+    
+    } else {
+      this.productsService.updateProduct(product)
+      .subscribe({
+        next: (v) => {
+          this.toast.initiate({
+            title: 'Success',
+            message: 'Les informations du produit ont été mises à jour avec succès',
+          })
+        },
+        error: (err) => {
+          this.toast.initiate({
+            title: 'Erreur',
+            message: err.error.error.message,
+          })
+        }
+      })
+    }
   }
 
   imageSelected(event: any) {
