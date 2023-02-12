@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Users } from '../models/users';
 import jwt_decode from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class AuthService {
   TOKEN_COOKIE_NAME = 'MesGourmandysToken=';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router,
   ) { }
 
   register(firstName: string, lastName: string, email: string, password: string){
@@ -30,11 +32,11 @@ export class AuthService {
   }
 
   logout(){
-    // delete the cookie "MesGourmandysToken" and "MesGourmandysUser"
+    // delete the cookie "MesGourmandysToken"
     document.cookie = "MesGourmandysToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "MesGourmandysRole=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     // redirect to login page
-    window.location.href = '/auth/login';
+    this.router.navigate(['auth/login']);
+    // window.location.href = '/auth/login';
   }
 
   getUserById(userId: any){
