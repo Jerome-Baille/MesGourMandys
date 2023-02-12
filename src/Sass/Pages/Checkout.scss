@@ -152,13 +152,26 @@
         }
 
         &__header {
-            display: flex;
-            column-gap: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            justify-content: center;
             align-items: center;
+            grid-gap: 10px;
 
             @media screen and (max-width: 768px){
                 align-items: flex-start;
                 justify-content: space-between;
+            }
+
+            &__image {
+                @media screen and (min-width: 768px) {
+                    width: 200px;
+                    height: 200px;
+                }
+                @media screen and (min-width: 992px) {
+                    width: 250px;
+                    height: 250px;
+                }
             }
 
             &__title {
