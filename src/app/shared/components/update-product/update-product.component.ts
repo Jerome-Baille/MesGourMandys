@@ -42,11 +42,6 @@ export class UpdateProductComponent implements OnInit {
     const { title, price, sku, description, allergens } = this.updateProduct.value;
     var image = this.updateProduct.get('image')!.value;
 
-    // if there is a comma in the price, replace it with a dot
-    if (price.includes(',')) {
-      price.replace(',', '.');
-    }
-
     // create a const "product" with the value of the form
     const product = {
       id: this.product.id,
