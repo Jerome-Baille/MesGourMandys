@@ -39,6 +39,11 @@ export class AddItemComponent implements OnInit {
 
     let skuUpper = sku.toUpperCase();
 
+    // if price contains a comma, replace it with a dot
+    if(price.includes(',')){
+      price.replace(',', '.');
+    }
+
     // create a slug from the title
     const id = title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, 'and').replace(/ - /g, '-').replace(/ /g, '-').replace(/[^\w-]+/g, '');
 
