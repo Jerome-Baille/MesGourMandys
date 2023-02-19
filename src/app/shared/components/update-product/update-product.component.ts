@@ -30,7 +30,7 @@ export class UpdateProductComponent implements OnInit {
       id: [this.product.id, Validators.required],
       image: [this.product.image, Validators.required],
       // thumbImage: [this.product.thumbImage, [Validators.required, Validators.email]],
-      price: [this.product.price, [Validators.required, Validators.pattern(/^[0-9]+$/)]],
+      price: [this.product.price, [Validators.required, Validators.pattern(/^\d*\.?\d*$/)]],
       sku: [this.product.sku, Validators.required],
       description: [this.product.description, Validators.required],
       allergens: [this.product.allergens, Validators.required],
