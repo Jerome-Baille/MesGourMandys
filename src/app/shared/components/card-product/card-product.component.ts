@@ -85,17 +85,53 @@ export class CardProductComponent implements OnInit {
   }
 
   removeProduct(product: any) {
-    this.productsService.deleteProduct(product.id)
-      .subscribe({
+      this.toast.initiate({
+        title: 'Suppression',
+        message: 'Etes-vous sûr de vouloir supprimer ce produit?',
+        type: 'confirm',
+      })
+  
+      this.toast.isConfirmed.subscribe({
         next: (v) => {
-          console.log(v);
-          
-          this.products$ = this.productsService.getProducts('isActive=true');
+          if (!!v) {
+            this.productsService.deleteProduct(product._id)
+              .subscribe({
+                next: (v: any) => {
+                  this.toast.initiate({
+                    title: 'Success!',
+                    message: v.message,
+                  })
+  
+                  this.products$ = this.productsService.getProducts('isActive=true');
+          },
+          error: (err) => {
+            this.toast.initiate({
+              title: 'Erreur!',
+              message: err.error.message,
+            })
+          }
+        })
+      }
         },
         error: (err) => {
-          console.log(err);
+          this.toast.initiate({
+            title: 'Erreur!',
+            message: err.error.message,
+          })
         }
       })
+      
+    // this.productsService.deleteProduct(product.id)
+    //   .subscribe({
+    //     next: (v) => {
+    //       console.log(v);
+          
+    //       this.products$ = this.productsService.getProducts('isActive=true');
+    //     },
+    //     error: (err) => {
+    //       console.log(err);
+    //     }
+    //   })
   }
 
   editProduct(product: any) {
